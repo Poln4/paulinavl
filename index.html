@@ -427,7 +427,6 @@
     display:flex; flex-wrap:wrap; gap:14px; align-items:flex-start;
     margin:0 0 20px;
   }
-  .hardcover-slot{ max-width:320px; }
   .reading-badge{
     display:flex; flex-direction:column; gap:4px;
     border:1.5px dashed var(--ink-soft); border-radius:8px;
@@ -515,9 +514,9 @@
       <span class="i18n" data-lang="zh" style="display:none"><span class="name-sub" tabindex="0" data-tip="羅馬字母拼寫的姓名">Paulina Andrea Valenzuela Lagos</span><a class="nas" href="#game" data-tip="NAS 記法 —— N:我慣用的名 · n:存在但不用於稱呼的名 · S:我慣用的姓 · s:我的第二個姓氏">(N.n.S.s.)</a></span>
     </p>
     <p class="tagline">
-      <span class="i18n" data-lang="en">Computational linguist, Spanish instructor, and Ph.D. candidate at NTUST — I build the tools that decide how hard a text feels, and teach the humans reading it.</span>
-      <span class="i18n" data-lang="es" style="display:none">Lingüista computacional, profesora de español y candidata a doctora en la NTUST. Construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen.</span>
-      <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師,現為台灣科技大學博士候選人——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。</span>
+      <span class="i18n" data-lang="en">Computational linguist and Spanish instructor — I build the tools that decide how hard a text feels, and teach the humans reading it. Ph.D. candidate at NTUST.</span>
+      <span class="i18n" data-lang="es" style="display:none">Lingüista computacional y profesora de español: construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen. Candidata a doctora en la NTUST.</span>
+      <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。現為台灣科技大學博士候選人。</span>
     </p>
     <p class="aspiration">
       <span class="i18n" data-lang="en">Where I'm headed: <b><mark class="teal">EdTech and health tech</mark></b> — language-learning tools that adapt to the reader, and patient-facing tools that make hard-to-see conditions legible. Academia stays firmly on the table; the teacher part never leaves.</span>
@@ -533,6 +532,11 @@
         <span class="i18n" data-lang="en">Download CV ↓</span>
         <span class="i18n" data-lang="es" style="display:none">Descargar CV ↓</span>
         <span class="i18n" data-lang="zh" style="display:none">下載履歷 ↓</span>
+      </a>
+      <a href="resume.html">
+        <span class="i18n" data-lang="en">Quick résumé →</span>
+        <span class="i18n" data-lang="es" style="display:none">Currículum rápido →</span>
+        <span class="i18n" data-lang="zh" style="display:none">快速履歷 →</span>
       </a>
       <a href="#support">
         <span class="i18n" data-lang="en">Support my work →</span>
@@ -649,8 +653,8 @@
       <div class="ledger-row"><span class="yr">2021</span><span class="role"><b>NTUST</b> — EMI Teaching Assistant · won <b>Best Tutor</b> award</span></div>
       <div class="ledger-row"><span class="yr">2021–24</span><span class="role"><b>Lion and Lion</b> — Spanish &amp; English Teacher, DELE B1/B2 prep (Taipei)</span></div>
       <div class="ledger-row"><span class="yr">2023</span><span class="role"><b>Lifelong Learning Center</b> — English Storyteller (New Taipei)</span></div>
-      <div class="ledger-row"><span class="yr">2023–</span><span class="role"><b>Gram</b> — English Teacher, grades 1–6 (New Taipei)</span></div>
-      <div class="ledger-row"><span class="yr">2024–</span><span class="role"><b>NTUST</b> — Teaching Assistant, Applied Foreign Languages; helped bring ChatGPT into a Reading &amp; Writing classroom</span></div>
+      <div class="ledger-row"><span class="yr">2023–</span><span class="role"><b>Gram Cram School</b> — English Teacher, grades 1–6 (New Taipei)</span></div>
+      <div class="ledger-row"><span class="yr">2024–26</span><span class="role"><b>NTUST</b> — Teaching Assistant, Applied Foreign Languages; helped bring ChatGPT into a Reading &amp; Writing classroom</span></div>
     </div>
     <p class="ledger-note i18n" data-lang="en">scroll for the full ledger — it's long on purpose</p>
     <p class="ledger-note i18n" data-lang="es" style="display:none">desplázate para ver la lista completa: es larga a propósito</p>
@@ -788,16 +792,19 @@
     <p class="lede i18n" data-lang="zh" style="display:none">在研究內容變得技術性之前,先來一段小插曲:這些是我的閱讀個人頁面,使用的是獨立開發者打造的工具,不是Amazon或Google。這裡沒有任何贊助關係,有興趣的話歡迎看看,純粹是真誠的興趣。</p>
 
     <div class="reading-widgets">
-      <!-- <div class="hardcover-slot"> -->
-       <!--  <div data-hardcover-widget data-api-url="https://hardcoverembed.gouthamve.dev" data-username="@paulinavl" data-max-width="320" data-show-powered-by="false"></div> -->
-      <a class="reading-badge" href="https://hardcover.app/@paulinavl">
-          <span class="reading-badge-label">Hardcover</span>
-      <!-- </div> -->
-      <a class="reading-badge" href="https://app.thestorygraph.com/profile/paulinavl">
+      <a class="reading-badge" href="https://hardcover.app/@paulinavl" target="_blank" rel="noopener">
+        <span class="reading-badge-label">Hardcover</span>
+        <span class="reading-badge-sub i18n" data-lang="en">profile ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="es" style="display:none">perfil ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="zh" style="display:none">個人頁面 ↗</span>
+      </a>
+      <a class="reading-badge" href="https://app.thestorygraph.com/profile/paulinavl" target="_blank" rel="noopener">
         <span class="reading-badge-label">StoryGraph</span>
+        <span class="reading-badge-sub i18n" data-lang="en">profile ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="es" style="display:none">perfil ↗</span>
+        <span class="reading-badge-sub i18n" data-lang="zh" style="display:none">個人頁面 ↗</span>
       </a>
     </div>
-    <!-- <script src="https://hardcoverembed.gouthamve.dev/static/widget.js"></script> -->
   </section>
 
   <section id="research" class="reveal collapsible">
@@ -1118,6 +1125,18 @@
       <span>corpus linguistics</span><span>Flask</span><span>Git / GitHub</span>
       <span>Moodle</span><span>H5P</span>
     </div>
+    <div class="tldr" style="margin-top:20px;">
+      <p style="margin-bottom:10px;">
+        <b class="i18n" data-lang="en">Soft skills</b><b class="i18n" data-lang="es" style="display:none">Habilidades blandas</b><b class="i18n" data-lang="zh" style="display:none">軟實力</b>
+      </p>
+      <div class="tagrow" style="margin-top:0;">
+        <span class="tag i18n" data-lang="en">Detail-Oriented</span><span class="tag i18n" data-lang="es" style="display:none">Orientada al Detalle</span><span class="tag i18n" data-lang="zh" style="display:none">注重細節</span>
+        <span class="tag i18n" data-lang="en">Multidisciplinary</span><span class="tag i18n" data-lang="es" style="display:none">Multidisciplinaria</span><span class="tag i18n" data-lang="zh" style="display:none">跨領域</span>
+        <span class="tag i18n" data-lang="en">Self-Directed</span><span class="tag i18n" data-lang="es" style="display:none">Autónoma</span><span class="tag i18n" data-lang="zh" style="display:none">自主學習</span>
+        <span class="tag i18n" data-lang="en">Cross-Cultural Communicator</span><span class="tag i18n" data-lang="es" style="display:none">Comunicación Intercultural</span><span class="tag i18n" data-lang="zh" style="display:none">跨文化溝通</span>
+        <span class="tag i18n" data-lang="en">Resilient</span><span class="tag i18n" data-lang="es" style="display:none">Resiliente</span><span class="tag i18n" data-lang="zh" style="display:none">堅韌不拔</span>
+      </div>
+    </div>
     <h3>
       <span class="i18n" data-lang="en">Languages</span>
       <span class="i18n" data-lang="es" style="display:none">Idiomas</span>
@@ -1244,6 +1263,7 @@
 
   <footer>
     <div class="foot-links">
+      <a href="resume.html">Quick résumé</a>
       <a href="mailto:paoo.ss@gmail.com">paoo.ss@gmail.com</a>
       <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
       <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
