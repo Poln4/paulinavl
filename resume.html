@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paulina Valenzuela Lagos — Résumé</title>
+<meta name="description" content="Paulina Valenzuela Lagos — computational linguist and Spanish instructor. Quick résumé for recruiters.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kalam:wght@700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 760px;
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --rule: rgba(243,240,228,0.18);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:16px; line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:48px 28px 80px; }
+  a{ color:var(--red); }
+  a:hover{ color:var(--teal); }
+
+  .topbar{
+    display:flex; justify-content:space-between; align-items:center;
+    font-family:var(--font-mono); font-size:12.5px; margin-bottom:36px;
+  }
+  .topbar a{ text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; }
+  .print-btn{
+    font-family:var(--font-mono); font-size:12px; border:1.5px solid var(--ink);
+    background:transparent; color:var(--ink); border-radius:6px; padding:6px 12px; cursor:pointer;
+  }
+  .print-btn:hover{ background:var(--ink); color:var(--bg); }
+
+  h1{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(30px,6vw,42px);
+    margin:0 0 6px; line-height:1.1;
+  }
+  .role{ font-size:16.5px; color:var(--ink-soft); margin:0 0 16px; }
+  .contact-row{
+    display:flex; flex-wrap:wrap; gap:6px 16px; font-family:var(--font-mono);
+    font-size:12.5px; margin-bottom:8px;
+  }
+  .contact-row a{ text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; }
+
+  .summary{ font-size:17px; margin:22px 0 0; max-width:62ch; }
+
+  section{ margin-top:38px; }
+  h2{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--red); border-bottom:1.5px solid var(--rule); padding-bottom:6px; margin:0 0 16px;
+  }
+  h3{ font-family:var(--font-display); font-weight:700; font-size:18px; margin:0 0 2px; }
+  .meta{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); margin:0 0 6px; }
+  p{ margin:0 0 10px; font-size:15px; }
+
+  .metric-row{ display:flex; flex-wrap:wrap; gap:22px; margin:4px 0 18px; }
+  .metric{ min-width:100px; }
+  .metric .num{ font-family:var(--font-display); font-size:26px; font-weight:700; color:var(--red); line-height:1; }
+  .metric .lab{ font-family:var(--font-mono); font-size:10.5px; color:var(--ink-soft); margin-top:3px; }
+
+  .item{ margin-bottom:20px; }
+  .item:last-child{ margin-bottom:0; }
+  .item-head{ display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap; align-items:baseline; }
+  .links{ font-family:var(--font-mono); font-size:12px; margin-top:4px; }
+  .links a{ margin-right:14px; text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; }
+
+  .tagrow{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11px; color:var(--teal); border:1px solid var(--teal);
+    border-radius:20px; padding:2px 9px;
+  }
+
+  .skills-list{ display:flex; flex-wrap:wrap; gap:7px; margin-top:4px; }
+  .skills-list span{
+    font-family:var(--font-mono); font-size:12px; background:var(--bg-panel);
+    border-radius:4px; padding:3px 9px; color:var(--ink); border:1px solid var(--rule);
+  }
+
+  .exp-table{ width:100%; border-collapse:collapse; }
+  .exp-table tr{ border-bottom:1px dashed var(--rule); }
+  .exp-table tr:last-child{ border-bottom:none; }
+  .exp-table td{ padding:8px 0; vertical-align:top; font-size:14.5px; }
+  .exp-table td.yr{ font-family:var(--font-mono); font-size:11.5px; color:var(--teal); white-space:nowrap; padding-right:16px; width:70px; }
+  .exp-note{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); margin-top:10px; }
+
+  .edu-item{ margin-bottom:14px; }
+  .edu-item:last-child{ margin-bottom:0; }
+
+  footer{
+    margin-top:56px; padding-top:20px; border-top:1.5px dashed var(--rule);
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft);
+  }
+  footer a{ text-decoration:none; border-bottom:1px solid var(--red); padding-bottom:1px; margin-right:14px; }
+
+  @media print{
+    :root, html[data-theme="dark"]{
+      --bg:#FFFFFF; --bg-panel:#F5F4EF; --ink:#22241F; --ink-soft:#5C5F55;
+      --red:#C23B2E; --teal:#0E7F6F; --rule: rgba(34,36,31,0.14);
+    }
+    .topbar{ display:none; }
+    body{ font-size:13px; background:#FFFFFF; }
+    .wrap{ padding:0 6px; max-width:100%; }
+    section{ margin-top:22px; break-inside:avoid; }
+    a{ color:var(--ink); border-bottom:none !important; }
+    .item{ break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <div class="topbar">
+    <a href="personal.html">← Full site &amp; story</a>
+    <button class="print-btn" type="button" onclick="window.print()">Print / Save as PDF</button>
+  </div>
+
+  <header>
+    <h1>Paulina Valenzuela Lagos</h1>
+    <p class="role">Computational Linguist · Spanish Instructor · Ph.D. Candidate, Digital Learning &amp; Education, NTUST</p>
+    <div class="contact-row">
+      <a href="mailto:paoo.ss@gmail.com">paoo.ss@gmail.com</a>
+      <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
+      <a href="https://github.com/Poln4">GitHub</a>
+      <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
+      <span>Taipei, Taiwan</span>
+    </div>
+    <p class="summary">Applied linguist who builds NLP systems and ships them as working software, not just papers: a hybrid readability model (238 linguistic features + transformer embeddings, ~87% CEFR classification accuracy), a mobile health app, and a self-founded EdTech platform with real users. A decade of classroom experience across three countries is the domain expertise the models are built on — not a separate career.</p>
+    <div class="tagrow" style="margin-top:2px;">
+      <span class="tag">Target: Computational Linguist / NLP Data</span>
+      <span class="tag">EdTech Product</span>
+      <span class="tag">Localization &amp; Market Strategy</span>
+    </div>
+  </header>
+
+  <section>
+    <h2>Product &amp; Founder Experience</h2>
+    <div class="item">
+      <div class="item-head">
+        <h3>Founder &amp; Program Director, Spanish Reading Club</h3>
+        <span class="meta">Ongoing</span>
+      </div>
+      <p>Conceived, built, and run a digital extensive-reading platform for Spanish learners: promotional landing pages, registration and onboarding flow, and the content pipeline, on a Flask stack I built and maintain myself. Also served as EdTech Project Contributor for The Other Way Spanish, extending the same model into a community reading club.</p>
+      <div class="links"><a href="https://poln4.pythonanywhere.com">poln4.pythonanywhere.com →</a></div>
+      <div class="tagrow"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">Product Ownership</span><span class="tag">Community Building</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Research</h2>
+    <div class="item">
+      <div class="item-head">
+        <h3>Ph.D. Candidate, Digital Learning &amp; Education</h3>
+        <span class="meta">NTUST · 2022–present</span>
+      </div>
+      <p>Dissertation: <em>Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment.</em> Built a hybrid readability model (linguistic features + transformer embeddings) and validated it against real learner perception, including affective variables like anxiety and engagement.</p>
+      <div class="metric-row">
+        <div class="metric"><div class="num">~0.96</div><div class="lab">QWK, BERTIN + CatBoost hybrid</div></div>
+        <div class="metric"><div class="num">~87%</div><div class="lab">CEFR classification accuracy</div></div>
+        <div class="metric"><div class="num">822</div><div class="lab">texts, A1–C2, custom corpus</div></div>
+        <div class="metric"><div class="num">238</div><div class="lab">linguistic features engineered</div></div>
+      </div>
+      <p>Model outperforms MultiAzterTest (existing benchmark) on CEFR discrimination while correlating strongly with it (ρ = 0.738). Presented at Edge Hill University (UK), Teachers College Columbia University, Westminster International University in Tashkent, and National Taipei University of Business.</p>
+      <div class="tagrow">
+        <span class="tag">NLP</span><span class="tag">Transformers (BERT / BERTIN)</span><span class="tag">CatBoost</span>
+        <span class="tag">Feature Engineering</span><span class="tag">Corpus Linguistics</span><span class="tag">Mixed-Methods Research</span>
+      </div>
+    </div>
+    <div class="item">
+      <div class="item-head">
+        <h3>M.A., Applied Foreign Languages</h3>
+        <span class="meta">NTUST · 2020–2022</span>
+      </div>
+      <p>Thesis compared graded readers vs. authentic illustrated texts as first material for beginning Spanish learners: a corpus analysis of verb variety, frequency, mood, and tense, plus a 12-week study with Taiwanese Spanish majors. 170-page manuscript; advisor Dra. Sy-Ying Lee. Now under revision for the journal <em>System</em> (co-authored).</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Selected Projects</h2>
+    <div class="item">
+      <div class="item-head"><h3>CARLA Model</h3></div>
+      <p>The hybrid architecture behind the dissertation's Study 1 — traditional linguistic features fused with transformer embeddings, trained on a cleaned custom corpus of 800+ Spanish texts. Deployed as a public demo.</p>
+      <div class="links"><a href="https://carla-esp.streamlit.app">carla-esp.streamlit.app →</a></div>
+      <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Streamlit</span></div>
+    </div>
+    <div class="item">
+      <div class="item-head"><h3>ZebraUp</h3></div>
+      <p>mHealth app for people navigating rare or hard-to-diagnose conditions — structured symptom tracking and a timeline patients can hand to a new specialist, with language built around how patients actually describe symptoms. Currently gathering data toward a published case study.</p>
+      <div class="links">
+        <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
+        <a href="https://github.com/Poln4/ZebraUp">GitHub →</a>
+      </div>
+      <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">Health Tech</span><span class="tag">UX Writing</span></div>
+    </div>
+    <div class="item">
+      <div class="item-head"><h3>Tone Stamp</h3></div>
+      <p>Reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — same readability instinct applied to a language she's still learning herself.</p>
+      <div class="links"><a href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a></div>
+      <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Visualization</span></div>
+    </div>
+    <div class="item">
+      <div class="item-head"><h3>NAS Project</h3></div>
+      <p>A data model for handling diverse real-world name structures in software — built to acknowledge naming conventions most systems still get wrong.</p>
+      <div class="links"><a href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a></div>
+      <div class="tagrow"><span class="tag">Python</span><span class="tag">Internationalization (i18n)</span><span class="tag">Data Modeling</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Teaching Experience</h2>
+    <p>18 teaching roles across Chile, the U.S., and Taiwan (2015–present): K-12, adult education, DELE exam prep, corporate language training, and university-level EMI support.</p>
+    <table class="exp-table">
+      <tr><td class="yr">2023–</td><td>English Teacher, <b>Gram Cram School</b> — grades 1–6 (New Taipei)</td></tr>
+      <tr><td class="yr">2024–26</td><td>Teaching Assistant, Applied Foreign Languages, <b>NTUST</b> — helped bring ChatGPT into a Reading &amp; Writing classroom</td></tr>
+      <tr><td class="yr">2021–24</td><td>Spanish &amp; English Teacher, <b>Lion and Lion</b> — DELE B1/B2 exam prep (Taipei)</td></tr>
+      <tr><td class="yr">2021</td><td>EMI Teaching Assistant, <b>NTUST</b> — won <em>Best Tutor</em> award</td></tr>
+      <tr><td class="yr">2019–21</td><td>Private Spanish Teacher, freelance (Taipei)</td></tr>
+      <tr><td class="yr">2018–19</td><td>Spanish Teacher, <b>CEE El Golf</b> — corporate training for Japanese mining-sector learners (Santiago)</td></tr>
+      <tr><td class="yr">2017–18</td><td>Spanish Language Assistant, <b>Union College</b> (Schenectady, NY)</td></tr>
+      <tr><td class="yr">2015–19</td><td>K-12 and adult Spanish/DELE instruction across 9 additional institutions in Santiago, Chile</td></tr>
+    </table>
+    <p class="exp-note">Condensed — full 18-role teaching history on the <a href="personal.html#teaching">full site</a>.</p>
+  </section>
+
+  <section>
+    <h2>Education</h2>
+    <div class="edu-item">
+      <h3>Ph.D. Candidate, Digital Learning &amp; Education</h3>
+      <p class="meta">National Taiwan University of Science and Technology (NTUST) · 2022–present</p>
+    </div>
+    <div class="edu-item">
+      <h3>M.A., Applied Foreign Languages</h3>
+      <p class="meta">NTUST · 2020–2022</p>
+    </div>
+    <div class="edu-item">
+      <h3>B.Ed., Educación Media (Secondary Education)</h3>
+      <p class="meta">Teacher's Vocation Scholarship, Government of Chile</p>
+    </div>
+    <div class="edu-item">
+      <h3>B.A. (Licenciatura), Letters — Linguistics &amp; Hispanic Literature</h3>
+      <p class="meta">Pontifical Catholic University of Chile (PUC) · first paper published 2019</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Publications</h2>
+    <div class="item">
+      <h3>Spanish Graded Readers vs. Authentic Illustrated Texts</h3>
+      <p>Co-authored with Sy-Ying Lee. In active revision for the journal <em>System</em>.</p>
+    </div>
+    <div class="item">
+      <h3>Uso y adquisición de artículos en español como segunda lengua</h3>
+      <p>Valenzuela &amp; Toledo (2019). <em>Logos: Revista de Lingüística, Filosofía y Literatura</em>, 29(2), 268–285.</p>
+    </div>
+    <p class="exp-note">Reviewer, <em>Revista Literatura y Lingüística</em> (since 2022). Two further papers on the dissertation studies are queued for the XII Congreso Internacional de la AAH.</p>
+  </section>
+
+  <section>
+    <h2>Skills</h2>
+    <div class="skills-list">
+      <span>Python</span><span>R</span><span>C / C++</span><span>SQL</span><span>HTML / CSS</span>
+      <span>spaCy</span><span>scikit-learn</span><span>NLTK</span><span>XGBoost</span>
+      <span>transformers (BETO, MarIA, BERTIN)</span><span>pandas</span><span>NumPy</span>
+      <span>Flask</span><span>Git / GitHub</span><span>Moodle</span><span>H5P</span>
+    </div>
+    <p class="meta" style="margin-top:14px;">Languages</p>
+    <div class="skills-list">
+      <span>Spanish — native</span><span>English — fluent (TOEFL iBT 102/120)</span>
+      <span>Mandarin — intermediate</span><span>Korean — elementary</span>
+    </div>
+  </section>
+
+  <footer>
+    <a href="mailto:paoo.ss@gmail.com">paoo.ss@gmail.com</a>
+    <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
+    <a href="https://github.com/Poln4">GitHub</a>
+    <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
+    <a href="personal.html">Full site →</a>
+  </footer>
+
+</div>
+
+<script>
+  try{
+    var t = localStorage.getItem('theme');
+    if(!t){ t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'; }
+    if(t === 'dark'){ document.documentElement.setAttribute('data-theme','dark'); }
+  }catch(e){}
+</script>
+
+</body>
+</html>
