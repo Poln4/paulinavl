@@ -392,6 +392,30 @@
   }
   .aspiration b{ font-weight:600; }
 
+  /* reader's note — sits in the hero, tells first-minute visitors
+     what this site is and how to read it. The site can be a lot;
+     this earns the exploration by naming it. */
+  .reader-note{
+    margin:4px 0 26px;
+    padding:13px 18px 12px;
+    border-left:3px solid var(--teal);
+    background:var(--bg-panel);
+    border-radius:0 6px 6px 0;
+    font-family:var(--font-mono);
+    font-size:13.5px; line-height:1.6;
+    color:var(--ink); max-width:62ch;
+  }
+  .reader-note b{ color:var(--teal); font-weight:600; }
+  .reader-note .rn-link{
+    border:none; background:transparent; padding:0;
+    color:var(--red); font-family:inherit; font-size:inherit;
+    cursor:pointer; text-decoration:underline;
+    text-underline-offset:3px; text-decoration-thickness:1px;
+  }
+  .reader-note .rn-link:hover{ color:var(--teal); }
+  .reader-note .rn-link.active{ color:var(--teal); font-weight:600; }
+  @media (max-width:700px){ .reader-note{ font-size:12.5px; padding:11px 14px; } }
+
   /* bridges between sections — a line of connective tissue, not just a rule */
   .bridge{
     font-family:var(--font-mono); font-size:13px; font-style:italic;
@@ -518,6 +542,26 @@
       <span class="i18n" data-lang="es" style="display:none">Lingüista computacional y profesora de español: construyo las herramientas que deciden qué tan difícil se siente un texto, y enseño a las personas que lo leen. Candidata a doctora en la NTUST.</span>
       <span class="i18n" data-lang="zh" style="display:none">計算語言學家、西班牙語教師——我打造用來判斷文本難度的工具,也教導閱讀這些文本的人。現為台灣科技大學博士候選人。</span>
     </p>
+    <div class="reader-note" role="note">
+      <span class="i18n" data-lang="en">
+        <b>Two ways to read this.</b>
+        <button type="button" class="rn-link" data-mode="recruiter">Recruiter view</button> is a 3-minute skim of what I do;
+        <button type="button" class="rn-link" data-mode="story">the full story</button> takes about 20 minutes and covers why.
+        Switch anytime from the top-right — or the ☰ menu on mobile.
+      </span>
+      <span class="i18n" data-lang="es" style="display:none">
+        <b>Dos formas de leer esto.</b>
+        La <button type="button" class="rn-link" data-mode="recruiter">vista para reclutadores</button> es un vistazo de 3 minutos a lo que hago;
+        <button type="button" class="rn-link" data-mode="story">la historia completa</button> toma unos 20 minutos y explica el porqué.
+        Puedes cambiar cuando quieras desde arriba a la derecha — o desde el menú ☰ en el celular.
+      </span>
+      <span class="i18n" data-lang="zh" style="display:none">
+        <b>兩種閱讀方式。</b>
+        <button type="button" class="rn-link" data-mode="recruiter">人資檢視</button>是 3 分鐘的快覽,只看我做什麼;
+        <button type="button" class="rn-link" data-mode="story">完整故事</button>約 20 分鐘,說明我為什麼在做這些事。
+        右上角隨時可以切換——手機請點 ☰ 選單。
+      </span>
+    </div>
     <p class="aspiration">
       <span class="i18n" data-lang="en">Where I'm headed: <b><mark class="teal">EdTech and health tech</mark></b> — language-learning tools that adapt to the reader, and patient-facing tools that make hard-to-see conditions legible. Academia stays firmly on the table; the teacher part never leaves.</span>
       <span class="i18n" data-lang="es" style="display:none">Hacia dónde voy: <b><mark class="teal">tecnología educativa y tecnología en salud</mark></b>: herramientas de aprendizaje de idiomas que se adaptan a quien lee, y herramientas para pacientes que hacen legibles las condiciones difíciles de ver. La academia sigue firmemente sobre la mesa; lo de profesora no se va nunca.</span>
@@ -988,18 +1032,21 @@
     <div class="spotlight" id="carla-model">
       <h4>The Carla Model</h4>
       <div class="i18n" data-lang="en">
-        <p>A hybrid architecture behind <a href="#research">Study 1</a> — traditional linguistic features fused with transformer embeddings, on a cleaned custom corpus of 800+ Spanish texts. Building this gave me the technical confidence to start other projects, like <a href="#zebraup">ZebraUp</a>, below.</p>
+        <p>CARLA is a hybrid readability model for Spanish — the engine behind <a href="#research">Study 1</a>, released as a live web app you can paste any Spanish text into. It returns a CEFR level (A1–C2), predicted from linguistic feature analysis fused with transformer embeddings, trained on 800+ Spanish texts. It's the first dream on this page I actually got to build — and, so far, the biggest thing I've contributed to Spanish-language learning: a working answer to a question a decade of teaching left me with. <em>Is this text too hard for the person in front of me?</em> It's named for my 乾女兒 — my goddaughter — whose Spanish name is Carla. She's the reader I want a good tool to exist for.</p>
+        <p>Where it's going: a recommender that pairs CARLA's score with Project Gutenberg's Spanish catalog, so a learner at low B1 can find authentic texts they can actually read — not "graded" down to their level, not miles past it. Building CARLA also gave me the technical confidence to start <a href="#zebraup">ZebraUp</a>. But this one came first. It's still the one I'm proudest of.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>La arquitectura híbrida detrás del <a href="#research">Estudio 1</a>: características lingüísticas tradicionales combinadas con embeddings de transformers, sobre un corpus propio y depurado de más de 800 textos en español. Construir esto me dio la confianza técnica para empezar otros proyectos, como <a href="#zebraup">ZebraUp</a>, más abajo.</p>
+        <p>CARLA es un modelo híbrido de legibilidad para el español — el motor detrás del <a href="#research">Estudio 1</a>, publicado como una app web donde puedes pegar cualquier texto en español y recibir un nivel MCER (A1–C2). Combina análisis de características lingüísticas con embeddings de transformers, sobre un corpus propio de más de 800 textos. Es el primer sueño de esta página que realmente pude construir — y, hasta ahora, la mayor contribución que he hecho al aprendizaje del español: una respuesta concreta a la pregunta que una década enseñando me dejó. <em>¿Este texto es demasiado difícil para la persona que tengo delante?</em> Lleva el nombre de mi 乾女兒 — mi ahijada — cuyo nombre en español es Carla. Es la lectora para quien quiero que exista una buena herramienta.</p>
+        <p>Lo que viene: un recomendador que combine el puntaje de CARLA con el catálogo de Proyecto Gutenberg en español, para que un aprendiz en nivel B1 bajo pueda encontrar textos auténticos que realmente pueda leer — ni "graduados" a su nivel, ni a millas de distancia. Construir CARLA también me dio la confianza técnica para empezar <a href="#zebraup">ZebraUp</a>. Pero este proyecto vino primero. Sigue siendo del que estoy más orgullosa.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p><a href="#research">研究一</a>背後的混合式架構——將傳統語言特徵與Transformer嵌入向量結合,建立在一個經過清理、超過800篇文本的西班牙語自建語料庫之上。打造這個模型,給了我開始其他專案(例如下方的<a href="#zebraup">ZebraUp</a>)所需的技術信心。</p>
+        <p>CARLA 是一套西班牙語混合可讀性模型——<a href="#research">研究一</a>背後的引擎,現已上線為一個網頁應用:任何西班牙語文本貼上去,它都會回傳一個 CEFR 等級(A1–C2)。它結合語言特徵分析與 Transformer 嵌入向量,在超過 800 篇西班牙語文本上訓練而成。這是這一頁上,我第一個真正做出來的夢想——到目前為止,也是我對西班牙語學習領域最大的一份貢獻:對一個十多年教西班牙語留給我的問題,一個可運作的答案。<em>這篇文章,對眼前這個人來說,會不會太難?</em> 它是以我的乾女兒命名的——她的西班牙文名字,正是 Carla。她,就是我最希望有一個好工具存在的那位讀者。</p>
+        <p>接下來:一套將 CARLA 的分數與古騰堡計畫(Project Gutenberg)西班牙語書目結合的推薦系統,讓例如 B1 初階的學習者,能找到自己真正讀得懂的真實文本——不是為他們降階改寫的,也不是遠遠超出他們程度的。打造 CARLA 也給了我開始 <a href="#zebraup">ZebraUp</a> 所需的技術信心。但 CARLA 才是最早的。它,仍然是我最引以為傲的作品。</p>
       </div>
       <div class="link-row">
         <a href="https://carla-esp.streamlit.app">carla-esp.streamlit.app →</a>
       </div>
-      <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">Streamlit</span></div>
+      <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">CEFR</span><span class="tag">Streamlit</span></div>
     </div>
 
     <div class="spotlight" id="zebraup" style="margin-top:26px;">
@@ -1073,9 +1120,9 @@
     </h2>
 
     <div class="tldr">
-      <p class="i18n" data-lang="en">Two concepts, both still in my head: <b>leehzn</b>, a graded Spanish-reading platform for Korean/Chinese/Japanese speakers, and <b>El Vecindario</b>, a visual-novel Spanish-learning game built around active production and zero-punishment failure.</p>
-      <p class="i18n" data-lang="es" style="display:none">Dos conceptos, ambos todavía en mi cabeza: <b>leehzn</b>, una plataforma de lectura graduada en español para hablantes de coreano, chino y japonés, y <b>El Vecindario</b>, un juego de aprendizaje de español estilo novela visual, centrado en la producción activa y el error sin castigo.</p>
-      <p class="i18n" data-lang="zh" style="display:none">兩項仍停留在構想階段的計畫:<b>leehzn</b>,一個為韓語、中文、日語母語者設計的西班牙語分級閱讀平台;以及<b>El Vecindario</b>,一款以主動產出與「零懲罰式犯錯」為核心的視覺小說式西班牙語學習遊戲。</p>
+      <p class="i18n" data-lang="en">Three concepts, all still in my head: <b>leehzn</b>, a graded Spanish-reading platform for Korean/Chinese/Japanese speakers; <b>El Vecindario</b>, a visual-novel Spanish-learning game built around active production and zero-punishment failure; and <b>CJK-ESP</b>, a Spanish-first Pleco-style bridge between Spanish and Chinese/Japanese/Korean.</p>
+      <p class="i18n" data-lang="es" style="display:none">Tres conceptos, todos todavía en mi cabeza: <b>leehzn</b>, una plataforma de lectura graduada de español para hablantes de coreano, chino y japonés; <b>El Vecindario</b>, un juego de aprendizaje de español estilo novela visual centrado en la producción activa y el error sin castigo; y <b>CJK-ESP</b>, un puente hispano-primero estilo Pleco entre el español y el chino, japonés y coreano.</p>
+      <p class="i18n" data-lang="zh" style="display:none">三項仍停留在構想階段的計畫:<b>leehzn</b>,一個為韓語、中文、日語母語者設計的西班牙語分級閱讀平台;<b>El Vecindario</b>,一款以主動產出與「零懲罰式犯錯」為核心的視覺小說式西班牙語學習遊戲;以及 <b>CJK-ESP</b>,一套以西班牙語為核心、類似 Pleco 的西班牙語 ↔ 中日韓語橋樑。</p>
     </div>
     <button type="button" class="story-toggle" data-target="dreams"></button>
 
@@ -1099,6 +1146,22 @@
         <p class="i18n" data-lang="es" style="display:none">Un juego de aprendizaje de español estilo novela visual, diseñado contra la "trampa de la racha": sin barras de vida, sin Game Over. El vocabulario se adquiere arrastrando palabras misteriosas hacia el contexto, no hacia una traducción; las frases se construyen con bloques de palabras para forzar la producción activa en vez de la simple selección múltiple. Empieza en un aterrizaje suave en casa de familia (A1) y se expande a todo un vecindario (mercado, delivery, una crisis sin internet) hasta A2.</p>
         <p class="i18n" data-lang="zh" style="display:none">一款以視覺小說形式呈現的西班牙語學習遊戲,刻意對抗「連續打卡陷阱」——沒有生命值,沒有Game Over。詞彙透過將「神秘單字」拖曳到情境中習得,而非直接翻譯;句子則透過拖曳詞塊組合而成,強迫主動產出而非單純選擇題作答。從一個溫和著陸的家庭場景(A1)開始,逐步擴展到整個街區——市場、外送任務、網路中斷危機——直到A2程度。</p>
         <div class="tagrow"><span class="tag i18n" data-lang="en">idea stage</span><span class="tag i18n" data-lang="es" style="display:none">etapa de idea</span><span class="tag i18n" data-lang="zh" style="display:none">構想階段</span><span class="tag">Game Design</span><span class="tag">Failing Forward</span><span class="tag">SLA Pedagogy</span></div>
+      </div>
+      <div class="card">
+        <h4>CJK-ESP</h4>
+        <p class="i18n" data-lang="en">Something like Pleco, but with Spanish at the center instead of English — connecting Spanish with Chinese, Japanese, and Korean, so each pair works on its own and the three CJK languages can also be traversed together for anyone (like me) working across all of them. Still deciding whether it's a dictionary, an API, or both — and whether it should be open-source, so others can help build it. Research phase.</p>
+        <p class="i18n" data-lang="es" style="display:none">Algo como Pleco, pero con el español al centro en vez del inglés — conectando el español con el chino, el japonés y el coreano, de modo que cada par funcione por sí solo y que las tres lenguas CJK también puedan recorrerse juntas para quien (como yo) se mueva entre todas. Todavía estoy decidiendo si es un diccionario, una API o ambos — y si debería ser de código abierto, para que otras personas puedan ayudar a construirlo. Fase de investigación.</p>
+        <p class="i18n" data-lang="zh" style="display:none">像 Pleco 一樣的工具,只是核心不是英語,而是西班牙語——連結西班牙語與中文、日語、韓語,讓每一組語言配對都能獨立運作,而三種 CJK 語言之間也能為(像我這樣)在全部語言之間穿梭的人彼此串連。仍在思考它究竟是字典、API,還是兩者兼備——也在思考是否該做成開放原始碼,讓其他人也能一起打造。仍在研究階段。</p>
+        <div class="tagrow">
+          <span class="tag i18n" data-lang="en">shape TBD</span>
+          <span class="tag i18n" data-lang="es" style="display:none">forma por decidir</span>
+          <span class="tag i18n" data-lang="zh" style="display:none">形式未定</span>
+          <span class="tag">Lexicography</span>
+          <span class="tag">Spanish ↔ CJK</span>
+          <span class="tag i18n" data-lang="en">Open Source?</span>
+          <span class="tag i18n" data-lang="es" style="display:none">¿Código abierto?</span>
+          <span class="tag i18n" data-lang="zh" style="display:none">開源?</span>
+        </div>
       </div>
     </div>
     </div>
@@ -1342,9 +1405,14 @@
       labelStoryToggle(btn);
     });
   });
+  const rnLinks = document.querySelectorAll('.reader-note .rn-link');
+  function syncReaderNote(m){
+    rnLinks.forEach(el => el.classList.toggle('active', el.dataset.mode === m));
+  }
   function applyMode(m){
     if(m === 'recruiter'){ root.setAttribute('data-mode','recruiter'); btnRecruiter.classList.add('active'); btnStory.classList.remove('active'); }
     else { root.removeAttribute('data-mode'); btnStory.classList.add('active'); btnRecruiter.classList.remove('active'); }
+    syncReaderNote(m);
     try{ localStorage.setItem('mode', m); }catch(e){}
   }
   let savedMode = 'story';
@@ -1352,6 +1420,7 @@
   applyMode(savedMode);
   btnStory.addEventListener('click', () => applyMode('story'));
   btnRecruiter.addEventListener('click', () => applyMode('recruiter'));
+  rnLinks.forEach(el => el.addEventListener('click', () => applyMode(el.dataset.mode)));
 
   const menuBtn = document.getElementById('menu-btn');
   const navPanel = document.getElementById('nav-panel');
