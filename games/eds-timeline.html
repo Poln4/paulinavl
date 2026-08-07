@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EDS Timeline — a games.paulinavl.github.io game</title>
+<meta name="description" content="Put thirteen centuries of Ehlers-Danlos Syndrome and rare-disease policy history in the order they actually happened.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:18px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .topbar{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;
+    padding-top:24px;
+  }
+  .backlink{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    border-bottom:1px solid var(--red); padding-bottom:1px;
+  }
+  .controls{ display:flex; flex-wrap:wrap; gap:8px; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  header.hero{padding:44px 0 30px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(34px, 7vw, 50px);
+    line-height:1.05; margin:0 0 14px; text-shadow:var(--stroke-shadow);
+  }
+  .lede{ font-size:18px; color:var(--ink-soft); max-width:58ch; margin:0 0 14px; }
+  .note{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
+    border-left:2px solid var(--rule); padding-left:10px; margin-top:8px; max-width:58ch;
+  }
+
+  section{ padding:24px 0 54px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block; cursor:pointer;
+    background:transparent;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+  .btn:disabled{ opacity:.4; cursor:not-allowed; }
+  .btn:disabled:hover{ background:transparent; color:var(--ink); }
+  html[data-theme="dark"] .btn:disabled:hover{ color:var(--ink); }
+
+  /* game shell, mirrors index.html's .game/.opt/.game-final */
+  .game{
+    border:2px solid var(--gold); border-radius:12px;
+    padding:24px 22px; background:var(--bg-panel); margin-top:8px;
+  }
+  .game-top{
+    display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+    letter-spacing:.04em;
+  }
+  .game-top b{ color:var(--ink); }
+  .g-round-title{
+    font-family:var(--font-display); font-weight:700; text-align:center;
+    font-size:clamp(22px,4.6vw,30px); line-height:1.2; margin:18px 0 4px;
+    color:var(--gold);
+  }
+  .g-instructions{ font-size:15.5px; text-align:center; color:var(--ink-soft); margin:0 0 20px; }
+
+  .g-timeline{ display:flex; flex-direction:column; gap:8px; margin-bottom:20px; }
+  .g-timeline-item{
+    display:flex; gap:12px; align-items:baseline;
+    border-left:3px solid var(--teal); padding:6px 0 6px 12px;
+  }
+  .g-timeline-item .yr{
+    font-family:var(--font-mono); font-size:12px; color:var(--teal); min-width:64px; flex:none;
+  }
+  .g-timeline-item .txt b{ font-weight:600; }
+  .g-timeline-item .txt p{ margin:2px 0 0; font-size:14.5px; color:var(--ink-soft); }
+  .g-timeline-item .txt .extra{ margin:4px 0 0; font-size:13.5px; color:var(--gold); font-style:italic; }
+
+  .g-pool{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-bottom:18px; }
+  .opt{
+    font-family:var(--font-mono); font-size:13.5px; padding:10px 16px;
+    border-radius:6px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:background .15s ease, color .15s ease, border-color .15s ease;
+    max-width:260px; text-align:left;
+  }
+  .opt:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
+  .opt.wrong{ background:var(--red); border-color:var(--red); color:var(--bg); }
+
+  .game-actions{ margin-top:8px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .game-final{ text-align:center; padding:6px 0; }
+  .game-score{
+    font-family:var(--font-display); font-size:36px; font-weight:700;
+    color:var(--red); line-height:1.1;
+  }
+  .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
+  .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+  .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
+  .mastodon-input{
+    font-family:var(--font-mono); font-size:13px; padding:9px 12px;
+    border-radius:6px; border:1.5px solid var(--ink); background:var(--bg);
+    color:var(--ink); min-width:180px;
+  }
+  .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
+
+  footer{ padding:40px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <div class="topbar">
+    <a class="backlink" href="../games.html">
+      <span class="i18n" data-lang="en">← All games</span>
+      <span class="i18n" data-lang="es" style="display:none">← Todos los juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">← 所有遊戲</span>
+    </a>
+    <div class="controls">
+      <div class="toggle-group" role="group" aria-label="Theme">
+        <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+        <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Language">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-zh" type="button">中</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">🦓 ZebraUp research, playable</span>
+      <span class="i18n" data-lang="es" style="display:none">🦓 la investigación de ZebraUp, para jugar</span>
+      <span class="i18n" data-lang="zh" style="display:none">🦓 ZebraUp 研究,現在可以玩了</span>
+    </span>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">EDS Timeline</span>
+      <span class="i18n" data-lang="es" style="display:none">Cronología del SED</span>
+      <span class="i18n" data-lang="zh" style="display:none">EDS 時間軸</span>
+    </h1>
+    <p class="lede i18n" data-lang="en">Fourteen milestones in the history of Ehlers-Danlos Syndrome and rare-disease policy, from the earliest recorded description to a law passed in 2025. Tap them in the order they actually happened. You have 3 🦓 lives and 3 🥄 spoons — a spoon reveals the next correct one for free, no penalty.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Catorce hitos en la historia del Síndrome de Ehlers-Danlos y de las políticas sobre enfermedades raras, desde la descripción más antigua que se conserva hasta una ley aprobada en 2025. Toca cada uno en el orden en que realmente ocurrió. Tienes 3 vidas 🦓 y 3 cucharas 🥄: una cuchara revela gratis el siguiente correcto, sin penalización.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">十四個關於埃勒斯-當洛斯症候群(EDS)與罕見疾病政策歷史的重要時刻,從現存最早的紀錄,到2025年通過的一項法律。請依照真實發生的順序依序點選。你有3條🦓生命與3根🥄湯匙:使用湯匙可以免費揭曉下一個正確答案,不會扣血。</p>
+    <p class="note i18n" data-lang="en">Built from research into my own condition, classical-like EDS (clEDS) — more in <a href="../index.html#journey">the honest part</a> of the full site.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Construido a partir de la investigación sobre mi propia condición, el SED semi-clásico (SEDcl; clEDS en inglés, distinto del SED clásico o SEDc): más en <a href="../index.html#journey">la parte honesta</a> del sitio completo.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">這個遊戲的內容,來自於我對自身病況「類古典型 EDS」(clEDS,有別於「古典型 EDS」/ cEDS)的研究,更多細節請見完整網站的<a href="../index.html#journey">誠實的部分</a>。</p>
+  </header>
+
+  <section>
+    <div class="game" id="game-box">
+      <div class="game-top">
+        <span id="g-round"></span>
+        <span id="g-lives"></span>
+        <span id="g-spoons"></span>
+      </div>
+
+      <div id="g-play">
+        <h3 class="g-round-title" id="g-round-title"></h3>
+        <p class="g-instructions" id="g-instructions"></p>
+
+        <div class="g-timeline" id="g-timeline"></div>
+        <div class="g-pool" id="g-pool"></div>
+
+        <div class="game-actions">
+          <button class="btn" type="button" id="g-spoon-btn"></button>
+        </div>
+      </div>
+
+      <div id="g-over" class="game-final" style="display:none;">
+        <p class="game-score" id="g-over-score"></p>
+        <p id="g-over-body"></p>
+        <div class="game-actions"><button class="btn primary" type="button" id="g-retry-1"></button></div>
+      </div>
+
+      <div id="g-end" class="game-final" style="display:none;">
+        <p class="game-score" id="g-end-score"></p>
+        <p id="g-end-verdict"></p>
+        <div class="share-row">
+          <a class="btn primary" id="g-bsky" href="#" target="_blank" rel="noopener">Bluesky</a>
+          <a class="btn" id="g-x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="btn" id="g-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" id="g-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="mastodon-label" id="g-mastodon-label"></p>
+        <div class="mastodon-row">
+          <input type="text" id="g-mastodon-instance" class="mastodon-input" placeholder="mastodon.social">
+          <button class="btn" type="button" id="g-mastodon-btn"></button>
+        </div>
+        <div class="game-actions">
+          <button class="btn" type="button" id="g-copy"></button>
+          <button class="btn" type="button" id="g-retry-2"></button>
+        </div>
+        <p class="g-copy-note" id="g-copy-note" style="display:none;"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer id="g-sources" style="display:none;">
+    <p class="i18n" data-lang="en" style="margin:0 0 10px;">Sources include the exact dates — shown only once the game is over, so they can't be used as answers.</p>
+    <p class="i18n" data-lang="es" style="display:none;margin:0 0 10px;">Las fuentes incluyen las fechas exactas: solo se muestran cuando termina el juego, para que no se puedan usar como respuestas.</p>
+    <p class="i18n" data-lang="zh" style="display:none;margin:0 0 10px;">資料來源包含確切日期,只會在遊戲結束後顯示,避免被拿來當作答案。</p>
+    <span class="i18n" data-lang="en">Sources: Hippocrates via classical medical history; Tschernogubow (1892); Ehlers (1901); Danlos (1908); Parkes Weber (1936); Kirk, Ansell &amp; Bywaters (1967); Beighton et al., the Berlin Nosology (1986/1988); the Villefranche Nosology (1997/1998); Grahame (1999); Schalkwijk et al. on TNXB (2001); the 2017 International Classification of EDS (<em>Am. J. Med. Genet.</em>); Chile's Ley N.º 21.743 (2025).</span>
+    <span class="i18n" data-lang="es" style="display:none">Fuentes: Hipócrates, a través de la historia médica clásica; Tschernogubow (1892); Ehlers (1901); Danlos (1908); Parkes Weber (1936); Kirk, Ansell y Bywaters (1967); Beighton y colaboradores, la Nosología de Berlín (1986/1988); la Nosología de Villefranche (1997/1998); Grahame (1999); Schalkwijk y colaboradores sobre TNXB (2001); la Clasificación Internacional de 2017 del SED (<em>Am. J. Med. Genet.</em>); la Ley N.º 21.743 de Chile (2025).</span>
+    <span class="i18n" data-lang="zh" style="display:none">資料來源:希波克拉底(經典醫學史文獻);Tschernogubow(1892);Ehlers(1901);Danlos(1908);Parkes Weber(1936);Kirk、Ansell 與 Bywaters(1967);Beighton 等人提出的柏林分類系統(1986/1988);維爾弗朗什分類系統(1997/1998);Grahame(1999);Schalkwijk 等人關於 TNXB 的研究(2001);2017年 EDS 國際分類系統(《Am. J. Med. Genet.》);智利《21.743號法律》(2025)。</span>
+  </footer>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
+  function applyLang(l){
+    currentLang = l;
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+    if (gameReady) render();
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  /* ---------- share helper (shared shape with index.html's NAS game share) ---------- */
+  function buildShareLinks(text, hashtag, url){
+    const full = `${text} ${hashtag} ${url}`;
+    return {
+      full,
+      bsky: `https://bsky.app/intent/compose?text=${encodeURIComponent(full)}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + hashtag)}&url=${encodeURIComponent(url)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      mastodon(instance){
+        const host = instance.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+        return `https://${host}/share?text=${encodeURIComponent(full)}`;
+      }
+    };
+  }
+  function copyToClipboard(text, cb){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(cb).catch(() => fallbackCopy(text, cb));
+    } else {
+      fallbackCopy(text, cb);
+    }
+  }
+  function fallbackCopy(text, cb){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  /* ---------- EDS Timeline game ---------- */
+  var gameReady = false;
+
+  const ROUNDS = [
+    {
+      title: { en:'Naming the Syndrome', es:'Nombrando el síndrome', zh:'為症候群命名' },
+      items: [
+        {
+          id:'hippocrates', sortKey:-400,
+          dateLabel:{ en:'~400 BC', es:'~400 a. C.', zh:'約西元前400年' },
+          label:{ en:"Hippocrates' Earliest Description", es:'La descripción más antigua de Hipócrates', zh:'希波克拉底最早的描述' },
+          blurb:{
+            en:'The earliest recorded description of a condition marked by unusual joint laxity and multiple skin scars, in writings attributed to Hippocrates.',
+            es:'La descripción más antigua que se conserva de una condición marcada por una laxitud articular inusual y múltiples cicatrices en la piel, en textos atribuidos a Hipócrates.',
+            zh:'在歸於希波克拉底名下的文獻中,記載了關節異常鬆弛、皮膚多處疤痕的病症,是現存最早的相關描述。'
+          }
+        },
+        {
+          id:'tschernogubow', sortKey:1892,
+          dateLabel:{ en:'1892', es:'1892', zh:'1892年' },
+          label:{ en:"Tschernogubow's Clinical Description", es:'La descripción clínica de Tschernogubow', zh:'Tschernogubow 的臨床描述' },
+          blurb:{
+            en:'Russian dermatologist A. N. Tschernogubow presents the first comprehensive clinical description of the syndrome to a medical society in Moscow.',
+            es:'El dermatólogo ruso A. N. Tschernogubow presenta la primera descripción clínica completa del síndrome ante una sociedad médica en Moscú.',
+            zh:'俄國皮膚科醫師 A. N. Tschernogubow 在莫斯科的一場醫學會議上,發表了這個症候群第一份完整的臨床描述。'
+          }
+        },
+        {
+          id:'ehlers', sortKey:1901,
+          dateLabel:{ en:'1901', es:'1901', zh:'1901年' },
+          label:{ en:'Edvard Ehlers Defines the Syndrome', es:'Edvard Ehlers define el síndrome', zh:'Edvard Ehlers 定義這個症候群' },
+          blurb:{
+            en:'Danish dermatologist Edvard Ehlers systematically describes a patient with joint laxity, stretchy skin, and easy bruising as a distinct clinical entity.',
+            es:'El dermatólogo danés Edvard Ehlers describe sistemáticamente a un paciente con laxitud articular, piel elástica y tendencia a los moretones, como una entidad clínica propia.',
+            zh:'丹麥皮膚科醫師 Edvard Ehlers 系統性地描述了一名關節鬆弛、皮膚可過度伸展、容易瘀傷的病患,並將其視為一種獨立的臨床病症。'
+          }
+        },
+        {
+          id:'danlos', sortKey:1908,
+          dateLabel:{ en:'1908', es:'1908', zh:'1908年' },
+          label:{ en:'Henri-Alexandre Danlos Adds Tissue Fragility', es:'Henri-Alexandre Danlos suma la fragilidad de los tejidos', zh:'Henri-Alexandre Danlos 補上組織脆弱性' },
+          blurb:{
+            en:'French dermatologist Henri-Alexandre Danlos describes cases with severe skin fragility, extensibility, and molluscoid pseudotumors over pressure points.',
+            es:'El dermatólogo francés Henri-Alexandre Danlos describe casos con fragilidad severa de la piel, elasticidad y pseudotumores moluscoides sobre puntos de presión.',
+            zh:'法國皮膚科醫師 Henri-Alexandre Danlos 描述了皮膚嚴重脆弱、可過度伸展,以及受壓部位出現軟疣狀假腫瘤的病例。'
+          }
+        },
+        {
+          id:'chile-seed', sortKey:1911,
+          dateLabel:{ en:'1911', es:'1911', zh:'1911年' },
+          label:{ en:"Chile's Legislative Seed", es:'La semilla legislativa de Chile', zh:'智利立法的種子' },
+          blurb:{
+            en:"A parliamentary motion on health frameworks is first introduced in Chile's Congress — the earliest step on what becomes one of the longest legislative paths in Chile's history toward protecting rare-disease patients.",
+            es:'Se presenta por primera vez en el Congreso chileno una moción parlamentaria sobre marcos de salud, el primer paso de uno de los caminos legislativos más largos de la historia de Chile hacia la protección de pacientes con enfermedades raras.',
+            zh:'智利國會首次提出一項與健康框架相關的議案,這是智利歷史上最漫長的立法歷程之一的起點,最終目標是保護罕見疾病病患。'
+          }
+        },
+        {
+          id:'parkes-weber', sortKey:1936,
+          dateLabel:{ en:'1936', es:'1936', zh:'1936年' },
+          label:{ en:"The Name 'Ehlers-Danlos Syndrome'", es:"El nombre «Síndrome de Ehlers-Danlos»", zh:'「埃勒斯-當洛斯症候群」這個名字' },
+          blurb:{
+            en:'English dermatologist Frederick Parkes Weber proposes combining both names, formally establishing the term Ehlers-Danlos Syndrome (EDS).',
+            es:'El dermatólogo inglés Frederick Parkes Weber propone combinar ambos apellidos, estableciendo formalmente el término Síndrome de Ehlers-Danlos (SED).',
+            zh:'英國皮膚科醫師 Frederick Parkes Weber 提議將兩位醫師的姓氏合併,正式確立了「埃勒斯-當洛斯症候群」(EDS)這個名稱。'
+          }
+        }
+      ]
+    },
+    {
+      title: { en:'Modern Science & Policy', es:'Ciencia y políticas modernas', zh:'現代科學與政策' },
+      items: [
+        {
+          id:'jhs-1967', sortKey:1967,
+          dateLabel:{ en:'1967', es:'1967', zh:'1967年' },
+          label:{ en:'Joint Hypermobility Syndrome Described', es:'Se describe el Síndrome de Hipermovilidad Articular', zh:'關節過動症候群被提出描述' },
+          blurb:{
+            en:'Kirk, Ansell, and Bywaters publish the first clinical description of Joint Hypermobility Syndrome (JHS).',
+            es:'Kirk, Ansell y Bywaters publican la primera descripción clínica del Síndrome de Hipermovilidad Articular (JHS).',
+            zh:'Kirk、Ansell 與 Bywaters 發表了關節過動症候群(JHS)的第一份臨床描述。'
+          }
+        },
+        {
+          id:'berlin-nosology', sortKey:1986,
+          dateLabel:{ en:'1986/1988', es:'1986/1988', zh:'1986/1988年' },
+          label:{ en:'The Berlin Nosology', es:'La Nosología de Berlín', zh:'柏林分類系統' },
+          blurb:{
+            en:'Beighton et al. propose the first formal classification of EDS, organizing it into eleven subtypes (Types I–XI) by clinical and inheritance pattern.',
+            es:'Beighton y colaboradores proponen la primera clasificación formal del SED, organizándolo en once subtipos (Tipos I a XI) según el patrón clínico y hereditario.',
+            zh:'Beighton 等人提出第一套正式的 EDS 分類系統,依臨床表現與遺傳模式,將其分為十一種亞型(第 I 至 XI 型)。'
+          }
+        },
+        {
+          id:'villefranche', sortKey:1997,
+          dateLabel:{ en:'1997/1998', es:'1997/1998', zh:'1997/1998年' },
+          label:{ en:'The Villefranche Nosology', es:'La Nosología de Villefranche', zh:'維爾弗朗什分類系統' },
+          blurb:{
+            en:'A new nosology simplifies EDS into six major clinical subtypes and introduces structured major and minor diagnostic criteria.',
+            es:'Una nueva nosología simplifica el SED en seis subtipos clínicos principales e introduce criterios diagnósticos mayores y menores estructurados.',
+            zh:'新的分類系統將 EDS 簡化為六種主要臨床亞型,並建立了結構化的主要與次要診斷標準。'
+          }
+        },
+        {
+          id:'hypermobility-spectrum', sortKey:1999,
+          dateLabel:{ en:'1999', es:'1999', zh:'1999年' },
+          label:{ en:'One Continuous Spectrum', es:'Un solo espectro continuo', zh:'一個連續的光譜' },
+          blurb:{
+            en:'Rheumatologist Rodney Grahame proposes that benign joint hypermobility and JHS are not separate conditions, but two ends of a single spectrum.',
+            es:'El reumatólogo Rodney Grahame propone que la hipermovilidad articular benigna y el JHS no son condiciones separadas, sino los dos extremos de un mismo espectro.',
+            zh:'風濕科醫師 Rodney Grahame 提出,良性關節過動與 JHS 並非兩種獨立的病症,而是同一個光譜的兩端。'
+          }
+        },
+        {
+          id:'tnxb-cleds', sortKey:2001,
+          dateLabel:{ en:'2001', es:'2001', zh:'2001年' },
+          label:{ en:'The TNXB Discovery', es:'El descubrimiento de TNXB', zh:'TNXB 基因的發現' },
+          blurb:{
+            en:'Schalkwijk et al. identify a recessive form of EDS caused by a deficiency of Tenascin-X (the TNXB gene), founding classical-like EDS (clEDS) as a molecular diagnosis.',
+            es:'Schalkwijk y colaboradores identifican una forma recesiva del SED causada por una deficiencia de Tenascina-X (el gen TNXB), dando origen al SED semi-clásico (SEDcl), distinto del SED clásico (SEDc), como diagnóstico molecular.',
+            zh:'Schalkwijk 等人發現一種由 Tenascin-X 蛋白缺乏(TNXB 基因)所引起的隱性遺傳型 EDS,確立了「類古典型 EDS」(clEDS,有別於「古典型 EDS」/ cEDS)作為一種分子層級的診斷。'
+          },
+          extra:{
+            en:'Personal note: this is the exact mutation genetically confirmed for me at NTU Hospital in 2022.',
+            es:'Nota personal: esta es exactamente la mutación que se me confirmó genéticamente en el NTU Hospital en 2022.',
+            zh:'個人筆記:這正是我在2022年於台大醫院(NTU Hospital)經基因檢測確認的那個突變。'
+          }
+        },
+        {
+          id:'classification-2017', sortKey:2017,
+          dateLabel:{ en:'2017', es:'2017', zh:'2017年' },
+          label:{ en:'The 2017 International Classification', es:'La Clasificación Internacional de 2017', zh:'2017年國際分類系統' },
+          blurb:{
+            en:'An international consortium publishes an updated framework classifying EDS into 13 subtypes and introduces Hypermobility Spectrum Disorder (HSD) for symptomatic patients who fall short of strict hEDS criteria.',
+            es:'Un consorcio internacional publica un marco actualizado que clasifica el SED en 13 subtipos e introduce el Trastorno del Espectro de Hipermovilidad (HSD) para pacientes sintomáticos que no cumplen los criterios estrictos del SED hipermóvil.',
+            zh:'一個國際聯盟發表更新後的分類架構,將 EDS 分為13種亞型,並提出「過動症光譜疾患」(HSD)一詞,用來涵蓋症狀符合但未達嚴格 hEDS 診斷標準的病患。'
+          }
+        },
+        {
+          id:'chile-law', sortKey:2025,
+          dateLabel:{ en:'2025', es:'2025', zh:'2025年' },
+          label:{ en:"Chile's Rare Disease Law", es:'La ley chilena de enfermedades raras', zh:'智利的罕見疾病法' },
+          blurb:{
+            en:'After more than 13 years of parliamentary debate, Ley N.º 21.743 is promulgated, establishing Chile\'s first legal framework for rare, orphan, and infrequent diseases.',
+            es:'Tras más de 13 años de debate parlamentario, se promulga la Ley N.º 21.743, el primer marco legal de Chile para enfermedades raras, huérfanas y poco frecuentes.',
+            zh:'歷經超過13年的國會辯論後,《21.743號法律》正式頒布,這是智利第一部針對罕見、孤兒與少見疾病的法律框架。'
+          }
+        },
+        {
+          id:'next-nosology', sortKey:2026,
+          dateLabel:{ en:'2026', es:'2026', zh:'2026年' },
+          label:{ en:'The Next Nosology', es:'La próxima nosología', zh:'下一版分類系統' },
+          blurb:{
+            en:'The global medical and patient community prepares updated diagnostic criteria for EDS and HSD, aiming to close the diagnostic gaps that remain.',
+            es:'La comunidad médica y de pacientes a nivel mundial prepara criterios diagnósticos actualizados para el SED y el HSD, con el objetivo de cerrar los vacíos diagnósticos que persisten.',
+            zh:'全球醫學界與病患社群,正在為 EDS 與 HSD 準備更新的診斷標準,希望能補上目前仍存在的診斷落差。'
+          }
+        }
+      ]
+    }
+  ];
+
+  const GT = {
+    round:      { en:'Round %a of %b: %t', es:'Ronda %a de %b: %t', zh:'第 %a / %b 輪:%t' },
+    lives:      { en:'🦓 Lives: %s', es:'🦓 Vidas: %s', zh:'🦓 生命:%s' },
+    spoons:     { en:'🥄 Spoons: %s', es:'🥄 Cucharas: %s', zh:'🥄 湯匙:%s' },
+    instructions:{ en:'Tap the one that happened next, in order.', es:'Toca el que ocurrió a continuación, en orden.', zh:'依序點選下一個發生的事件。' },
+    spoonBtn:   { en:'Use a spoon (reveal next)', es:'Usar una cuchara (revelar el siguiente)', zh:'使用湯匙(揭曉下一個)' },
+    overScore:  { en:'Out of lives', es:'Sin vidas', zh:'生命值用完了' },
+    overBody:   { en:'You placed %s of 14 correctly before running out of 🦓 lives.', es:'Colocaste %s de 14 correctamente antes de quedarte sin vidas 🦓.', zh:'在生命值🦓用完之前,你正確排出了14項中的%s項。' },
+    retry:      { en:'Try again', es:'Intentar de nuevo', zh:'再試一次' },
+    endScore:   { en:'%s / 14', es:'%s / 14', zh:'%s / 14' },
+    high:       { en:"Perfect run — you know this history better than most clinicians do.", es:'Ronda perfecta — conoces esta historia mejor que la mayoría de los clínicos.', zh:'完美通關——你對這段歷史的了解,已經超過大多數臨床醫師。' },
+    mid:        { en:'Solid — thirteen centuries of rare-disease history, mostly in order.', es:'Sólido — trece siglos de historia de enfermedades raras, casi en orden.', zh:'表現不錯——十三個世紀的罕見疾病歷史,大致排對了。' },
+    low:        { en:'This history is obscure by design — most of it only got written down because patients pushed for it.', es:'Esta historia es poco conocida a propósito — gran parte de ella solo quedó registrada porque los pacientes insistieron.', zh:'這段歷史本來就不廣為人知——很大一部分,是因為病患堅持爭取,才被記錄下來。' },
+    copy:       { en:'Copy score text (for Instagram, Threads, etc.)', es:'Copiar el texto (para Instagram, Threads, etc.)', zh:'複製分數文字(可用於 Instagram、Threads 等)' },
+    copied:     { en:'Copied — paste it wherever you like.', es:'Copiado — pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
+    mastodonLabel: { en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
+    mastodonBtn:   { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
+    shareText:  { en:'I ordered %s/14 EDS & rare-disease history milestones correctly', es:'Ordené correctamente %s/14 hitos de la historia del SED y las enfermedades raras', zh:'我正確排出了14項 EDS 與罕見疾病歷史事件中的%s項' }
+  };
+
+  const gEls = {
+    round: document.getElementById('g-round'),
+    lives: document.getElementById('g-lives'),
+    spoons: document.getElementById('g-spoons'),
+    play: document.getElementById('g-play'),
+    roundTitle: document.getElementById('g-round-title'),
+    instructions: document.getElementById('g-instructions'),
+    timeline: document.getElementById('g-timeline'),
+    pool: document.getElementById('g-pool'),
+    spoonBtn: document.getElementById('g-spoon-btn'),
+    over: document.getElementById('g-over'),
+    overScore: document.getElementById('g-over-score'),
+    overBody: document.getElementById('g-over-body'),
+    retry1: document.getElementById('g-retry-1'),
+    end: document.getElementById('g-end'),
+    endScore: document.getElementById('g-end-score'),
+    endVerdict: document.getElementById('g-end-verdict'),
+    retry2: document.getElementById('g-retry-2'),
+    bsky: document.getElementById('g-bsky'),
+    x: document.getElementById('g-x'),
+    facebook: document.getElementById('g-facebook'),
+    copy: document.getElementById('g-copy'),
+    copyNote: document.getElementById('g-copy-note'),
+    linkedin: document.getElementById('g-linkedin'),
+    mastodonLabel: document.getElementById('g-mastodon-label'),
+    mastodonInstance: document.getElementById('g-mastodon-instance'),
+    mastodonBtn: document.getElementById('g-mastodon-btn'),
+    sources: document.getElementById('g-sources')
+  };
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  let lives, spoons, roundIdx, pool, placed, over, finished;
+
+  function resetGame(){
+    lives = 3; spoons = 3; roundIdx = 0; placed = [];
+    pool = shuffle(ROUNDS[0].items);
+    over = false; finished = false;
+    render();
+  }
+
+  function currentItem(id){
+    for (const r of ROUNDS) for (const it of r.items) if (it.id === id) return it;
+  }
+
+  function placeCorrect(item){
+    placed.push(item.id);
+    pool = pool.filter(it => it.id !== item.id);
+    if (pool.length === 0){
+      if (roundIdx < ROUNDS.length - 1){
+        roundIdx++;
+        pool = shuffle(ROUNDS[roundIdx].items);
+      } else {
+        finished = true;
+      }
+    }
+    render();
+  }
+
+  function nextCorrectInPool(){
+    return pool.reduce((min, it) => (it.sortKey < min.sortKey ? it : min), pool[0]);
+  }
+
+  function tap(id, btn){
+    const item = pool.find(it => it.id === id);
+    const target = nextCorrectInPool();
+    if (item.id === target.id){
+      placeCorrect(item);
+    } else {
+      btn.classList.add('wrong');
+      lives--;
+      if (lives <= 0){
+        over = true;
+        render();
+      } else {
+        setTimeout(() => { btn.classList.remove('wrong'); render(); }, 260);
+      }
+    }
+  }
+
+  function useSpoon(){
+    if (spoons <= 0 || pool.length === 0 || over || finished) return;
+    spoons--;
+    placeCorrect(nextCorrectInPool());
+  }
+
+  function render(){
+    if (over){
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = 'none';
+      gEls.over.style.display = '';
+      gEls.overScore.textContent = gt(GT.overScore);
+      gEls.overBody.textContent = gt(GT.overBody).replace('%s', placed.length);
+      gEls.retry1.textContent = gt(GT.retry);
+      gEls.sources.style.display = '';
+      return;
+    }
+    if (finished){
+      gEls.play.style.display = 'none';
+      gEls.over.style.display = 'none';
+      gEls.end.style.display = '';
+      gEls.sources.style.display = '';
+      const total = ROUNDS.reduce((n, r) => n + r.items.length, 0);
+      gEls.endScore.textContent = gt(GT.endScore).replace('%s', placed.length);
+      const spoonsUsed = 3 - spoons;
+      const verdict = (lives === 3 && spoonsUsed === 0) ? gt(GT.high) : (lives >= 1 ? gt(GT.mid) : gt(GT.low));
+      gEls.endVerdict.textContent = verdict;
+      gEls.retry2.textContent = gt(GT.retry);
+      gEls.copy.textContent = gt(GT.copy);
+      gEls.copyNote.style.display = 'none';
+      gEls.mastodonLabel.textContent = gt(GT.mastodonLabel);
+      gEls.mastodonBtn.textContent = gt(GT.mastodonBtn);
+      gEls.mastodonInstance.value = '';
+
+      const shareText = gt(GT.shareText).replace('%s', placed.length);
+      const shareUrl = location.href.split('#')[0];
+      const links = buildShareLinks(shareText, '#EDSTimelineGame', shareUrl);
+      gEls.bsky.href = links.bsky;
+      gEls.x.href = links.x;
+      gEls.facebook.href = links.facebook;
+      gEls.linkedin.href = links.linkedin;
+      gEls.mastodonBtn.onclick = () => {
+        const instance = gEls.mastodonInstance.value.trim();
+        if (!instance){ gEls.mastodonInstance.focus(); return; }
+        window.open(links.mastodon(instance), '_blank', 'noopener');
+      };
+      gEls.copy.onclick = () => copyToClipboard(links.full, () => {
+        gEls.copyNote.textContent = gt(GT.copied);
+        gEls.copyNote.style.display = '';
+      });
+      renderTimeline();
+      return;
+    }
+
+    gEls.play.style.display = '';
+    gEls.over.style.display = 'none';
+    gEls.end.style.display = 'none';
+    gEls.sources.style.display = 'none';
+
+    gEls.round.innerHTML = gt(GT.round).replace('%a', roundIdx + 1).replace('%b', ROUNDS.length).replace('%t', gt(ROUNDS[roundIdx].title));
+    gEls.lives.textContent = gt(GT.lives).replace('%s', lives);
+    gEls.spoons.textContent = gt(GT.spoons).replace('%s', spoons);
+    gEls.roundTitle.textContent = gt(ROUNDS[roundIdx].title);
+    gEls.instructions.textContent = gt(GT.instructions);
+    gEls.spoonBtn.textContent = gt(GT.spoonBtn);
+    gEls.spoonBtn.disabled = spoons <= 0;
+
+    renderTimeline();
+
+    gEls.pool.innerHTML = '';
+    pool.forEach(item => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt';
+      b.textContent = gt(item.label);
+      b.addEventListener('click', () => tap(item.id, b));
+      gEls.pool.appendChild(b);
+    });
+  }
+
+  function renderTimeline(){
+    gEls.timeline.innerHTML = '';
+    placed.forEach(id => {
+      const item = currentItem(id);
+      const row = document.createElement('div');
+      row.className = 'g-timeline-item';
+      row.innerHTML = `
+        <span class="yr">${gt(item.dateLabel)}</span>
+        <div class="txt">
+          <b>${gt(item.label)}</b>
+          <p>${gt(item.blurb)}</p>
+          ${item.extra ? `<p class="extra">${gt(item.extra)}</p>` : ''}
+        </div>
+      `;
+      gEls.timeline.appendChild(row);
+    });
+  }
+
+  gEls.spoonBtn.addEventListener('click', useSpoon);
+  gEls.retry1.addEventListener('click', resetGame);
+  gEls.retry2.addEventListener('click', resetGame);
+
+  applyLang(savedLang);
+  gameReady = true;
+  resetGame();
+</script>
+
+</body>
+</html>

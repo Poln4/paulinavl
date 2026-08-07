@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Myth or Fact? — a games.paulinavl.github.io game</title>
+<meta name="description" content="Myth or fact? Six real claims about reading and language learning, backed by real research citations, from the Reading Club's own quiz.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:18px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .topbar{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;
+    padding-top:24px;
+  }
+  .backlink{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    border-bottom:1px solid var(--red); padding-bottom:1px;
+  }
+  .controls{ display:flex; flex-wrap:wrap; gap:8px; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  header.hero{padding:44px 0 30px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(32px, 6.6vw, 46px);
+    line-height:1.05; margin:0 0 14px; text-shadow:var(--stroke-shadow);
+  }
+  .lede{ font-size:18px; color:var(--ink-soft); max-width:58ch; margin:0 0 14px; }
+  .note{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
+    border-left:2px solid var(--rule); padding-left:10px; margin-top:8px; max-width:58ch;
+  }
+  .note a{ color:var(--red); }
+
+  section{ padding:24px 0 54px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block; cursor:pointer;
+    background:transparent;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+
+  .game{
+    border:2px solid var(--gold); border-radius:12px;
+    padding:24px 22px; background:var(--bg-panel); margin-top:8px;
+  }
+  .game-top{
+    display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+  }
+  .rm-instructions{ font-size:15px; text-align:center; color:var(--ink-soft); margin:0 0 4px; }
+
+  .rm-card{
+    text-align:center; border:1.5px solid var(--rule); border-radius:10px;
+    background:var(--bg); padding:28px 22px; margin:18px 0;
+  }
+  .rm-statement{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(20px,3.6vw,25px);
+    line-height:1.35; margin:0; text-shadow:var(--stroke-shadow);
+  }
+
+  .rm-choice-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:6px; }
+  .rm-choice{
+    font-family:var(--font-mono); font-size:15px; padding:14px 30px;
+    border-radius:8px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:background .15s ease, color .15s ease;
+    min-width:150px;
+  }
+  .rm-choice:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
+  .rm-choice.myth{ border-color:var(--red); color:var(--red); }
+  .rm-choice.myth:hover:not(:disabled){ background:var(--red); color:var(--bg); }
+  .rm-choice.fact{ border-color:var(--teal); color:var(--teal); }
+  .rm-choice.fact:hover:not(:disabled){ background:var(--teal); color:var(--bg); }
+  .rm-choice:disabled{ opacity:.4; cursor:default; }
+  .rm-choice.chosen{ opacity:1 !important; }
+
+  .rm-verdict{ text-align:center; font-family:var(--font-mono); font-size:13.5px; font-weight:600; margin:14px 0 4px; letter-spacing:.03em; }
+  .rm-verdict.correct{ color:var(--teal); }
+  .rm-verdict.wrong{ color:var(--red); }
+  .rm-why{
+    margin:10px auto 0; max-width:56ch; border-left:3px solid var(--gold); padding-left:14px;
+    font-size:15.5px; color:var(--ink-soft); text-align:left; display:none;
+  }
+  .rm-why.show{ display:block; }
+  .rm-why b{ color:var(--ink); font-weight:600; }
+  .rm-cite{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); margin-top:6px; }
+
+  .game-actions{ margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .game-final{ text-align:center; padding:6px 0; }
+  .game-score{
+    font-family:var(--font-display); font-size:36px; font-weight:700;
+    color:var(--red); line-height:1.1;
+  }
+  .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
+  .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+  .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
+  .mastodon-input{
+    font-family:var(--font-mono); font-size:13px; padding:9px 12px;
+    border-radius:6px; border:1.5px solid var(--ink); background:var(--bg);
+    color:var(--ink); min-width:180px;
+  }
+  .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
+
+  .refs{ margin-top:14px; }
+  .refs summary{ font-family:var(--font-mono); font-size:12.5px; color:var(--teal); cursor:pointer; }
+  .refs ol{ font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); padding-left:20px; margin-top:10px; }
+  .refs li{ margin-bottom:8px; }
+
+  footer{ padding:40px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <div class="topbar">
+    <a class="backlink" href="../games.html">
+      <span class="i18n" data-lang="en">← All games</span>
+      <span class="i18n" data-lang="es" style="display:none">← Todos los juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">← 所有遊戲</span>
+    </a>
+    <div class="controls">
+      <div class="toggle-group" role="group" aria-label="Theme">
+        <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+        <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Language">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-zh" type="button">中</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">📚 Reading Club research, playable</span>
+      <span class="i18n" data-lang="es" style="display:none">📚 la investigación del Club de Lectura, para jugar</span>
+      <span class="i18n" data-lang="zh" style="display:none">📚 讀書會的研究,現在可以玩了</span>
+    </span>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">Myth or Fact?</span>
+      <span class="i18n" data-lang="es" style="display:none">¿Mito o hecho?</span>
+      <span class="i18n" data-lang="zh" style="display:none">迷思還是事實?</span>
+    </h1>
+    <p class="lede i18n" data-lang="en">Six real claims about reading and language learning. Say myth or fact. You have 3 lives.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Seis afirmaciones reales sobre la lectura y el aprendizaje de idiomas. Di si es mito o hecho. Tienes 3 vidas.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">六個關於閱讀與語言學習的真實說法。請判斷是迷思還是事實。你有3條生命。</p>
+    <p class="note i18n" data-lang="en">Built straight from the "Myth or Fact? Test What You Know" quiz on the <a href="https://poln4.pythonanywhere.com">Reading Club</a> site, citations included.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Construido directamente a partir del cuestionario «¿Mito o hecho? Pon a prueba lo que sabes» del sitio del <a href="https://poln4.pythonanywhere.com">Club de Lectura</a>, citas incluidas.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">內容直接取自<a href="https://poln4.pythonanywhere.com">讀書會</a>網站上的「迷思還是事實?測試你所知道的」測驗,並附上完整引用來源。</p>
+  </header>
+
+  <section>
+    <div class="game" id="game-box">
+      <div class="game-top">
+        <span id="g-count"></span>
+        <span id="g-lives"></span>
+      </div>
+
+      <div id="g-play">
+        <p class="rm-instructions" id="g-instructions"></p>
+        <p class="mastodon-label" id="g-key-hint"></p>
+
+        <div class="rm-card">
+          <p class="rm-statement" id="g-statement"></p>
+        </div>
+
+        <div class="rm-choice-row" id="g-choices"></div>
+        <p class="rm-verdict" id="g-verdict"></p>
+        <div class="rm-why" id="g-why"></div>
+
+        <div class="game-actions" id="g-actions"></div>
+      </div>
+
+      <div id="g-over" class="game-final" style="display:none;">
+        <p class="game-score" id="g-over-score"></p>
+        <p id="g-over-body"></p>
+        <div class="game-actions"><button class="btn primary" type="button" id="g-retry-1"></button></div>
+      </div>
+
+      <div id="g-end" class="game-final" style="display:none;">
+        <p class="game-score" id="g-end-score"></p>
+        <p id="g-end-verdict"></p>
+        <div class="share-row">
+          <a class="btn primary" id="g-bsky" href="#" target="_blank" rel="noopener">Bluesky</a>
+          <a class="btn" id="g-x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="btn" id="g-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" id="g-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="mastodon-label" id="g-mastodon-label"></p>
+        <div class="mastodon-row">
+          <input type="text" id="g-mastodon-instance" class="mastodon-input" placeholder="mastodon.social">
+          <button class="btn" type="button" id="g-mastodon-btn"></button>
+        </div>
+        <div class="game-actions">
+          <button class="btn" type="button" id="g-copy"></button>
+          <button class="btn" type="button" id="g-retry-2"></button>
+        </div>
+        <p class="g-copy-note" id="g-copy-note" style="display:none;"></p>
+      </div>
+
+      <details class="refs">
+        <summary>
+          <span class="i18n" data-lang="en">Full reference list (10 sources)</span>
+          <span class="i18n" data-lang="es" style="display:none">Lista completa de referencias (10 fuentes)</span>
+          <span class="i18n" data-lang="zh" style="display:none">完整參考文獻清單(10篇來源)</span>
+        </summary>
+        <ol>
+          <li>Beglar, D., &amp; Hunt, A. (2014). Pleasure reading and reading rate gains. <em>Reading in a Foreign Language</em>, 26(1), 29-48.</li>
+          <li>Day, R. R., &amp; Bamford, J. (1998). <em>Extensive reading in the second language classroom.</em> Cambridge University Press.</li>
+          <li>Grabe, W. (2009). <em>Reading in a second language: Moving from theory to practice.</em> Cambridge University Press.</li>
+          <li>Krashen, S. (2013). <em>Second language acquisition: Theory, applications, and some conjectures.</em> Cambridge University Press.</li>
+          <li>Lee, J. (2002). The incidental acquisition of Spanish. <em>Studies in Second Language Acquisition</em>, 24, 55-80.</li>
+          <li>Nation, I. S. P. (2001). <em>Learning vocabulary in another language.</em> Cambridge University Press.</li>
+          <li>Rodrigo, V. (2006). The amount of input matters: Incidental acquisition of grammar through listening and reading. <em>The International Journal of Foreign Language Teaching</em>, 2(1), 10-13.</li>
+          <li>Rodrigo, V. (2024). Expanding insights of vocabulary knowledge, metacognitive knowledge, and reading. <em>Reading in a Foreign Language</em>, 37(1), 1-14.</li>
+          <li>Tan, Y. T. (2001). Effective strategies to get teenagers hooked on reading. <em>Extensive Reading World Congress Proceedings.</em></li>
+          <li>Webb, S., Pellicer-Sánchez, A., &amp; Wang, A. (2025). Lexical coverage and reading comprehension revisited. <em>Reading in a Foreign Language</em>, 37(1), 1-21.</li>
+        </ol>
+      </details>
+    </div>
+  </section>
+
+  <footer>
+    <span class="i18n" data-lang="en">Play the reading game itself at the <a href="https://poln4.pythonanywhere.com">Reading Club</a>.</span>
+    <span class="i18n" data-lang="es" style="display:none">Juega el juego de lectura en sí en el <a href="https://poln4.pythonanywhere.com">Club de Lectura</a>.</span>
+    <span class="i18n" data-lang="zh" style="display:none">歡迎到<a href="https://poln4.pythonanywhere.com">讀書會</a>玩真正的閱讀遊戲。</span>
+  </footer>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
+  function applyLang(l){
+    currentLang = l;
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+    if (gameReady) render();
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  /* ---------- share helper (same shape as index.html / other games) ---------- */
+  function buildShareLinks(text, hashtag, url){
+    const full = `${text} ${hashtag} ${url}`;
+    return {
+      full,
+      bsky: `https://bsky.app/intent/compose?text=${encodeURIComponent(full)}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + hashtag)}&url=${encodeURIComponent(url)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      mastodon(instance){
+        const host = instance.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+        return `https://${host}/share?text=${encodeURIComponent(full)}`;
+      }
+    };
+  }
+  function copyToClipboard(text, cb){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(cb).catch(() => fallbackCopy(text, cb));
+    } else {
+      fallbackCopy(text, cb);
+    }
+  }
+  function fallbackCopy(text, cb){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  /* ---------- Myth or Fact game ---------- */
+  var gameReady = false;
+
+  /* Every statement, verdict, and citation below comes straight from the
+     Reading Club's own "Myth or Fact? Test What You Know" quiz. */
+  const ITEMS = [
+    {
+      id:'simplification', verdict:'myth',
+      statement:{
+        en:'Books adapted for language learners (graded readers) distort the language and are not considered authentic input.',
+        es:'Los libros adaptados para estudiantes de idiomas (lecturas graduadas) distorsionan el idioma y no se consideran input auténtico.',
+        zh:'為語言學習者改編的書籍(分級讀本)會扭曲語言,不被視為真實輸入(authentic input)。'
+      },
+      explanation:{
+        en:'Day and Bamford (1998) caution against "the myth of simplification." They argue that language learner literature is authentic when its main purpose is to successfully communicate meaning.',
+        es:'Day y Bamford (1998) advierten sobre «el mito de la simplificación». Sostienen que la literatura para estudiantes de idiomas es auténtica cuando su propósito principal es comunicar el significado con éxito.',
+        zh:'Day 與 Bamford(1998)提醒大家注意「簡化的迷思」。他們主張,只要語言學習文本的主要目的是成功傳達意義,它就是真實的(authentic)。'
+      },
+      cite:'Day & Bamford, 1998'
+    },
+    {
+      id:'98percent', verdict:'myth',
+      statement:{
+        en:'You must already know 98% of the words on a page to successfully understand a text in a foreign language.',
+        es:'Debes conocer ya el 98% de las palabras de una página para poder entender un texto en un idioma extranjero.',
+        zh:'你必須先認得一頁文字中98%的單字,才能成功理解一篇外語文本。'
+      },
+      explanation:{
+        en:'While 98% is a traditional benchmark, recent studies show that acceptable comprehension can be achieved at 90% coverage when visual and contextual supports (like pictures) are available (Webb, Pellicer-Sánchez, & Wang, 2025).',
+        es:'Aunque el 98% es un referente tradicional, estudios recientes muestran que se puede lograr una comprensión aceptable con solo un 90% de cobertura, cuando hay apoyos visuales y contextuales (como imágenes) disponibles (Webb, Pellicer-Sánchez, y Wang, 2025).',
+        zh:'雖然98%是傳統上的參考標準,但近期研究顯示,只要有圖片等視覺與情境輔助,涵蓋率90%就能達到可接受的理解程度(Webb、Pellicer-Sánchez 與 Wang,2025年)。'
+      },
+      cite:'Webb, Pellicer-Sánchez, & Wang, 2025'
+    },
+    {
+      id:'picturebooks', verdict:'myth',
+      statement:{
+        en:"Children's picture books are only effective for young learners and do not benefit adult beginners.",
+        es:'Los libros ilustrados infantiles solo son efectivos para estudiantes jóvenes y no benefician a los adultos principiantes.',
+        zh:'兒童繪本只對年輕學習者有效,對成人初學者沒有幫助。'
+      },
+      explanation:{
+        en:'Picture books appeal to a wide audience. Research shows that visual aids help make input comprehensible, and novice adult learners report higher enjoyment and motivation when reading accessible illustrated books (Krashen, 2013; Rodrigo, 2024; Tan, 2001).',
+        es:'Los libros ilustrados atraen a un público amplio. La investigación muestra que las ayudas visuales hacen que el input sea más comprensible, y los adultos principiantes reportan más disfrute y motivación al leer libros ilustrados accesibles (Krashen, 2013; Rodrigo, 2024; Tan, 2001).',
+        zh:'繪本能吸引廣泛的讀者群。研究顯示,視覺輔助有助於讓輸入內容更容易理解,而初學的成人學習者在閱讀淺顯易懂的繪本時,也回報了更高的樂趣與動機(Krashen,2013年;Rodrigo,2024年;Tan,2001年)。'
+      },
+      cite:'Krashen, 2013; Rodrigo, 2024; Tan, 2001'
+    },
+    {
+      id:'grammar', verdict:'fact',
+      statement:{
+        en:"Reading for pleasure can improve your grammar even if you don't explicitly study grammar rules.",
+        es:'Leer por placer puede mejorar tu gramática, incluso si no estudias las reglas gramaticales de forma explícita.',
+        zh:'即使你沒有明確地學習文法規則,為樂趣而讀也能改善你的文法能力。'
+      },
+      explanation:{
+        en:'Research shows that incidental acquisition of grammar occurs through extensive reading, as the brain subconsciously notices and acquires language patterns (Lee, 2002; Rodrigo, 2006).',
+        es:'La investigación muestra que la adquisición incidental de la gramática ocurre a través de la lectura extensiva, ya que el cerebro nota y adquiere patrones del idioma de forma subconsciente (Lee, 2002; Rodrigo, 2006).',
+        zh:'研究顯示,透過廣泛閱讀,文法的附帶習得(incidental acquisition)確實會發生,因為大腦會在不自覺中注意並習得語言的規律(Lee,2002年;Rodrigo,2006年)。'
+      },
+      cite:'Lee, 2002; Rodrigo, 2006'
+    },
+    {
+      id:'dictionary', verdict:'myth',
+      statement:{
+        en:'Using a dictionary to translate every unknown word is the best way to improve reading comprehension.',
+        es:'Usar un diccionario para traducir cada palabra desconocida es la mejor manera de mejorar la comprensión lectora.',
+        zh:'查字典翻譯每一個不認識的單字,是提升閱讀理解力的最佳方法。'
+      },
+      explanation:{
+        en:'Looking up every word interrupts the reading flow and overloads working memory. Researchers suggest relying on context and using graded readers to minimize dictionary use (Day & Bamford, 1998; Nation, 2001).',
+        es:'Buscar cada palabra interrumpe el flujo de la lectura y sobrecarga la memoria de trabajo. Los investigadores sugieren apoyarse en el contexto y usar lecturas graduadas para minimizar el uso del diccionario (Day y Bamford, 1998; Nation, 2001).',
+        zh:'查閱每一個單字都會打斷閱讀的流暢度,並讓工作記憶超載。研究者建議依賴上下文,並透過分級讀本,將查字典的頻率降到最低(Day 與 Bamford,1998年;Nation,2001年)。'
+      },
+      cite:'Day & Bamford, 1998; Nation, 2001'
+    },
+    {
+      id:'easiertexts', verdict:'fact',
+      statement:{
+        en:'Reading texts that are slightly below your current proficiency level helps you read faster and more fluently.',
+        es:'Leer textos ligeramente por debajo de tu nivel actual te ayuda a leer más rápido y con más fluidez.',
+        zh:'閱讀略低於你目前程度的文本,有助於提升閱讀速度與流暢度。'
+      },
+      explanation:{
+        en:'Reading easier texts builds reading fluency and automaticity. This allows you to process language faster and increases overall reading speed (Beglar & Hunt, 2014; Grabe, 2009).',
+        es:'Leer textos más fáciles desarrolla la fluidez y la automaticidad lectora. Esto te permite procesar el idioma más rápido y aumenta tu velocidad de lectura en general (Beglar y Hunt, 2014; Grabe, 2009).',
+        zh:'閱讀較簡單的文本,能培養閱讀的流暢度與自動化程度,讓你更快處理語言,並提升整體閱讀速度(Beglar 與 Hunt,2014年;Grabe,2009年)。'
+      },
+      cite:'Beglar & Hunt, 2014; Grabe, 2009'
+    }
+  ];
+
+  const GT = {
+    count:       { en:'Statement %a of %b', es:'Afirmación %a de %b', zh:'第 %a / %b 條' },
+    lives:       { en:'📖 Lives: %s', es:'📖 Vidas: %s', zh:'📖 生命:%s' },
+    instructions:{ en:'Myth or fact?', es:'¿Mito o hecho?', zh:'這是迷思還是事實?' },
+    keyHint:     { en:'Keyboard: ← for myth, → for fact, Enter for next', es:'Teclado: ← mito, → hecho, Enter para siguiente', zh:'鍵盤:← 迷思,→ 事實,Enter 進到下一題' },
+    myth:        { en:'Myth', es:'Mito', zh:'迷思' },
+    fact:        { en:'Fact', es:'Hecho', zh:'事實' },
+    correct:     { en:'Correct', es:'Correcto', zh:'答對了' },
+    incorrect:   { en:'Incorrect', es:'Incorrecto', zh:'答錯了' },
+    source:      { en:'Source: %c', es:'Fuente: %c', zh:'來源:%c' },
+    next:        { en:'Next →', es:'Siguiente →', zh:'下一個 →' },
+    results:     { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
+    overScore:   { en:'Out of lives', es:'Sin vidas', zh:'生命值用完了' },
+    overBody:    { en:'You got %s of 6 right before running out of lives.', es:'Acertaste %s de 6 antes de quedarte sin vidas.', zh:'在生命值用完之前,你答對了6題中的%s題。' },
+    retry:       { en:'Try again', es:'Intentar de nuevo', zh:'再試一次' },
+    endScore:    { en:'%s / 6', es:'%s / 6', zh:'%s / 6' },
+    high:        { en:'Perfect — you know your reading research.', es:'Perfecto: te sabes bien la investigación sobre lectura.', zh:'滿分——你對閱讀研究瞭若指掌。' },
+    mid:         { en:'Solid — most reading myths are more specific and more interesting than they sound.', es:'Sólido: la mayoría de los mitos sobre la lectura son más específicos y más interesantes de lo que parecen.', zh:'表現不錯——大多數關於閱讀的迷思,其實都比聽起來更細緻、更有趣。' },
+    low:         { en:'Which is the whole point of the Reading Club quiz this came from — most of what "everyone knows" about reading turns out to be more complicated.', es:'Y ese es justamente el punto del cuestionario del Club de Lectura del que viene esto: la mayoría de lo que «todo el mundo sabe» sobre la lectura resulta ser más complicado.', zh:'而這正是這份測驗(來自讀書會)的重點——大多數「大家都知道」的閱讀常識,其實都比想像中複雜。' },
+    copy:        { en:'Copy score text (for Instagram, Threads, etc.)', es:'Copiar el texto (para Instagram, Threads, etc.)', zh:'複製分數文字(可用於 Instagram、Threads 等)' },
+    copied:      { en:'Copied — paste it wherever you like.', es:'Copiado, pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
+    mastodonLabel:{ en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
+    mastodonBtn: { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
+    shareText:   { en:'I got %s/6 right on the reading myths quiz', es:'Acerté %s/6 en el cuestionario de mitos sobre la lectura', zh:'我在閱讀迷思測驗中答對了6題中的%s題' }
+  };
+
+  const gEls = {
+    count: document.getElementById('g-count'),
+    lives: document.getElementById('g-lives'),
+    play: document.getElementById('g-play'),
+    instructions: document.getElementById('g-instructions'),
+    keyHint: document.getElementById('g-key-hint'),
+    statement: document.getElementById('g-statement'),
+    choices: document.getElementById('g-choices'),
+    verdict: document.getElementById('g-verdict'),
+    why: document.getElementById('g-why'),
+    actions: document.getElementById('g-actions'),
+    over: document.getElementById('g-over'),
+    overScore: document.getElementById('g-over-score'),
+    overBody: document.getElementById('g-over-body'),
+    retry1: document.getElementById('g-retry-1'),
+    end: document.getElementById('g-end'),
+    endScore: document.getElementById('g-end-score'),
+    endVerdict: document.getElementById('g-end-verdict'),
+    retry2: document.getElementById('g-retry-2'),
+    bsky: document.getElementById('g-bsky'),
+    x: document.getElementById('g-x'),
+    facebook: document.getElementById('g-facebook'),
+    copy: document.getElementById('g-copy'),
+    copyNote: document.getElementById('g-copy-note'),
+    linkedin: document.getElementById('g-linkedin'),
+    mastodonLabel: document.getElementById('g-mastodon-label'),
+    mastodonInstance: document.getElementById('g-mastodon-instance'),
+    mastodonBtn: document.getElementById('g-mastodon-btn')
+  };
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  let lives, idx, score, order, picked, over, finished;
+
+  function resetGame(){
+    lives = 3; idx = 0; score = 0; picked = null; over = false; finished = false;
+    order = shuffle(ITEMS);
+    render();
+  }
+
+  function choose(verdict){
+    if (picked !== null) return;
+    picked = verdict;
+    const correct = (verdict === order[idx].verdict);
+    if (correct) score++; else lives--;
+    render();
+  }
+
+  function advance(){
+    idx++;
+    picked = null;
+    if (idx >= order.length) finished = true;
+    if (lives <= 0) over = true;
+    render();
+  }
+
+  function render(){
+    if (over){
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = 'none';
+      gEls.over.style.display = '';
+      gEls.overScore.textContent = gt(GT.overScore);
+      gEls.overBody.textContent = gt(GT.overBody).replace('%s', score);
+      gEls.retry1.textContent = gt(GT.retry);
+      return;
+    }
+    if (finished){
+      gEls.play.style.display = 'none';
+      gEls.over.style.display = 'none';
+      gEls.end.style.display = '';
+      gEls.endScore.textContent = gt(GT.endScore).replace('%s', score);
+      const verdict = (score === ITEMS.length) ? gt(GT.high) : (score >= ITEMS.length - 2 ? gt(GT.mid) : gt(GT.low));
+      gEls.endVerdict.textContent = verdict;
+      gEls.retry2.textContent = gt(GT.retry);
+      gEls.copy.textContent = gt(GT.copy);
+      gEls.copyNote.style.display = 'none';
+      gEls.mastodonLabel.textContent = gt(GT.mastodonLabel);
+      gEls.mastodonBtn.textContent = gt(GT.mastodonBtn);
+      gEls.mastodonInstance.value = '';
+
+      const shareText = gt(GT.shareText).replace('%s', score);
+      const shareUrl = location.href.split('#')[0];
+      const links = buildShareLinks(shareText, '#ReadingMythsGame', shareUrl);
+      gEls.bsky.href = links.bsky;
+      gEls.x.href = links.x;
+      gEls.facebook.href = links.facebook;
+      gEls.linkedin.href = links.linkedin;
+      gEls.mastodonBtn.onclick = () => {
+        const instance = gEls.mastodonInstance.value.trim();
+        if (!instance){ gEls.mastodonInstance.focus(); return; }
+        window.open(links.mastodon(instance), '_blank', 'noopener');
+      };
+      gEls.copy.onclick = () => copyToClipboard(links.full, () => {
+        gEls.copyNote.textContent = gt(GT.copied);
+        gEls.copyNote.style.display = '';
+      });
+      return;
+    }
+
+    gEls.play.style.display = '';
+    gEls.over.style.display = 'none';
+    gEls.end.style.display = 'none';
+
+    const item = order[idx];
+    gEls.count.textContent = gt(GT.count).replace('%a', idx + 1).replace('%b', order.length);
+    gEls.lives.textContent = gt(GT.lives).replace('%s', lives);
+    gEls.instructions.textContent = gt(GT.instructions);
+    gEls.keyHint.textContent = gt(GT.keyHint);
+    gEls.statement.textContent = gt(item.statement);
+
+    gEls.choices.innerHTML = '';
+    const mythBtn = document.createElement('button');
+    mythBtn.type = 'button';
+    mythBtn.className = 'rm-choice myth';
+    mythBtn.textContent = gt(GT.myth);
+    const factBtn = document.createElement('button');
+    factBtn.type = 'button';
+    factBtn.className = 'rm-choice fact';
+    factBtn.textContent = gt(GT.fact);
+
+    if (picked !== null){
+      mythBtn.disabled = true; factBtn.disabled = true;
+      if (picked === 'myth') mythBtn.classList.add('chosen');
+      if (picked === 'fact') factBtn.classList.add('chosen');
+    } else {
+      mythBtn.addEventListener('click', () => choose('myth'));
+      factBtn.addEventListener('click', () => choose('fact'));
+    }
+    gEls.choices.appendChild(mythBtn);
+    gEls.choices.appendChild(factBtn);
+
+    gEls.actions.innerHTML = '';
+    if (picked !== null){
+      const correct = (picked === item.verdict);
+      gEls.verdict.textContent = correct ? gt(GT.correct) : gt(GT.incorrect);
+      gEls.verdict.className = 'rm-verdict ' + (correct ? 'correct' : 'wrong');
+      gEls.why.innerHTML = `<p>${gt(item.explanation)}</p><p class="rm-cite">${gt(GT.source).replace('%c', item.cite)}</p>`;
+      gEls.why.classList.add('show');
+
+      const isLast = (idx === order.length - 1);
+      const nxt = document.createElement('button');
+      nxt.type = 'button';
+      nxt.className = 'btn primary';
+      nxt.textContent = isLast ? gt(GT.results) : gt(GT.next);
+      nxt.addEventListener('click', advance);
+      gEls.actions.appendChild(nxt);
+    } else {
+      gEls.verdict.textContent = '';
+      gEls.verdict.className = 'rm-verdict';
+      gEls.why.classList.remove('show');
+      gEls.why.innerHTML = '';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!gameReady || over || finished) return;
+    const active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+    if (picked === null){
+      if (e.key === 'ArrowLeft') choose('myth');
+      else if (e.key === 'ArrowRight') choose('fact');
+    } else {
+      if (e.key === 'Enter' || e.key === 'ArrowRight'){
+        e.preventDefault();
+        advance();
+      }
+    }
+  });
+
+  gEls.retry1.addEventListener('click', resetGame);
+  gEls.retry2.addEventListener('click', resetGame);
+
+  applyLang(savedLang);
+  gameReady = true;
+  resetGame();
+</script>
+
+</body>
+</html>

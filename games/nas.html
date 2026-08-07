@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Whose Name Is It, Anyway? — a games.paulinavl.github.io game</title>
+<meta name="description" content="Six names, six ways software gets them wrong. Guess how each one is really built, from the NAS project.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:18px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .topbar{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;
+    padding-top:24px;
+  }
+  .backlink{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    border-bottom:1px solid var(--red); padding-bottom:1px;
+  }
+  .controls{ display:flex; flex-wrap:wrap; gap:8px; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  header.hero{padding:44px 0 30px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(32px, 6.6vw, 46px);
+    line-height:1.05; margin:0 0 14px; text-shadow:var(--stroke-shadow);
+  }
+  .lede{ font-size:18px; color:var(--ink-soft); max-width:58ch; margin:0 0 14px; }
+  .note{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
+    border-left:2px solid var(--rule); padding-left:10px; margin-top:8px; max-width:58ch;
+  }
+  .note a{ color:var(--red); }
+
+  section{ padding:24px 0 54px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block; cursor:pointer;
+    background:transparent;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+
+  /* name game */
+  .game{
+    border:2px solid var(--gold); border-radius:12px;
+    padding:24px 22px; background:var(--bg-panel); margin-top:8px;
+  }
+  .game-top{
+    display:flex; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
+    letter-spacing:.08em; text-transform:uppercase;
+  }
+  .game-name{
+    font-family:var(--font-display); font-weight:700; text-align:center;
+    font-size:clamp(26px,5.4vw,40px); line-height:1.2; margin:20px 0 6px;
+    text-shadow:var(--stroke-shadow);
+  }
+  .game-origin{
+    font-family:var(--font-mono); font-size:12px; color:var(--teal);
+    text-align:center; margin:0 0 22px;
+  }
+  .game-q{ font-size:17px; text-align:center; margin:0 0 18px; }
+  .game-options{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; }
+  .opt{
+    font-family:var(--font-mono); font-size:14px; padding:10px 18px;
+    border-radius:6px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease;
+  }
+  .opt:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
+  .opt:disabled{ cursor:default; }
+  .opt.correct{ background:var(--teal); border-color:var(--teal); color:var(--bg); }
+  .opt.wrong{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .opt.muted{ opacity:.45; }
+  .game-why{
+    margin-top:20px; border-left:3px solid var(--gold); padding-left:14px;
+    font-size:15.5px; color:var(--ink-soft); display:none;
+  }
+  .game-why.show{ display:block; }
+  .game-why b{ color:var(--ink); font-weight:600; }
+  .game-actions{ margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .game-final{ text-align:center; padding:6px 0; }
+  .game-score{
+    font-family:var(--font-display); font-size:40px; font-weight:700;
+    color:var(--red); line-height:1.1;
+  }
+  .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
+  .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+  .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
+  .mastodon-input{
+    font-family:var(--font-mono); font-size:13px; padding:9px 12px;
+    border-radius:6px; border:1.5px solid var(--ink); background:var(--bg);
+    color:var(--ink); min-width:180px;
+  }
+  .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
+
+  footer{ padding:40px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <div class="topbar">
+    <a class="backlink" href="../games.html">
+      <span class="i18n" data-lang="en">← All games</span>
+      <span class="i18n" data-lang="es" style="display:none">← Todos los juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">← 所有遊戲</span>
+    </a>
+    <div class="controls">
+      <div class="toggle-group" role="group" aria-label="Theme">
+        <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+        <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Language">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-zh" type="button">中</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">🪪 NAS project, playable</span>
+      <span class="i18n" data-lang="es" style="display:none">🪪 proyecto NAS, para jugar</span>
+      <span class="i18n" data-lang="zh" style="display:none">🪪 NAS 專案,現在可以玩了</span>
+    </span>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">Whose name is it, anyway?</span>
+      <span class="i18n" data-lang="es" style="display:none">¿De quién es este nombre?</span>
+      <span class="i18n" data-lang="zh" style="display:none">這是誰的名字?</span>
+    </h1>
+    <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is really built — starting with the two I signed my site with. There is a reason I write my name the way I do; by the end you will have it.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno, empezando por los dos con los que firmo mi sitio. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構——就從我在網站上署名的那兩個開始。我這樣書寫自己的名字是有原因的;玩到最後,你就會知道。</p>
+    <p class="note i18n" data-lang="en">An interactive demo built on the <a href="../index.html#projects">NAS project</a> — a system for handling diverse name structures in software.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <a href="../index.html#projects">proyecto NAS</a>, un sistema para manejar la diversidad de estructuras de nombres en el software.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">一個以<a href="../index.html#projects">NAS專案</a>為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。</p>
+  </header>
+
+  <section>
+    <div class="game" id="game-box">
+      <div class="game-top">
+        <span id="game-count"></span>
+        <span id="game-tally"></span>
+      </div>
+      <div id="game-play">
+        <p class="game-name" id="game-name"></p>
+        <p class="game-origin" id="game-origin"></p>
+        <p class="game-q" id="game-q"></p>
+        <div class="game-options" id="game-options"></div>
+        <div class="game-why" id="game-why"></div>
+        <div class="game-actions" id="game-actions"></div>
+      </div>
+      <div id="game-end" class="game-final" style="display:none;">
+        <p class="game-score" id="game-score"></p>
+        <p id="game-verdict" style="margin-top:6px;"></p>
+        <div class="share-row">
+          <a class="btn primary" id="game-bsky" href="#" target="_blank" rel="noopener">Bluesky</a>
+          <a class="btn" id="game-x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="btn" id="game-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" id="game-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="mastodon-label" id="game-mastodon-label"></p>
+        <div class="mastodon-row">
+          <input type="text" id="game-mastodon-instance" class="mastodon-input" placeholder="mastodon.social">
+          <button class="btn" type="button" id="game-mastodon-btn"></button>
+        </div>
+        <div class="game-actions">
+          <button class="btn" type="button" id="game-copy"></button>
+          <button class="btn" type="button" id="game-again"></button>
+          <a class="btn" href="https://github.com/Poln4/nas-project">NAS project →</a>
+        </div>
+        <p class="g-copy-note" id="game-copy-note" style="display:none;"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="i18n" data-lang="en">Part of the <a href="../index.html#projects">NAS project</a> — a system built to acknowledge and respect diverse name structures and preferences.</span>
+    <span class="i18n" data-lang="es" style="display:none">Parte del <a href="../index.html#projects">proyecto NAS</a>: un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres.</span>
+    <span class="i18n" data-lang="zh" style="display:none">屬於<a href="../index.html#projects">NAS專案</a>的一部分——一套用來尊重並辨識多元姓名結構與命名偏好的系統。</span>
+  </footer>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
+  var gameReady = false;
+  function applyLang(l){
+    currentLang = l;
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+    if (gameReady) renderRound();
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  /* ---------- share helper (same shape as index.html / other games) ---------- */
+  function buildShareLinks(text, hashtag, url){
+    const full = `${text} ${hashtag} ${url}`;
+    return {
+      full,
+      bsky: `https://bsky.app/intent/compose?text=${encodeURIComponent(full)}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + hashtag)}&url=${encodeURIComponent(url)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      mastodon(instance){
+        const host = instance.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+        return `https://${host}/share?text=${encodeURIComponent(full)}`;
+      }
+    };
+  }
+  function copyToClipboard(text, cb){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(cb).catch(() => fallbackCopy(text, cb));
+    } else {
+      fallbackCopy(text, cb);
+    }
+  }
+  function fallbackCopy(text, cb){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  /* ---------- name game ---------- */
+  const NAME_ROUNDS = [
+    {
+      name: '范寶琳',
+      origin: { en:'Chinese · Paulina’s own Chinese name', es:'Chino · el nombre chino de Paulina', zh:'中文・Paulina 的中文名' },
+      q: { en:'Which part is the family name?', es:'¿Cuál parte es el apellido?', zh:'哪一部分是姓氏?' },
+      options: [
+        { en:'范 (Fàn)', es:'范 (Fàn)', zh:'范 (Fàn)' },
+        { en:'寶琳 (Bǎo-lín)', es:'寶琳 (Bǎo-lín)', zh:'寶琳 (Bǎo-lín)' }
+      ],
+      answer: 0,
+      why: {
+        en:'In Chinese the family name comes <b>first</b> — 范 (Fàn) — followed by the given name 寶琳. Software that assumes “first name = given name” flips it, and very politely calls her Ms. Bǎo-lín.',
+        es:'En chino el apellido va <b>primero</b> — 范 (Fàn) — seguido del nombre de pila 寶琳. El software que asume que «el primer nombre es el nombre de pila» lo invierte y la llama, muy cortésmente, señorita Bǎo-lín.',
+        zh:'中文的姓氏在<b>前</b>——范——接著才是名字寶琳。若軟體預設「第一個字就是名」,就會顛倒過來,客氣地稱她為「寶琳小姐」。'
+      }
+    },
+    {
+      name: 'Paulina Andrea Valenzuela Lagos',
+      origin: { en:'Chilean · Spanish-language naming', es:'Chileno · nomenclatura hispana', zh:'智利・西語圈命名方式' },
+      q: { en:'Which name would she be alphabetized under?', es:'¿Bajo qué nombre se ordenaría alfabéticamente?', zh:'依字母排序時,她會被歸在哪個名字之下?' },
+      options: [
+        { en:'Andrea', es:'Andrea', zh:'Andrea' },
+        { en:'Valenzuela', es:'Valenzuela', zh:'Valenzuela' },
+        { en:'Lagos', es:'Lagos', zh:'Lagos' }
+      ],
+      answer: 1,
+      why: {
+        en:'Spanish-speaking countries use <b>two</b> surnames: the father’s (Valenzuela) then the mother’s (Lagos). She files under Valenzuela. A form with a single “last name” box grabs Lagos instead — and quietly deletes half her family.',
+        es:'Los países hispanohablantes usan <b>dos</b> apellidos: el paterno (Valenzuela) y luego el materno (Lagos). Se ordena bajo Valenzuela. Un formulario con una sola casilla de «apellido» toma Lagos — y borra en silencio a la mitad de su familia.',
+        zh:'西語國家使用<b>兩個</b>姓氏:父姓(Valenzuela)在前,母姓(Lagos)在後,排序時歸在 Valenzuela。只有單一「姓氏」欄位的表單會抓走 Lagos,悄悄刪掉她一半的家族。'
+      }
+    },
+    {
+      name: 'Jón Einarsson',
+      origin: { en:'Icelandic', es:'Islandés', zh:'冰島' },
+      q: { en:'What is “Einarsson”?', es:'¿Qué es «Einarsson»?', zh:'「Einarsson」是什麼?' },
+      options: [
+        { en:'A family name passed down', es:'Un apellido heredado', zh:'世代相傳的家族姓氏' },
+        { en:'“Einar’s son” — it changes every generation', es:'«Hijo de Einar» — cambia en cada generación', zh:'「Einar 之子」——每一代都會改變' }
+      ],
+      answer: 1,
+      why: {
+        en:'Icelandic names are <b>patronymic</b>: Jón, son of Einar. His own children would be Jónsson or Jónsdóttir — never Einarsson. There is no shared family name at all, which is why the Icelandic phone book is alphabetized by <em>given</em> name.',
+        es:'Los nombres islandeses son <b>patronímicos</b>: Jón, hijo de Einar. Sus propios hijos serían Jónsson o Jónsdóttir — nunca Einarsson. No existe un apellido familiar compartido, y por eso la guía telefónica islandesa se ordena por el <em>nombre de pila</em>.',
+        zh:'冰島採用<b>父名制</b>:Jón 是 Einar 之子。他自己的孩子會是 Jónsson 或 Jónsdóttir,而不會是 Einarsson。家族之間根本沒有共同姓氏——這也是為什麼冰島電話簿是按<em>名字</em>排序的。'
+      }
+    },
+    {
+      name: 'Sukarno',
+      origin: { en:'Indonesian', es:'Indonesio', zh:'印尼' },
+      q: { en:'What is his surname?', es:'¿Cuál es su apellido?', zh:'他的姓氏是什麼?' },
+      options: [
+        { en:'Sukarno', es:'Sukarno', zh:'Sukarno' },
+        { en:'He does not have one', es:'No tiene', zh:'他沒有姓氏' }
+      ],
+      answer: 1,
+      why: {
+        en:'<b>Mononyms</b> are common in Indonesia — the country’s first president went by one name, full stop. Systems that require a surname force people to duplicate their name, type a placeholder, or invent a family they never had.',
+        es:'Los <b>mononímicos</b> son comunes en Indonesia — el primer presidente del país usaba un solo nombre, y punto. Los sistemas que exigen un apellido obligan a la gente a duplicar su nombre, escribir un relleno, o inventar una familia que nunca tuvo.',
+        zh:'<b>單名</b>在印尼很常見——印尼首任總統就只有一個名字。強制要求填寫姓氏的系統,會逼人重複輸入自己的名字、隨便填個字,或憑空捏造一個從來不存在的家族。'
+      }
+    },
+    {
+      name: 'María del Carmen Rodríguez García',
+      origin: { en:'Spanish · compound given name', es:'Español · nombre compuesto', zh:'西班牙・複合名' },
+      q: { en:'What is her given name?', es:'¿Cuál es su nombre de pila?', zh:'她的「名字」是哪一個?' },
+      options: [
+        { en:'María', es:'María', zh:'María' },
+        { en:'María del Carmen', es:'María del Carmen', zh:'María del Carmen' },
+        { en:'Carmen', es:'Carmen', zh:'Carmen' }
+      ],
+      answer: 1,
+      why: {
+        en:'“María del Carmen” is <b>one</b> compound given name, not two separate ones. Split it at the space and you start sending letters to “Dear María” — a name she may never once have been called. Her friends most likely call her Carmen, or Maricarmen.',
+        es:'«María del Carmen» es <b>un solo</b> nombre compuesto, no dos nombres separados. Si lo cortas en el espacio, terminas escribiendo «Estimada María» — un nombre con el que quizá nunca la han llamado. Sus amigas probablemente le dicen Carmen, o Maricarmen.',
+        zh:'「María del Carmen」是<b>一個</b>複合名,而不是兩個分開的名字。若從空格處切開,你寄出的信會寫著「親愛的 María」——一個她可能從沒被這樣叫過的名字。她的朋友多半叫她 Carmen 或 Maricarmen。'
+      }
+    },
+    {
+      name: 'Nguyễn Thị Hương',
+      origin: { en:'Vietnamese', es:'Vietnamita', zh:'越南' },
+      q: { en:'What would people actually call her?', es:'¿Cómo la llamaría la gente en realidad?', zh:'人們實際上會怎麼稱呼她?' },
+      options: [
+        { en:'Ms. Nguyễn', es:'Sra. Nguyễn', zh:'Nguyễn 女士' },
+        { en:'Ms. Hương', es:'Sra. Hương', zh:'Hương 女士' }
+      ],
+      answer: 1,
+      why: {
+        en:'Vietnamese order puts the family name first (Nguyễn — shared by roughly 40% of the country), then a middle name, then the given name. But people are addressed by their <b>given</b> name: Ms. Hương. Sort a Vietnamese list by family name and almost half of it lands in one bucket.',
+        es:'El orden vietnamita pone primero el apellido (Nguyễn — compartido por cerca del 40% del país), luego un nombre intermedio, y al final el nombre de pila. Pero a las personas se las trata por su <b>nombre de pila</b>: Sra. Hương. Ordena una lista vietnamita por apellido y casi la mitad cae en una sola casilla.',
+        zh:'越南的順序是姓氏在前(Nguyễn——全國約四成的人都姓阮),接著是中間名,最後才是名字。但人們是以<b>名字</b>相稱的:Hương 女士。若把越南名單按姓氏排序,幾乎一半的人都會擠進同一格。'
+      }
+    }
+  ];
+
+  const GT = {
+    count:   { en:'Name %a of %b', es:'Nombre %a de %b', zh:'第 %a / %b 個名字' },
+    tally:   { en:'Correct: %s', es:'Aciertos: %s', zh:'答對:%s' },
+    next:    { en:'Next name →', es:'Siguiente nombre →', zh:'下一個名字 →' },
+    results: { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
+    again:   { en:'Play again', es:'Jugar de nuevo', zh:'再玩一次' },
+    high:    { en:'You already design better forms than most software does.', es:'Ya diseñas mejores formularios que la mayoría del software.', zh:'你設計表單的功力,已經勝過大多數軟體了。' },
+    mid:     { en:'Close — and every one of these breaks a real system somewhere today.', es:'Cerca — y cada uno de estos rompe algún sistema real hoy mismo.', zh:'很接近了——而這裡的每一種情況,今天都還在弄壞某個真實系統。' },
+    low:     { en:'Which is exactly the point: none of this is obvious, and forms almost never ask.', es:'Y ese es justamente el punto: nada de esto es obvio, y los formularios casi nunca preguntan.', zh:'而這正是重點:這些都不是理所當然的,但表單幾乎從不詢問。' },
+    copy:    { en:'Copy score text (for Instagram, Threads, etc.)', es:'Copiar el texto (para Instagram, Threads, etc.)', zh:'複製分數文字(可用於 Instagram、Threads 等)' },
+    copied:  { en:'Copied — paste it wherever you like.', es:'Copiado — pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
+    mastodonLabel: { en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
+    mastodonBtn:   { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
+    shareText:{ en:'I scored %s/%b on the name game', es:'Obtuve %s/%b en el juego de nombres', zh:'我在名字小遊戲中得到了 %s/%b 分' }
+  };
+
+  const gEls = {
+    count: document.getElementById('game-count'),
+    tally: document.getElementById('game-tally'),
+    play: document.getElementById('game-play'),
+    name: document.getElementById('game-name'),
+    origin: document.getElementById('game-origin'),
+    q: document.getElementById('game-q'),
+    options: document.getElementById('game-options'),
+    why: document.getElementById('game-why'),
+    actions: document.getElementById('game-actions'),
+    end: document.getElementById('game-end'),
+    score: document.getElementById('game-score'),
+    verdict: document.getElementById('game-verdict'),
+    again: document.getElementById('game-again'),
+    bsky: document.getElementById('game-bsky'),
+    x: document.getElementById('game-x'),
+    facebook: document.getElementById('game-facebook'),
+    copy: document.getElementById('game-copy'),
+    copyNote: document.getElementById('game-copy-note'),
+    linkedin: document.getElementById('game-linkedin'),
+    mastodonLabel: document.getElementById('game-mastodon-label'),
+    mastodonInstance: document.getElementById('game-mastodon-instance'),
+    mastodonBtn: document.getElementById('game-mastodon-btn')
+  };
+
+  let gIdx = 0, gScore = 0, gPicked = null;
+
+  function renderRound(){
+    const total = NAME_ROUNDS.length;
+
+    if (gIdx >= total){
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = '';
+      gEls.count.textContent = '';
+      gEls.tally.textContent = '';
+      gEls.score.textContent = gScore + ' / ' + total;
+      gEls.verdict.textContent = gScore === total ? gt(GT.high) : (gScore >= total - 2 ? gt(GT.mid) : gt(GT.low));
+      gEls.again.textContent = gt(GT.again);
+
+      gEls.copy.textContent = gt(GT.copy);
+      gEls.copyNote.style.display = 'none';
+      gEls.mastodonLabel.textContent = gt(GT.mastodonLabel);
+      gEls.mastodonBtn.textContent = gt(GT.mastodonBtn);
+      gEls.mastodonInstance.value = '';
+      const shareText = gt(GT.shareText).replace('%s', gScore).replace('%b', total);
+      const shareUrl = location.href.split('#')[0];
+      const links = buildShareLinks(shareText, '#NASGame', shareUrl);
+      gEls.bsky.href = links.bsky;
+      gEls.x.href = links.x;
+      gEls.facebook.href = links.facebook;
+      gEls.linkedin.href = links.linkedin;
+      gEls.mastodonBtn.onclick = () => {
+        const instance = gEls.mastodonInstance.value.trim();
+        if (!instance){ gEls.mastodonInstance.focus(); return; }
+        window.open(links.mastodon(instance), '_blank', 'noopener');
+      };
+      gEls.copy.onclick = () => copyToClipboard(links.full, () => {
+        gEls.copyNote.textContent = gt(GT.copied);
+        gEls.copyNote.style.display = '';
+      });
+      return;
+    }
+
+    gEls.play.style.display = '';
+    gEls.end.style.display = 'none';
+
+    const r = NAME_ROUNDS[gIdx];
+    gEls.count.textContent = gt(GT.count).replace('%a', gIdx + 1).replace('%b', total);
+    gEls.tally.textContent = gt(GT.tally).replace('%s', gScore);
+    gEls.name.textContent = r.name;
+    gEls.origin.textContent = gt(r.origin);
+    gEls.q.textContent = gt(r.q);
+
+    gEls.options.innerHTML = '';
+    r.options.forEach((opt, i) => {
+      const b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'opt';
+      b.textContent = gt(opt);
+      if (gPicked !== null){
+        b.disabled = true;
+        if (i === r.answer) b.classList.add('correct');
+        else if (i === gPicked) b.classList.add('wrong');
+        else b.classList.add('muted');
+      } else {
+        b.addEventListener('click', () => pick(i));
+      }
+      gEls.options.appendChild(b);
+    });
+
+    gEls.actions.innerHTML = '';
+    if (gPicked !== null){
+      gEls.why.innerHTML = gt(r.why);
+      gEls.why.classList.add('show');
+      const nxt = document.createElement('button');
+      nxt.type = 'button';
+      nxt.className = 'btn primary';
+      nxt.textContent = (gIdx === total - 1) ? gt(GT.results) : gt(GT.next);
+      nxt.addEventListener('click', () => { gIdx++; gPicked = null; renderRound(); });
+      gEls.actions.appendChild(nxt);
+    } else {
+      gEls.why.classList.remove('show');
+      gEls.why.innerHTML = '';
+    }
+  }
+
+  function pick(i){
+    if (gPicked !== null) return;
+    gPicked = i;
+    if (i === NAME_ROUNDS[gIdx].answer) gScore++;
+    renderRound();
+  }
+
+  gEls.again.addEventListener('click', () => {
+    gIdx = 0; gScore = 0; gPicked = null; renderRound();
+  });
+
+  applyLang(savedLang);
+  gameReady = true;
+  renderRound();
+</script>
+
+</body>
+</html>

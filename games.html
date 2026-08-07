@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Games — Paulina Valenzuela Lagos</title>
+<meta name="description" content="Small interactive games tied to Paulina Valenzuela Lagos's research and projects — readability, name data, and rare-disease history you can play with.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:var(--font-body);
+    font-size:18px;
+    line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .topbar{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;
+    padding-top:24px;
+  }
+  .backlink{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    border-bottom:1px solid var(--red); padding-bottom:1px;
+  }
+  .controls{ display:flex; flex-wrap:wrap; gap:8px; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  header.hero{padding:56px 0 40px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(38px, 8vw, 58px);
+    line-height:1.05; margin:0 0 18px; letter-spacing:0.005em;
+    text-shadow:var(--stroke-shadow);
+  }
+  .lede{ font-size:19px; color:var(--ink-soft); max-width:56ch; margin:0; }
+
+  section{ padding:36px 0; position:relative; }
+  section + section{ border-top:1.5px dashed var(--rule); }
+  .kicker{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--red); margin:0 0 8px; display:flex; align-items:center; gap:10px;
+  }
+  .kicker .lvl{ border:1px solid var(--red); border-radius:3px; padding:1px 7px; color:var(--red); }
+  h2{ font-family:var(--font-display); font-weight:700; font-size:clamp(26px,4.4vw,34px); margin:0 0 20px; text-shadow:var(--stroke-shadow); }
+  p{ margin:0 0 16px; }
+
+  .grid{ display:grid; grid-template-columns:1fr; gap:18px; margin-top:22px; }
+  @media(min-width:640px){ .grid.two{ grid-template-columns:1fr 1fr; } }
+
+  .card{
+    border:1.5px solid var(--rule); background:var(--bg-panel);
+    border-radius:8px; padding:20px 22px;
+  }
+  .card h3{ font-family:var(--font-display); font-size:21px; margin:0 0 6px; font-weight:700; }
+  .card p{ font-size:15.5px; color:var(--ink-soft); margin-bottom:10px; }
+  .tagrow{ display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+  .tag{
+    font-family:var(--font-mono); font-size:11px; color:var(--teal); border:1px solid var(--teal);
+    border-radius:20px; padding:2px 9px;
+  }
+  .hashtag{
+    font-family:var(--font-mono); font-size:11px; color:var(--gold); border:1px solid var(--gold);
+    border-radius:20px; padding:2px 9px;
+  }
+
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+
+  .today-card{
+    margin-top:22px; border:2px solid var(--gold); border-radius:10px;
+    padding:24px 24px; background:var(--bg-panel);
+  }
+  .today-badge{
+    font-family:var(--font-mono); font-size:11.5px; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--gold); margin:0 0 10px;
+  }
+  .today-card h3{ font-family:var(--font-display); font-size:26px; margin:0 0 10px; font-weight:700; color:var(--gold); }
+
+  footer{ padding:50px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <div class="topbar">
+    <a class="backlink" href="index.html">
+      <span class="i18n" data-lang="en">← Back to the full site</span>
+      <span class="i18n" data-lang="es" style="display:none">← Volver al sitio completo</span>
+      <span class="i18n" data-lang="zh" style="display:none">← 回到完整網站</span>
+    </a>
+    <div class="controls">
+      <div class="toggle-group" role="group" aria-label="Theme">
+        <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+        <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Language">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-zh" type="button">中</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">playable, not just readable</span>
+      <span class="i18n" data-lang="es" style="display:none">para jugar, no solo para leer</span>
+      <span class="i18n" data-lang="zh" style="display:none">不只能讀,還能玩</span>
+    </span>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">Games</span>
+      <span class="i18n" data-lang="es" style="display:none">Juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">遊戲</span>
+    </h1>
+    <p class="lede i18n" data-lang="en">Small interactive detours, each one tied to a project on the full site — a way to feel the idea instead of just reading about it.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Pequeños desvíos interactivos, cada uno ligado a un proyecto del sitio completo: una forma de sentir la idea, no solo leer sobre ella.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">一些小小的互動插曲,每一個都連結到完整網站上的某個專案——用來親身感受那個想法,而不只是閱讀它。</p>
+  </header>
+
+  <section id="today">
+    <p class="kicker"><span class="lvl">★</span>
+      <span class="i18n" data-lang="en">today</span>
+      <span class="i18n" data-lang="es" style="display:none">hoy</span>
+      <span class="i18n" data-lang="zh" style="display:none">今天</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">Game of the day</span>
+      <span class="i18n" data-lang="es" style="display:none">Juego del día</span>
+      <span class="i18n" data-lang="zh" style="display:none">每日一玩</span>
+    </h2>
+    <div class="today-card" id="today-card"></div>
+  </section>
+
+  <section id="all-games">
+    <p class="kicker"><span class="lvl">▶</span>
+      <span class="i18n" data-lang="en">play</span>
+      <span class="i18n" data-lang="es" style="display:none">juega</span>
+      <span class="i18n" data-lang="zh" style="display:none">來玩</span>
+    </p>
+    <h2>
+      <span class="i18n" data-lang="en">All games</span>
+      <span class="i18n" data-lang="es" style="display:none">Todos los juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">所有遊戲</span>
+    </h2>
+    <div class="grid two" id="games-grid"></div>
+  </section>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
+  function applyLang(l){
+    currentLang = l;
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+    renderGames();
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  const GT = {
+    play:  { en:'Play →', es:'Jugar →', zh:'開始遊戲 →' },
+    today: { en:"Today's pick", es:'Elegido para hoy', zh:'今日精選' }
+  };
+
+  const GAMES = [
+    {
+      id: 'nas',
+      title: { en:'Whose name is it, anyway?', es:'¿De quién es este nombre?', zh:'這是誰的名字?' },
+      blurb: {
+        en:'Six names, six ways software gets them wrong. Guess how each one is really built.',
+        es:'Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno.',
+        zh:'六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構。'
+      },
+      href: 'games/nas.html',
+      tag: 'NAS Project',
+      hashtag: '#NASGame'
+    },
+    {
+      id: 'eds-timeline',
+      title: { en:'EDS Timeline', es:'Cronología del SED', zh:'EDS 時間軸' },
+      blurb: {
+        en:'Put thirteen centuries of rare-disease history, medical discovery, and policy in the order they actually happened.',
+        es:'Ordena trece siglos de historia de enfermedades raras, descubrimientos médicos y políticas públicas, en el orden en que realmente ocurrieron.',
+        zh:'把橫跨十三個世紀的罕見疾病歷史、醫學發現與政策,依照真實發生的順序排列出來。'
+      },
+      href: 'games/eds-timeline.html',
+      tag: 'ZebraUp',
+      hashtag: '#EDSTimelineGame'
+    },
+    {
+      id: 'ckj-esp',
+      title: { en:'CKJ-ESP Match', es:'CKJ-ESP Empareja', zh:'CKJ-ESP 配對' },
+      blurb: {
+        en:"Does the word match the Spanish meaning? Mandarin, Korean, and Japanese, one round each, built from real CKJ-ESP articles.",
+        es:'¿La palabra coincide con el significado en español? Mandarín, coreano y japonés, una ronda por idioma, construido con artículos reales de CKJ-ESP.',
+        zh:'這個詞和西班牙語意思相符嗎?華語、韓語、日語各一輪,取材自真實的 CKJ-ESP 文章。'
+      },
+      href: 'games/ckj-esp.html',
+      tag: 'CKJ-ESP',
+      hashtag: '#CKJESPMatch'
+    },
+    {
+      id: 'reading-club',
+      title: { en:'Reading Club game', es:'Juego del Club de Lectura', zh:'讀書會小遊戲' },
+      blurb: {
+        en:'A mini game inside the Reading Club site itself — part of the extensive-reading initiative, not built by me from scratch on this page.',
+        es:'Un mini juego dentro del propio sitio del Club de Lectura, parte de la iniciativa de lectura extensiva, no construido por mí desde cero en esta página.',
+        zh:'一個內建在讀書會網站裡的小遊戲,是廣泛閱讀計畫的一部分,並非在這個頁面上從零打造。'
+      },
+      href: 'https://poln4.pythonanywhere.com',
+      tag: 'Reading Club'
+    },
+    {
+      id: 'reading-myths',
+      title: { en:'Myth or Fact?', es:'¿Mito o hecho?', zh:'迷思還是事實?' },
+      blurb: {
+        en:'Six real claims about reading and language learning, backed by real research citations, straight from the Reading Club quiz.',
+        es:'Seis afirmaciones reales sobre la lectura y el aprendizaje de idiomas, respaldadas por citas de investigación reales, directamente del cuestionario del Club de Lectura.',
+        zh:'六個關於閱讀與語言學習的真實說法,附有真實的研究引用,直接取自讀書會的測驗。'
+      },
+      href: 'games/reading-myths.html',
+      tag: 'Reading Club',
+      hashtag: '#ReadingMythsGame'
+    }
+  ];
+
+  const todayCard = document.getElementById('today-card');
+  const gamesGrid = document.getElementById('games-grid');
+
+  function renderGames(){
+    const dayIdx = Math.floor(Date.now() / 86400000) % GAMES.length;
+    const today = GAMES[dayIdx];
+
+    todayCard.innerHTML = `
+      <p class="today-badge">${gt(GT.today)}</p>
+      <h3>${gt(today.title)}</h3>
+      <p>${gt(today.blurb)}</p>
+      <div class="tagrow"><span class="tag">${today.tag}</span>${today.hashtag ? `<span class="hashtag">${today.hashtag}</span>` : ''}</div>
+      <p style="margin-top:14px;"><a class="btn primary" href="${today.href}">${gt(GT.play)}</a></p>
+    `;
+
+    gamesGrid.innerHTML = '';
+    GAMES.forEach(g => {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.innerHTML = `
+        <h3>${gt(g.title)}</h3>
+        <p>${gt(g.blurb)}</p>
+        <div class="tagrow"><span class="tag">${g.tag}</span>${g.hashtag ? `<span class="hashtag">${g.hashtag}</span>` : ''}</div>
+        <p style="margin-top:14px;"><a class="btn" href="${g.href}">${gt(GT.play)}</a></p>
+      `;
+      gamesGrid.appendChild(card);
+    });
+  }
+
+  applyLang(savedLang);
+</script>
+
+</body>
+</html>

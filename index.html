@@ -384,6 +384,15 @@
     font-family:var(--font-display); font-size:40px; font-weight:700;
     color:var(--red); line-height:1.1;
   }
+  .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
+  .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+  .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
+  .mastodon-input{
+    font-family:var(--font-mono); font-size:13px; padding:9px 12px;
+    border-radius:6px; border:1.5px solid var(--ink); background:var(--bg);
+    color:var(--ink); min-width:180px;
+  }
+  .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
 
   /* hero aspiration line */
   .aspiration{
@@ -501,6 +510,7 @@
     <a href="#reading"><span class="lv">—</span><span class="i18n" data-lang="en">Reading</span><span class="i18n" data-lang="es" style="display:none">Lectura</span><span class="i18n" data-lang="zh" style="display:none">閱讀</span></a>
     <a href="#research"><span class="lv">B1</span><span class="i18n" data-lang="en">Research</span><span class="i18n" data-lang="es" style="display:none">Investigación</span><span class="i18n" data-lang="zh" style="display:none">研究</span></a>
     <a href="#game"><span class="lv">▶</span><span class="i18n" data-lang="en">Name game</span><span class="i18n" data-lang="es" style="display:none">Juego de nombres</span><span class="i18n" data-lang="zh" style="display:none">名字小遊戲</span></a>
+    <a href="games.html"><span class="lv">▶▶</span><span class="i18n" data-lang="en">All games</span><span class="i18n" data-lang="es" style="display:none">Todos los juegos</span><span class="i18n" data-lang="zh" style="display:none">所有遊戲</span></a>
     <a href="#projects"><span class="lv">B2</span><span class="i18n" data-lang="en">Projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos</span><span class="i18n" data-lang="zh" style="display:none">專案</span></a>
     <a href="#dreams"><span class="lv">?</span><span class="i18n" data-lang="en">Dream projects</span><span class="i18n" data-lang="es" style="display:none">Proyectos soñados</span><span class="i18n" data-lang="zh" style="display:none">夢想專案</span></a>
     <a href="#skills"><span class="lv">—</span><span class="i18n" data-lang="en">Toolkit</span><span class="i18n" data-lang="es" style="display:none">Herramientas</span><span class="i18n" data-lang="zh" style="display:none">技能工具</span></a>
@@ -867,13 +877,13 @@
     </p>
     <h2>
       <span class="i18n" data-lang="en">What "readability" means in my hands</span>
-      <span class="i18n" data-lang="es" style="display:none">Qué significa "legibilidad" en mis manos</span>
+      <span class="i18n" data-lang="es" style="display:none">Qué significa "lecturabilidad" en mis manos</span>
       <span class="i18n" data-lang="zh" style="display:none">「可讀性」在我手中的意義</span>
     </h2>
 
     <div class="tldr">
       <p class="i18n" data-lang="en">Ph.D. candidate, Digital Learning &amp; Education, NTUST. Dissertation builds a Spanish readability model (238 linguistic features, ~0.96 QWK, ~87% accuracy on 822 CEFR-labelled texts) and validates it against real learner perception. M.A. thesis (2020–2022) compared graded readers vs. authentic texts. Presented at 4 international venues; 1 publication, 1 in review, 2 more queued.</p>
-      <p class="i18n" data-lang="es" style="display:none">Candidata a doctora, Aprendizaje Digital y Educación, NTUST. La tesis construye un modelo de legibilidad en español (238 características lingüísticas, ~0.96 QWK, ~87% de precisión en 822 textos etiquetados según el MCER) y lo valida frente a la percepción real de aprendices. La tesis de maestría (2020–2022) comparó lecturas graduadas con textos auténticos. Presentada en 4 sedes internacionales; 1 publicación, 1 en revisión, 2 más en cola.</p>
+      <p class="i18n" data-lang="es" style="display:none">Candidata a doctora, Aprendizaje Digital y Educación, NTUST. La tesis construye un modelo de lecturabilidad en español (238 características lingüísticas, ~0.96 QWK, ~87% de precisión en 822 textos etiquetados según el MCER) y lo valida frente a la percepción real de aprendices. La tesis de maestría (2020–2022) comparó lecturas graduadas con textos auténticos. Presentada en 4 sedes internacionales; 1 publicación, 1 en revisión, 2 más en cola.</p>
       <p class="i18n" data-lang="zh" style="display:none">台灣科技大學數位學習與教育研究所博士候選人。博士論文建立了一套西班牙語可讀性模型(238項語言特徵,QWK約0.96,對822篇CEFR分級文本的分類準確率約87%),並以真實學習者感受加以驗證。碩士論文(2020–2022)比較分級讀本與真實文本。已於4個國際場合發表;1篇已刊登、1篇審稿中、另有2篇排隊中。</p>
     </div>
 
@@ -894,7 +904,7 @@
     </div>
     <div class="i18n" data-lang="es" style="display:none">
       <p class="lede">Mi tesis doctoral, <em>"Assessing Text Readability in Spanish as a Foreign Language: Computational Modelling and Human Judgment,"</em> es un proceso de dos estudios: construir un modelo que clasifique la dificultad de textos en español con la fiabilidad de un evaluador entrenado, y luego comprobar si los aprendices realmente experimentan esa dificultad como el modelo la predice.</p>
-      <h3>Estudio 1: un modelo híbrido de legibilidad</h3>
+      <h3>Estudio 1: un modelo híbrido de lecturabilidad</h3>
       <p>Un corpus especializado, etiquetado según el MCER (lecturas graduadas y textos del examen DELE), alimenta un proceso de 238 características lingüísticas en seis familias (léxicas, sintácticas, de cohesión, tradicionales, morfológicas y de vocabulario), extraídas en parte con tres herramientas propias, <strong>SpanishMorphAnalyzer</strong>, <strong>SpanishComplexityAnalyzer</strong> y <strong>VocabFeatureExtractor</strong>. Los modelos basados en características lingüísticas se comparan directamente con modelos basados en transformers (BETO, MarIA, BERTIN).</p>
       <p>Además, incluí seis métodos de selección de variables votando qué realmente importa, con la poda de colinealidad movida deliberadamente a después del torneo, no antes. Sin embargo, el método no fue más efectivo que L2 Synthesis feature selection.</p>
     </div>
@@ -973,56 +983,31 @@
     <p class="i18n" data-lang="zh" style="display:none;margin-top:18px;">此外,我自2022年起為《Revista Literatura y Lingüística》期刊審稿。從2020年到2026年,直到AI翻譯工具讓這個角色變得多餘為止,我擔任The Ehlers-Danlos Society的英西文校對與翻譯志工,協助翻譯關於EDS的學術醫學論文——後續發展請見<a href="#journey">誠實的部分</a>。</p>
   </section>
 
-  <section id="game" class="reveal collapsible">
-    <p class="bridge i18n" data-lang="en">A short detour before the project list — the same instinct that drives the readability research, applied to something you can play with in ten seconds.</p>
-    <p class="bridge i18n" data-lang="es" style="display:none">Un pequeño desvío antes de la lista de proyectos: el mismo instinto detrás de la investigación de legibilidad, aplicado a algo con lo que puedes jugar en diez segundos.</p>
-    <p class="bridge i18n" data-lang="zh" style="display:none">在專案列表之前的一段小插曲——與可讀性研究背後同樣的直覺,用一個十秒鐘就能上手的小遊戲呈現。</p>
+  <section id="game" class="reveal">
     <p class="kicker"><span class="lvl">▶</span>
       <span class="i18n" data-lang="en">play</span>
       <span class="i18n" data-lang="es" style="display:none">juega</span>
       <span class="i18n" data-lang="zh" style="display:none">來玩</span>
     </p>
     <h2>
-      <span class="i18n" data-lang="en">Whose name is it, anyway?</span>
-      <span class="i18n" data-lang="es" style="display:none">¿De quién es este nombre?</span>
-      <span class="i18n" data-lang="zh" style="display:none">這是誰的名字?</span>
+      <span class="i18n" data-lang="en">Go play</span>
+      <span class="i18n" data-lang="es" style="display:none">Ve a jugar</span>
+      <span class="i18n" data-lang="zh" style="display:none">來玩吧</span>
     </h2>
 
-    <div class="tldr">
-      <p class="i18n" data-lang="en">An interactive demo built on the <b>NAS project</b> (see Projects below) — a system for handling diverse name structures in software. Optional; skip straight to Projects if you'd rather.</p>
-      <p class="i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <b>proyecto NAS</b> (ver Proyectos más abajo), un sistema para manejar la diversidad de estructuras de nombres en el software. Opcional; puedes ir directo a Proyectos si prefieres.</p>
-      <p class="i18n" data-lang="zh" style="display:none">一個以<b>NAS專案</b>(見下方「專案」)為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。此區塊為選讀內容,也可以直接跳到「專案」。</p>
-    </div>
-    <button type="button" class="story-toggle" data-target="game"></button>
+    <blockquote class="i18n" data-lang="en">To game, or not to game: that is the question.</blockquote>
+    <blockquote class="i18n" data-lang="es" style="display:none">¡A jugar se ha dicho!</blockquote>
+    <blockquote class="i18n" data-lang="zh" style="display:none">人生如遊戲。</blockquote>
 
-    <div class="story">
-    <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is really built — starting with the two I signed this page with. There is a reason I write my name the way I do; by the end you will have it.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno, empezando por los dos con los que firmé esta página. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
-    <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構——就從我在這一頁署名的那兩個開始。我這樣書寫自己的名字是有原因的;玩到最後,你就會知道。</p>
+    <p class="lede i18n" data-lang="en">Time for a quick break — go play.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Hora de una pausa rápida: ve a jugar.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">休息一下——去玩吧。</p>
 
-    <div class="game" id="game-box">
-      <div class="game-top">
-        <span id="game-count"></span>
-        <span id="game-tally"></span>
-      </div>
-      <div id="game-play">
-        <p class="game-name" id="game-name"></p>
-        <p class="game-origin" id="game-origin"></p>
-        <p class="game-q" id="game-q"></p>
-        <div class="game-options" id="game-options"></div>
-        <div class="game-why" id="game-why"></div>
-        <div class="game-actions" id="game-actions"></div>
-      </div>
-      <div id="game-end" class="game-final" style="display:none;">
-        <p class="game-score" id="game-score"></p>
-        <p id="game-verdict" style="margin-top:6px;"></p>
-        <div class="game-actions">
-          <button class="btn" type="button" id="game-again"></button>
-          <a class="btn" href="https://github.com/Poln4/nas-project">NAS project →</a>
-        </div>
-      </div>
-    </div>
-    </div>
+    <p>
+      <a class="btn primary i18n" data-lang="en" href="games.html">All games →</a>
+      <a class="btn primary i18n" data-lang="es" style="display:none" href="games.html">Todos los juegos →</a>
+      <a class="btn primary i18n" data-lang="zh" style="display:none" href="games.html">所有遊戲 →</a>
+    </p>
   </section>
 
   <section id="projects" class="reveal">
@@ -1049,15 +1034,15 @@
     <div class="spotlight" id="carla-model">
       <h4>The Carla Model</h4>
       <div class="i18n" data-lang="en">
-        <p>CARLA is a hybrid readability model for Spanish — the engine behind <a href="#research">Study 1</a>, released as a live web app you can paste any Spanish text into. It returns a CEFR level (A1–C2), predicted from linguistic feature analysis fused with transformer embeddings, trained on 800+ Spanish texts. It's the first dream on this page I actually got to build — and, so far, the biggest thing I've contributed to Spanish-language learning: a working answer to a question a decade of teaching left me with. <em>Is this text too hard for the person in front of me?</em> It's named for my 乾女兒 — my goddaughter — whose Spanish name is Carla. She's the reader I want a good tool to exist for.</p>
+        <p>CARLA is a hybrid readability model for Spanish — the engine behind <a href="#research">Study 1</a>, released as a live web app you can paste any Spanish text into. It returns a CEFR level (A1–C2), predicted from linguistic feature analysis fused with transformer embeddings, trained on 800+ Spanish texts. It's the first dream on this page I actually got to build — and, so far, the biggest thing I've contributed to Spanish-language learning: a working answer to a question a decade of teaching left me with. <em>Is this text too hard for the person in front of me?</em> It's named for my 乾女兒 — my goddaughter — whose Spanish name is Carla, the same way roBERTa or MarIA fold meaning into a model's name: read as a backronym, CARLA is <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
         <p>Where it's going: a recommender that pairs CARLA's score with Project Gutenberg's Spanish catalog, so a learner at low B1 can find authentic texts they can actually read — not "graded" down to their level, not miles past it. Building CARLA also gave me the technical confidence to start <a href="#zebraup">ZebraUp</a>. But this one came first. It's still the one I'm proudest of.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>CARLA es un modelo híbrido de legibilidad para el español — el motor detrás del <a href="#research">Estudio 1</a>, publicado como una app web donde puedes pegar cualquier texto en español y recibir un nivel MCER (A1–C2). Combina análisis de características lingüísticas con embeddings de transformers, sobre un corpus propio de más de 800 textos. Es el primer sueño de esta página que realmente pude construir — y, hasta ahora, la mayor contribución que he hecho al aprendizaje del español: una respuesta concreta a la pregunta que una década enseñando me dejó. <em>¿Este texto es demasiado difícil para la persona que tengo delante?</em> Lleva el nombre de mi 乾女兒 — mi ahijada — cuyo nombre en español es Carla. Es la lectora para quien quiero que exista una buena herramienta.</p>
-        <p>Lo que viene: un recomendador que combine el puntaje de CARLA con el catálogo de Proyecto Gutenberg en español, para que un aprendiz en nivel B1 bajo pueda encontrar textos auténticos que realmente pueda leer — ni "graduados" a su nivel, ni a millas de distancia. Construir CARLA también me dio la confianza técnica para empezar <a href="#zebraup">ZebraUp</a>. Pero este proyecto vino primero. Sigue siendo del que estoy más orgullosa.</p>
+        <p>CARLA es un modelo híbrido de lecturabilidad para el español (el motor detrás del <a href="#research">Estudio 1</a>), publicado como una app web donde puedes pegar cualquier texto en español y recibir un nivel MCER (A1–C2). Combina análisis de características lingüísticas con embeddings de transformers, sobre un corpus propio de más de 800 textos. Es el primer sueño de esta página que realmente pude construir, y hasta ahora es la mayor contribución que he hecho al aprendizaje del español: una respuesta concreta a la pregunta que una década enseñando me dejó. <em>¿Este texto es demasiado difícil para la persona que tengo delante?</em> Lleva el nombre de mi 乾女兒 (mi ahijada), cuyo nombre en español es Carla, del mismo modo en que roBERTa o MarIA cargan de sentido el nombre de un modelo: leído como acrónimo, CARLA es <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
+        <p>Lo que viene: un recomendador que combine el puntaje de CARLA con el catálogo de Proyecto Gutenberg en español, para que un aprendiz en nivel B1 bajo pueda encontrar textos auténticos que realmente pueda leer, ni "graduados" a su nivel, ni a millas de distancia. Construir CARLA también me dio la confianza técnica para empezar <a href="#zebraup">ZebraUp</a>. Pero este proyecto vino primero. Sigue siendo del que estoy más orgullosa.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>CARLA 是一套西班牙語混合可讀性模型——<a href="#research">研究一</a>背後的引擎,現已上線為一個網頁應用:任何西班牙語文本貼上去,它都會回傳一個 CEFR 等級(A1–C2)。它結合語言特徵分析與 Transformer 嵌入向量,在超過 800 篇西班牙語文本上訓練而成。這是這一頁上,我第一個真正做出來的夢想——到目前為止,也是我對西班牙語學習領域最大的一份貢獻:對一個十多年教西班牙語留給我的問題,一個可運作的答案。<em>這篇文章,對眼前這個人來說,會不會太難?</em> 它是以我的乾女兒命名的——她的西班牙文名字,正是 Carla。她,就是我最希望有一個好工具存在的那位讀者。</p>
+        <p>CARLA 是一套西班牙語混合可讀性模型——<a href="#research">研究一</a>背後的引擎,現已上線為一個網頁應用:任何西班牙語文本貼上去,它都會回傳一個 CEFR 等級(A1–C2)。它結合語言特徵分析與 Transformer 嵌入向量,在超過 800 篇西班牙語文本上訓練而成。這是這一頁上,我第一個真正做出來的夢想——到目前為止,也是我對西班牙語學習領域最大的一份貢獻:對一個十多年教西班牙語留給我的問題,一個可運作的答案。<em>這篇文章,對眼前這個人來說,會不會太難?</em> 它是以我的乾女兒命名的——她的西班牙文名字,正是 Carla,就像 roBERTa 或 MarIA 那樣,把意義藏進模型的名字裡:當作縮寫來看,CARLA 就是 <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation。</p>
         <p>接下來:一套將 CARLA 的分數與古騰堡計畫(Project Gutenberg)西班牙語書目結合的推薦系統,讓例如 B1 初階的學習者,能找到自己真正讀得懂的真實文本——不是為他們降階改寫的,也不是遠遠超出他們程度的。打造 CARLA 也給了我開始 <a href="#zebraup">ZebraUp</a> 所需的技術信心。但 CARLA 才是最早的。它,仍然是我最引以為傲的作品。</p>
       </div>
       <div class="link-row">
@@ -1069,15 +1054,15 @@
     <div class="spotlight" id="ckj-esp" style="margin-top:26px;">
       <h4>CKJ-ESP</h4>
       <div class="i18n" data-lang="en">
-        <p>CKJ-ESP is the idea that used to live a few sections down, listed as a hazy "shape TBD" — it shipped. A Spanish-first, Pleco-style comparative dictionary connecting Mandarin (Taiwan), Korean, and Japanese, side by side, in Spanish: vocabulary, grammar, and writing systems, plus the connections a "one language at a time" course never draws. Ten articles live so far — the copula (是 / 이다 / です), keyboard layouts (注音, hangul, かな), how to actually read hangul and hiragana/katakana, and the 214 Kangxi radicals among them — sourced from TOCFL/MOEdict, KRDICT, and JMdict, with stroke order from Taiwan's Ministry of Education. Chinese vocabulary throughout is colorized by tone with <a href="https://tonestamp.netlify.app">Tonestamp</a>.</p>
+        <p>CKJ-ESP is the idea that used to live a few sections down, listed as a hazy "shape TBD" — it shipped. A Spanish-first, Pleco-style comparative dictionary connecting Mandarin (Taiwan), Korean, and Japanese, side by side, in Spanish: vocabulary, grammar, and writing systems, plus the connections a "one language at a time" course never draws. Ten articles live so far — the copula (是 / 이다 / です), keyboard layouts (注音, hangul, かな), how to actually read hangul and hiragana/katakana, and the 214 Kangxi radicals among them — sourced from TOCFL/MOEdict, KRDICT, and JMdict, with stroke order from Taiwan's Ministry of Education.</p>
         <p>Where it's going: more articles, closer integration with Tonestamp and leehzn, and eventually an API for anyone building CJK ↔ Spanish tools. This is the language project I move between three languages for daily — which makes it the one I'm most personally invested in keeping alive.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>CKJ-ESP es la idea que hace un rato vivía más abajo en esta página, listada como una difusa «forma por decidir» — y ya está en línea. Un diccionario comparativo con el español al centro, al estilo Pleco, que conecta mandarín (Taiwán), coreano y japonés, lado a lado, en español: vocabulario, gramática y sistemas de escritura, además de las conexiones que un curso de «un idioma a la vez» nunca traza. Diez artículos publicados hasta ahora — la cópula (是 / 이다 / です), los teclados (注音, hangul, かな), cómo leer de verdad hangul e hiragana/katakana, y los 214 radicales Kangxi, entre otros — con datos de TOCFL/MOEdict, KRDICT y JMdict, y trazos de escritura del Ministerio de Educación de Taiwán. El vocabulario chino está coloreado por tono con <a href="https://tonestamp.netlify.app">Tonestamp</a> en todo el sitio.</p>
-        <p>Lo que viene: más artículos, integración más estrecha con Tonestamp y leehzn, y eventualmente una API para quien quiera construir herramientas CJK ↔ español. Es el proyecto de idiomas entre el que me muevo a diario, en tres lenguas — lo que lo convierte en el que más me importa personalmente mantener con vida.</p>
+        <p>CKJ-ESP es la idea que hace un rato vivía más abajo en esta página, listada como una difusa «forma por decidir». Ya está en línea. Un diccionario comparativo con el español al centro, al estilo Pleco, que conecta mandarín (Taiwán), coreano y japonés, lado a lado, en español: vocabulario, gramática y sistemas de escritura, además de las conexiones que un curso de «un idioma a la vez» nunca traza. Diez artículos publicados hasta ahora, entre ellos la cópula (是 / 이다 / です), los teclados (注音, hangul, かな), cómo leer de verdad hangul e hiragana/katakana, y los 214 radicales Kangxi, con datos de TOCFL/MOEdict, KRDICT y JMdict, y trazos de escritura del Ministerio de Educación de Taiwán.</p>
+        <p>Lo que viene: más artículos, integración más estrecha con Tonestamp y leehzn, y eventualmente una API para quien quiera construir herramientas CJK ↔ español. Es el proyecto de idiomas entre el que me muevo a diario, en tres lenguas, lo que lo convierte en el que más me importa personalmente mantener con vida.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>CKJ-ESP,就是幾個段落之後、原本被列為「形式未定」的那個構想——如今已經上線。這是一套以西班牙語為核心、類似Pleco的比較式辭典,將台灣華語、韓語與日語並列比較,以西班牙語呈現:詞彙、語法與文字系統,還有「一次只學一種語言」的課程從未串連起來的關聯。目前已發表十篇文章——包括繫詞(是 / 이다 / です)、鍵盤配置(注音、韓文鍵盤、假名)、如何真正讀懂韓文與平假名/片假名,以及214個康熙部首——資料來源包括TOCFL/MOEdict、KRDICT與JMdict,筆順則取自台灣教育部。全站的中文詞彙都以<a href="https://tonestamp.netlify.app">Tonestamp</a>依聲調上色。</p>
+        <p>CKJ-ESP,就是幾個段落之後、原本被列為「形式未定」的那個構想——如今已經上線。這是一套以西班牙語為核心、類似Pleco的比較式辭典,將台灣華語、韓語與日語並列比較,以西班牙語呈現:詞彙、語法與文字系統,還有「一次只學一種語言」的課程從未串連起來的關聯。目前已發表十篇文章——包括繫詞(是 / 이다 / です)、鍵盤配置(注音、韓文鍵盤、假名)、如何真正讀懂韓文與平假名/片假名,以及214個康熙部首——資料來源包括TOCFL/MOEdict、KRDICT與JMdict,筆順則取自台灣教育部。</p>
         <p>接下來:更多文章、與Tonestamp及leehzn更緊密的整合,以及未來可能推出的API,讓任何想打造CJK↔西班牙語工具的人都能使用。這是我每天在三種語言之間切換的語言專案——也因此,是我最想全力守護下去的一個。</p>
       </div>
       <div class="link-row">
@@ -1087,6 +1072,11 @@
           <span class="i18n" data-lang="es" style="display:none">Visión y estructura →</span>
           <span class="i18n" data-lang="zh" style="display:none">願景與架構 →</span>
         </a>
+        <a href="games/ckj-esp.html">
+          <span class="i18n" data-lang="en">Play the CKJ-ESP Match game →</span>
+          <span class="i18n" data-lang="es" style="display:none">Juega CKJ-ESP Empareja →</span>
+          <span class="i18n" data-lang="zh" style="display:none">來玩 CKJ-ESP 配對遊戲 →</span>
+        </a>
       </div>
       <div class="tagrow"><span class="tag">Comparative Linguistics</span><span class="tag">Lexicography</span><span class="tag">Spanish ↔ CJK</span><span class="tag">TOCFL / KRDICT / JMdict</span><span class="tag">Static Site</span></div>
     </div>
@@ -1094,19 +1084,24 @@
     <div class="grid two" style="margin-top:26px;">
       <div class="card">
         <h4>NAS Project</h4>
-        <p class="i18n" data-lang="en">The answer to <a href="#game">the game above</a>. A system built to acknowledge and respect diverse name structures and preferences — because most software still assumes everyone's name fits one Western template.</p>
-        <p class="i18n" data-lang="es" style="display:none">La respuesta al <a href="#game">juego de más arriba</a>. Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas, porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
-        <p class="i18n" data-lang="zh" style="display:none"><a href="#game">上面那個遊戲</a>的答案。一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
+        <p class="i18n" data-lang="en">The answer to <a href="games/nas.html">the name game</a>. A system built to acknowledge and respect diverse name structures and preferences — because most software still assumes everyone's name fits one Western template.</p>
+        <p class="i18n" data-lang="es" style="display:none">La respuesta al <a href="games/nas.html">juego de nombres</a>. Un sistema diseñado para reconocer y respetar la diversidad de estructuras y preferencias en los nombres de las personas, porque la mayoría del software todavía asume que todos los nombres encajan en un solo modelo occidental.</p>
+        <p class="i18n" data-lang="zh" style="display:none"><a href="games/nas.html">名字遊戲</a>的答案。一套用來尊重並辨識多元姓名結構與命名偏好的系統——因為大多數軟體仍預設所有人的姓名都符合單一西方命名模板。</p>
         <a class="link" href="https://github.com/Poln4/nas-project">github.com/Poln4/nas-project →</a>
         <div class="tagrow"><span class="tag">Python</span><span class="tag">Internationalization (i18n)</span><span class="tag">Data Modeling</span><span class="tag">Inclusive Design</span></div>
       </div>
       <div class="card">
         <h4>Reading Club</h4>
-        <p class="i18n" data-lang="en">An <a href="#teaching">extensive-reading</a> initiative and the site that hosts it, plus a stint as EdTech Project Contributor for The Other Way Spanish, building the same idea into a community reading club.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una iniciativa de <a href="#teaching">lectura extensiva</a> y el sitio que la aloja, además de un período como Contribuidora de proyecto EdTech para The Other Way Spanish, llevando la misma idea a un club de lectura comunitario.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一項<a href="#teaching">廣泛閱讀</a>計畫,以及承載這項計畫的網站;此外我也曾擔任The Other Way Spanish的EdTech專案貢獻者,將同樣的理念延伸為一個社群式讀書會。</p>
+        <p class="i18n" data-lang="en">A reading-club dream going back to at least 2020, when I started collecting <a href="#teaching">graded readers</a> and reading them aloud with students, watching what it did for them firsthand. This site is where that idea actually lives.</p>
+        <p class="i18n" data-lang="es" style="display:none">Un sueño de club de lectura que viene, por lo menos, desde 2020, cuando empecé a coleccionar <a href="#teaching">lecturas graduadas</a> y a leerlas en voz alta con estudiantes, viendo de primera mano lo que eso les cambiaba. Este sitio es donde esa idea realmente vive.</p>
+        <p class="i18n" data-lang="zh" style="display:none">這是一個至少從2020年就開始的讀書會夢想:當時我開始蒐集<a href="#teaching">分級讀本</a>,並和學生一起朗讀,親眼見證這對他們的改變。這個網站,就是這個構想真正落地的地方。</p>
         <a class="link" href="https://poln4.pythonanywhere.com">Reading Club →</a>
         <a class="link" href="https://bsky.app/profile/clubdelecturaele.bsky.social">@clubdelecturaele on Bluesky →</a>
+        <a class="link" href="games/reading-myths.html">
+          <span class="i18n" data-lang="en">Play Myth or Fact? →</span>
+          <span class="i18n" data-lang="es" style="display:none">Juega ¿Mito o hecho? →</span>
+          <span class="i18n" data-lang="zh" style="display:none">來玩迷思還是事實? →</span>
+        </a>
         <div class="tagrow"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">EdTech</span><span class="tag">Extensive Reading</span><span class="tag">Community Building</span></div>
       </div>
       <div class="card">
@@ -1116,7 +1111,7 @@
           <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
         </h4>
         <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself. Now paired with Decks: free, browser-based flashcard sets organized by TOCFL level (準1 through 流利/Fluent), with flip cards, keyboard navigation, a zhuyin/pinyin/off reading toggle, and room for your own example sentences. Two of seven levels are live so far (準1 · 152 cards, 準2 · 179 cards); studying online stays free, with an optional Ko-fi link for anyone who wants to export or print a deck.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de legibilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo. Ahora viene con Decks: mazos de tarjetas (flashcards) gratuitos, en el navegador, organizados por nivel del TOCFL (準1 hasta 流利/Fluido), con tarjetas que se voltean, navegación por teclado, un selector de lectura zhuyin/pinyin/apagado, y espacio para tus propias frases de ejemplo. Dos de siete niveles ya están listos (準1 · 152 tarjetas, 準2 · 179 tarjetas); estudiar en línea se mantiene gratis, con un enlace opcional a Ko-fi para quien quiera exportar o imprimir un mazo.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de lecturabilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo. Ahora viene con Decks: mazos de tarjetas (flashcards) gratuitos, en el navegador, organizados por nivel del TOCFL (準1 hasta 流利/Fluido), con tarjetas que se voltean, navegación por teclado, un selector de lectura zhuyin/pinyin/apagado, y espacio para tus propias frases de ejemplo. Dos de siete niveles ya están listos (準1 · 152 tarjetas, 準2 · 179 tarjetas); estudiar en línea se mantiene gratis, con un enlace opcional a Ko-fi para quien quiera exportar o imprimir un mazo.</p>
         <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。現在還多了Decks:免費、在瀏覽器中使用的字卡組,依TOCFL分級(準1到流利級)排列,可翻面、可用鍵盤操作,並提供注音/拼音/關閉的發音顯示切換,也能加入自己的例句。目前已上線兩個等級(準1・152張卡、準2・179張卡);線上學習維持免費,另提供選用的Ko-fi連結,供想匯出或列印字卡組的人使用。</p>
         <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
         <a class="link" href="https://tonestamp.netlify.app/decks/">
@@ -1152,6 +1147,11 @@
         <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
         <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
         <a href="https://bsky.app/profile/zebraup.bsky.social">@zebraup on Bluesky →</a>
+        <a href="games/eds-timeline.html">
+          <span class="i18n" data-lang="en">Play the EDS Timeline game →</span>
+          <span class="i18n" data-lang="es" style="display:none">Juega la Cronología del SED →</span>
+          <span class="i18n" data-lang="zh" style="display:none">來玩 EDS 時間軸遊戲 →</span>
+        </a>
       </div>
       <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
     </div>
@@ -1194,7 +1194,7 @@
       <div class="card">
         <h4>leehzn</h4>
         <p class="i18n" data-lang="en">A graded Spanish-reading platform built specifically for Korean, Chinese, and Japanese speakers — contrastive grammar explained from each native language, levels calibrated with my own <a href="#carla-model">CARLA readability model</a>, real Latin American Spanish from day one.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una plataforma de lectura graduada de español construida específicamente para hablantes de coreano, chino y japonés: gramática contrastiva explicada desde cada lengua materna, niveles calibrados con mi propio <a href="#carla-model">modelo de legibilidad CARLA</a>, español latinoamericano real desde el primer día.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una plataforma de lectura graduada de español construida específicamente para hablantes de coreano, chino y japonés: gramática contrastiva explicada desde cada lengua materna, niveles calibrados con mi propio <a href="#carla-model">modelo de lecturabilidad CARLA</a>, español latinoamericano real desde el primer día.</p>
         <p class="i18n" data-lang="zh" style="display:none">一個專為韓語、中文、日語母語者設計的西班牙語分級閱讀平台——依母語提供對比語法說明,難度分級以我自行開發的<a href="#carla-model">CARLA可讀性模型</a>校準,從第一天就採用道地的拉丁美洲西班牙語。</p>
         <a class="link" href="https://leehzn.netlify.app">Leehzn →</a>
         <div class="tagrow"><span class="tag i18n" data-lang="en">not public yet</span><span class="tag i18n" data-lang="es" style="display:none">aún no público</span><span class="tag i18n" data-lang="zh" style="display:none">尚未公開</span></div>
@@ -1221,14 +1221,14 @@
           <p>🦓 "The 1% Journey." A pacing-first energy and fitness tracker for people managing Ehlers-Danlos Syndromes, Post-Exertional Malaise, dysautonomia, and their comorbidities. Traditional fitness apps reward streaks and linear progress — which can actively harm chronic, cyclical conditions — so ZebraPace works the other way: a "spoon" battery that reflects real daily capacity, a gentle 1% growth rule instead of a push, and PEM-precaution alerts if you overdo it. Rest counts as a successful health intervention, not a broken streak.</p>
         </div>
         <div class="i18n" data-lang="es" style="display:none">
-          <p>🦓 «El viaje del 1%». Un rastreador de energía y actividad física centrado en el ritmo (pacing), para personas que viven con Síndromes de Ehlers-Danlos, malestar post-esfuerzo (PEM), disautonomía y sus comorbilidades. Las apps de fitness tradicionales premian las rachas y el progreso lineal — algo que puede dañar activamente a quienes viven condiciones crónicas y cíclicas — así que ZebraPace hace lo contrario: una batería de «cucharas» que refleja la capacidad real del día, una regla de crecimiento del 1% en vez de exigir más, y alertas de precaución PEM si te excedes. Descansar cuenta como una intervención de salud exitosa, no como una racha rota.</p>
+          <p>🦓 «El viaje del 1%». Un rastreador de energía y actividad física centrado en el ritmo (pacing), para personas que viven con Síndromes de Ehlers-Danlos, malestar post-esfuerzo (PEM), disautonomía y sus comorbilidades. Las apps de fitness tradicionales premian las rachas y el progreso lineal (algo que puede dañar activamente a quienes viven condiciones crónicas y cíclicas), así que ZebraPace hace lo contrario: una batería de «cucharas» que refleja la capacidad real del día, una regla de crecimiento del 1% en vez de exigir más, y alertas de precaución PEM si te excedes. Descansar cuenta como una intervención de salud exitosa, no como una racha rota.</p>
         </div>
         <div class="i18n" data-lang="zh" style="display:none">
           <p>🦓「1%的旅程」。一款以「節奏(pacing)」為核心的能量與體能追蹤工具,專為患有埃勒斯-當洛斯症候群、運動後不適(PEM)、自律神經失調及其共病的人設計。傳統健身App獎勵連續打卡與線性進步,但這對慢性、週期性疾病患者反而可能造成傷害——ZebraPace反其道而行:以「湯匙」電量呈現當天真正的能量餘裕,以溫和的1%成長原則取代「再拼一點」的壓力,並在超出負荷時發出PEM警示。休息本身就是成功的健康介入,而不是打卡中斷。</p>
         </div>
-        <p class="i18n" data-lang="en">Grew directly out of the same story behind <a href="#zebraup">ZebraUp</a>.</p>
-        <p class="i18n" data-lang="es" style="display:none">Nació directamente de la misma historia detrás de <a href="#zebraup">ZebraUp</a>.</p>
-        <p class="i18n" data-lang="zh" style="display:none">這個構想,直接源自<a href="#zebraup">ZebraUp</a>背後的同一段故事。</p>
+        <p class="i18n" data-lang="en">Grew directly out of the same story behind <a href="#zebraup">ZebraUp</a>. Currently running with just me as the case study; if you're navigating something similar and are curious, I'm happy to share this first phase before building it out further.</p>
+        <p class="i18n" data-lang="es" style="display:none">Nació directamente de la misma historia detrás de <a href="#zebraup">ZebraUp</a>. Por ahora la estoy usando solo yo, a modo de caso de estudio. Si te interesa, con gusto comparto esta primera fase antes de avanzar a algo más elaborado.</p>
+        <p class="i18n" data-lang="zh" style="display:none">這個構想,直接源自<a href="#zebraup">ZebraUp</a>背後的同一段故事。目前只有我自己在使用,作為案例研究。如果你有興趣,我很樂意在進一步完善之前,先分享這個第一階段的版本。</p>
         <a class="link" href="https://zebrapace.streamlit.app">zebrapace.streamlit.app →</a>
         <div class="tagrow">
           <span class="tag i18n" data-lang="en">early beta</span>
@@ -1328,7 +1328,7 @@
       <p>Chronic illness has its own tax here. Real medical support for a connective-tissue condition is hard to find anywhere, and harder still in Taiwan — finding specialists who actually understand it has been its own separate fight. Steady work hasn't been simple either: in Taiwan, any native Spanish speaker can end up teaching Spanish with no training or credentials required, and now, anyone with access to AI can write enough code to pass for the work being done. It's hard not to feel years of training counting for less every year.</p>
       <p>For a while, coaching was part of the plan too. Then <mark class="gold">Ehlers-Danlos Syndrome</mark> made that impossible — a connective-tissue condition that, after years of frustration and one knee injury too many, meant I had to stop coaching soccer and basketball for good. I even trained and earned a Football Statistician Certificate (Genius Sport, 2024), to stay near the game from the sidelines and report matches around Taiwan — but my body wouldn't cooperate with that either. That long, exhausting fight to be heard about my own health is exactly what became <a href="#zebraup"><strong>ZebraUp</strong></a>. More recently, AI tools made my volunteer translation work for the Ehlers-Danlos Society redundant — that one stung, honestly — but it's part of what pushed me to put that energy fully into ZebraUp instead.</p>
       <p>I also completed the Be There Certificate (Born This Way Foundation, 2023), on how to support someone through a mental health crisis.</p>
-      <p>And underneath all of it: the scholarship funding my studies in Taiwan covers five years total. I used two for the master's and three for the Ph.D., so the funding has run out. I need support. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
+      <p>And underneath all of it: I've been lucky to stretch a single five-year scholarship across two degrees, two years for the master's, three for the Ph.D., and I'm close to the finish line now. That funding has run out, though, and I need support to get across it. If you've read this far and think what I'm building is worth backing, that's genuinely the most useful thing you can do next.</p>
     </div>
     <div class="i18n" data-lang="es" style="display:none">
       <p class="lede">Un CV en vivo normalmente esconde las partes que no fueron fáciles. Esto es parte de lo que realmente me trajo hasta aquí.</p>
@@ -1336,7 +1336,7 @@
       <p>La enfermedad crónica tiene su propio costo aparte. El apoyo médico real para una condición del tejido conectivo es difícil de encontrar en cualquier parte, y más difícil todavía en Taiwán. Encontrar especialistas que de verdad la entiendan ha sido su propia pelea. Encontrar trabajo estable tampoco ha sido simple: en Taiwán, cualquier persona que hable español como lengua materna puede terminar enseñando español sin necesidad de formación ni credenciales, y ahora, cualquier persona con acceso a IA puede escribir suficiente código como para que el trabajo parezca hecho. Cuesta no sentir que los años de formación pesan cada vez menos.</p>
       <p>Por un tiempo, entrenar también fue parte del plan. Luego el <mark class="gold">Síndrome de Ehlers-Danlos</mark> lo hizo imposible (una condición del tejido conectivo que, tras años de frustración y una lesión de rodilla de más, me obligó a dejar de entrenar fútbol y básquetbol para siempre). Incluso me formé y obtuve un Football Statistician Certificate (Genius Sport, 2024), para seguir cerca del juego desde la banca y reportar partidos por Taiwán. Pero mi cuerpo tampoco cooperó con eso. Esa lucha larga y agotadora por ser escuchada sobre mi propia salud es exactamente lo que se convirtió en <a href="#zebraup"><strong>ZebraUp</strong></a>. Hace poco, herramientas de IA volvieron redundante mi trabajo voluntario de traducción para la Ehlers-Danlos Society (eso me dolió, honestamente), pero también fue parte de lo que terminó de empujarme a poner esa energía por completo en ZebraUp.</p>
       <p>También completé el Be There Certificate (Born This Way Foundation, 2023), sobre cómo acompañar a alguien que atraviesa una crisis de salud mental.</p>
-      <p>Y bajo todo esto: la beca que financia mis estudios en Taiwán cubre cinco años en total. Usé dos para la maestría y tres para el doctorado, así que ya no tengo beca. Necesito apoyo. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
+      <p>Y bajo todo esto: tuve la suerte de estirar una sola beca de cinco años entre dos grados, dos años para la maestría, tres para el doctorado, y ahora estoy cerca de cruzar la meta. Esa beca ya se acabó, y necesito apoyo para llegar al final. Si llegaste hasta aquí leyendo y crees que lo que estoy construyendo vale la pena apoyar, eso es, honestamente, lo más útil que puedes hacer a continuación.</p>
     </div>
     <div class="i18n" data-lang="zh" style="display:none">
       <p class="lede">一份「即時更新」的履歷,通常會隱藏那些不順利的部分。以下是真正把我帶到這裡的一些歷程。</p>
@@ -1344,7 +1344,7 @@
       <p>慢性病有它自己的代價。結締組織疾病要找到真正理解的醫療支持並不容易,在台灣更是如此——找到真正懂這個病的專科醫師,一直是另一場獨立的戰鬥。找到穩定的工作也不簡單:在台灣,任何以西班牙語為母語的人都可能在沒有受過訓練、沒有任何證照的情況下教起西班牙語;而現在,任何能使用AI的人,也能寫出「看起來完成了工作」的程式碼。很難不去感覺,多年累積的訓練,一年比一年更不值錢。</p>
       <p>有一段時間,當教練也在我的計畫之中。後來,<mark class="gold">埃勒斯-當洛斯症候群(Ehlers-Danlos)</mark>讓這件事變得不可能——這是一種結締組織疾病;在多年的挫折與又一次膝蓋受傷之後,我不得不徹底放棄足球與籃球的教練工作。我甚至受訓並取得了Football Statistician Certificate證照(Genius Sport,2024年),想從場邊繼續靠近這項運動、在台灣各地報導比賽——但我的身體同樣無法配合。正是這場漫長而耗盡心力、為自己的健康發聲的奮鬥,最終化為 <a href="#zebraup"><strong>ZebraUp</strong></a>。不久前,AI工具讓我在Ehlers-Danlos Society的翻譯志工工作變得多餘——說實話,那件事讓我很受傷——但這也是促使我把那份心力完全投入ZebraUp的原因之一。</p>
       <p>我也完成了Be There Certificate(Born This Way Foundation,2023年),學習如何陪伴正在經歷心理健康危機的人。</p>
-      <p>而在這一切之下:資助我在台灣求學的獎學金,總共涵蓋五年。我用了兩年完成碩士學位,三年用於博士階段,獎學金已經用完了。我需要支持。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
+      <p>而在這一切之下:我很幸運能把一筆為期五年的獎學金,拉長橫跨兩個學位,兩年完成碩士,三年用於博士階段,如今已經接近終點。不過,這筆獎學金已經用完了,我需要支持才能走到最後。如果你讀到這裡,也認同我正在做的事值得支持,那麼,那正是接下來你能做的最有幫助的事。</p>
     </div>
     </div>
   </section>
@@ -1448,7 +1448,6 @@
     [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
     ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
     try{ localStorage.setItem('lang', l); }catch(e){}
-    if (gameReady) renderRound();
     if (typeof storyToggles !== 'undefined') storyToggles.forEach(labelStoryToggle);
   }
   let savedLang = 'en';
@@ -1540,205 +1539,6 @@
     revealSections.forEach(s => s.classList.add('in'));
   }
 
-  /* ---------- name game ---------- */
-  var gameReady = false;
-
-  const NAME_ROUNDS = [
-    {
-      name: '范寶琳',
-      origin: { en:'Chinese · Paulina’s own Chinese name', es:'Chino · el nombre chino de Paulina', zh:'中文・Paulina 的中文名' },
-      q: { en:'Which part is the family name?', es:'¿Cuál parte es el apellido?', zh:'哪一部分是姓氏?' },
-      options: [
-        { en:'范 (Fàn)', es:'范 (Fàn)', zh:'范 (Fàn)' },
-        { en:'寶琳 (Bǎo-lín)', es:'寶琳 (Bǎo-lín)', zh:'寶琳 (Bǎo-lín)' }
-      ],
-      answer: 0,
-      why: {
-        en:'In Chinese the family name comes <b>first</b> — 范 (Fàn) — followed by the given name 寶琳. Software that assumes “first name = given name” flips it, and very politely calls her Ms. Bǎo-lín.',
-        es:'En chino el apellido va <b>primero</b> — 范 (Fàn) — seguido del nombre de pila 寶琳. El software que asume que «el primer nombre es el nombre de pila» lo invierte y la llama, muy cortésmente, señorita Bǎo-lín.',
-        zh:'中文的姓氏在<b>前</b>——范——接著才是名字寶琳。若軟體預設「第一個字就是名」,就會顛倒過來,客氣地稱她為「寶琳小姐」。'
-      }
-    },
-    {
-      name: 'Paulina Andrea Valenzuela Lagos',
-      origin: { en:'Chilean · Spanish-language naming', es:'Chileno · nomenclatura hispana', zh:'智利・西語圈命名方式' },
-      q: { en:'Which name would she be alphabetized under?', es:'¿Bajo qué nombre se ordenaría alfabéticamente?', zh:'依字母排序時,她會被歸在哪個名字之下?' },
-      options: [
-        { en:'Andrea', es:'Andrea', zh:'Andrea' },
-        { en:'Valenzuela', es:'Valenzuela', zh:'Valenzuela' },
-        { en:'Lagos', es:'Lagos', zh:'Lagos' }
-      ],
-      answer: 1,
-      why: {
-        en:'Spanish-speaking countries use <b>two</b> surnames: the father’s (Valenzuela) then the mother’s (Lagos). She files under Valenzuela. A form with a single “last name” box grabs Lagos instead — and quietly deletes half her family.',
-        es:'Los países hispanohablantes usan <b>dos</b> apellidos: el paterno (Valenzuela) y luego el materno (Lagos). Se ordena bajo Valenzuela. Un formulario con una sola casilla de «apellido» toma Lagos — y borra en silencio a la mitad de su familia.',
-        zh:'西語國家使用<b>兩個</b>姓氏:父姓(Valenzuela)在前,母姓(Lagos)在後,排序時歸在 Valenzuela。只有單一「姓氏」欄位的表單會抓走 Lagos,悄悄刪掉她一半的家族。'
-      }
-    },
-    {
-      name: 'Jón Einarsson',
-      origin: { en:'Icelandic', es:'Islandés', zh:'冰島' },
-      q: { en:'What is “Einarsson”?', es:'¿Qué es «Einarsson»?', zh:'「Einarsson」是什麼?' },
-      options: [
-        { en:'A family name passed down', es:'Un apellido heredado', zh:'世代相傳的家族姓氏' },
-        { en:'“Einar’s son” — it changes every generation', es:'«Hijo de Einar» — cambia en cada generación', zh:'「Einar 之子」——每一代都會改變' }
-      ],
-      answer: 1,
-      why: {
-        en:'Icelandic names are <b>patronymic</b>: Jón, son of Einar. His own children would be Jónsson or Jónsdóttir — never Einarsson. There is no shared family name at all, which is why the Icelandic phone book is alphabetized by <em>given</em> name.',
-        es:'Los nombres islandeses son <b>patronímicos</b>: Jón, hijo de Einar. Sus propios hijos serían Jónsson o Jónsdóttir — nunca Einarsson. No existe un apellido familiar compartido, y por eso la guía telefónica islandesa se ordena por el <em>nombre de pila</em>.',
-        zh:'冰島採用<b>父名制</b>:Jón 是 Einar 之子。他自己的孩子會是 Jónsson 或 Jónsdóttir,而不會是 Einarsson。家族之間根本沒有共同姓氏——這也是為什麼冰島電話簿是按<em>名字</em>排序的。'
-      }
-    },
-    {
-      name: 'Sukarno',
-      origin: { en:'Indonesian', es:'Indonesio', zh:'印尼' },
-      q: { en:'What is his surname?', es:'¿Cuál es su apellido?', zh:'他的姓氏是什麼?' },
-      options: [
-        { en:'Sukarno', es:'Sukarno', zh:'Sukarno' },
-        { en:'He does not have one', es:'No tiene', zh:'他沒有姓氏' }
-      ],
-      answer: 1,
-      why: {
-        en:'<b>Mononyms</b> are common in Indonesia — the country’s first president went by one name, full stop. Systems that require a surname force people to duplicate their name, type a placeholder, or invent a family they never had.',
-        es:'Los <b>mononímicos</b> son comunes en Indonesia — el primer presidente del país usaba un solo nombre, y punto. Los sistemas que exigen un apellido obligan a la gente a duplicar su nombre, escribir un relleno, o inventar una familia que nunca tuvo.',
-        zh:'<b>單名</b>在印尼很常見——印尼首任總統就只有一個名字。強制要求填寫姓氏的系統,會逼人重複輸入自己的名字、隨便填個字,或憑空捏造一個從來不存在的家族。'
-      }
-    },
-    {
-      name: 'María del Carmen Rodríguez García',
-      origin: { en:'Spanish · compound given name', es:'Español · nombre compuesto', zh:'西班牙・複合名' },
-      q: { en:'What is her given name?', es:'¿Cuál es su nombre de pila?', zh:'她的「名字」是哪一個?' },
-      options: [
-        { en:'María', es:'María', zh:'María' },
-        { en:'María del Carmen', es:'María del Carmen', zh:'María del Carmen' },
-        { en:'Carmen', es:'Carmen', zh:'Carmen' }
-      ],
-      answer: 1,
-      why: {
-        en:'“María del Carmen” is <b>one</b> compound given name, not two separate ones. Split it at the space and you start sending letters to “Dear María” — a name she may never once have been called. Her friends most likely call her Carmen, or Maricarmen.',
-        es:'«María del Carmen» es <b>un solo</b> nombre compuesto, no dos nombres separados. Si lo cortas en el espacio, terminas escribiendo «Estimada María» — un nombre con el que quizá nunca la han llamado. Sus amigas probablemente le dicen Carmen, o Maricarmen.',
-        zh:'「María del Carmen」是<b>一個</b>複合名,而不是兩個分開的名字。若從空格處切開,你寄出的信會寫著「親愛的 María」——一個她可能從沒被這樣叫過的名字。她的朋友多半叫她 Carmen 或 Maricarmen。'
-      }
-    },
-    {
-      name: 'Nguyễn Thị Hương',
-      origin: { en:'Vietnamese', es:'Vietnamita', zh:'越南' },
-      q: { en:'What would people actually call her?', es:'¿Cómo la llamaría la gente en realidad?', zh:'人們實際上會怎麼稱呼她?' },
-      options: [
-        { en:'Ms. Nguyễn', es:'Sra. Nguyễn', zh:'Nguyễn 女士' },
-        { en:'Ms. Hương', es:'Sra. Hương', zh:'Hương 女士' }
-      ],
-      answer: 1,
-      why: {
-        en:'Vietnamese order puts the family name first (Nguyễn — shared by roughly 40% of the country), then a middle name, then the given name. But people are addressed by their <b>given</b> name: Ms. Hương. Sort a Vietnamese list by family name and almost half of it lands in one bucket.',
-        es:'El orden vietnamita pone primero el apellido (Nguyễn — compartido por cerca del 40% del país), luego un nombre intermedio, y al final el nombre de pila. Pero a las personas se las trata por su <b>nombre de pila</b>: Sra. Hương. Ordena una lista vietnamita por apellido y casi la mitad cae en una sola casilla.',
-        zh:'越南的順序是姓氏在前(Nguyễn——全國約四成的人都姓阮),接著是中間名,最後才是名字。但人們是以<b>名字</b>相稱的:Hương 女士。若把越南名單按姓氏排序,幾乎一半的人都會擠進同一格。'
-      }
-    }
-  ];
-
-  const GT = {
-    count:   { en:'Name %a of %b', es:'Nombre %a de %b', zh:'第 %a / %b 個名字' },
-    tally:   { en:'Correct: %s', es:'Aciertos: %s', zh:'答對:%s' },
-    next:    { en:'Next name →', es:'Siguiente nombre →', zh:'下一個名字 →' },
-    results: { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
-    again:   { en:'Play again', es:'Jugar de nuevo', zh:'再玩一次' },
-    high:    { en:'You already design better forms than most software does.', es:'Ya diseñas mejores formularios que la mayoría del software.', zh:'你設計表單的功力,已經勝過大多數軟體了。' },
-    mid:     { en:'Close — and every one of these breaks a real system somewhere today.', es:'Cerca — y cada uno de estos rompe algún sistema real hoy mismo.', zh:'很接近了——而這裡的每一種情況,今天都還在弄壞某個真實系統。' },
-    low:     { en:'Which is exactly the point: none of this is obvious, and forms almost never ask.', es:'Y ese es justamente el punto: nada de esto es obvio, y los formularios casi nunca preguntan.', zh:'而這正是重點:這些都不是理所當然的,但表單幾乎從不詢問。' }
-  };
-
-  const gEls = {
-    count: document.getElementById('game-count'),
-    tally: document.getElementById('game-tally'),
-    play: document.getElementById('game-play'),
-    name: document.getElementById('game-name'),
-    origin: document.getElementById('game-origin'),
-    q: document.getElementById('game-q'),
-    options: document.getElementById('game-options'),
-    why: document.getElementById('game-why'),
-    actions: document.getElementById('game-actions'),
-    end: document.getElementById('game-end'),
-    score: document.getElementById('game-score'),
-    verdict: document.getElementById('game-verdict'),
-    again: document.getElementById('game-again')
-  };
-
-  let gIdx = 0, gScore = 0, gPicked = null;
-
-  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
-
-  function renderRound(){
-    const total = NAME_ROUNDS.length;
-
-    if (gIdx >= total){
-      gEls.play.style.display = 'none';
-      gEls.end.style.display = '';
-      gEls.count.textContent = '';
-      gEls.tally.textContent = '';
-      gEls.score.textContent = gScore + ' / ' + total;
-      gEls.verdict.textContent = gScore === total ? gt(GT.high) : (gScore >= total - 2 ? gt(GT.mid) : gt(GT.low));
-      gEls.again.textContent = gt(GT.again);
-      return;
-    }
-
-    gEls.play.style.display = '';
-    gEls.end.style.display = 'none';
-
-    const r = NAME_ROUNDS[gIdx];
-    gEls.count.textContent = gt(GT.count).replace('%a', gIdx + 1).replace('%b', total);
-    gEls.tally.textContent = gt(GT.tally).replace('%s', gScore);
-    gEls.name.textContent = r.name;
-    gEls.origin.textContent = gt(r.origin);
-    gEls.q.textContent = gt(r.q);
-
-    gEls.options.innerHTML = '';
-    r.options.forEach((opt, i) => {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'opt';
-      b.textContent = gt(opt);
-      if (gPicked !== null){
-        b.disabled = true;
-        if (i === r.answer) b.classList.add('correct');
-        else if (i === gPicked) b.classList.add('wrong');
-        else b.classList.add('muted');
-      } else {
-        b.addEventListener('click', () => pick(i));
-      }
-      gEls.options.appendChild(b);
-    });
-
-    gEls.actions.innerHTML = '';
-    if (gPicked !== null){
-      gEls.why.innerHTML = gt(r.why);
-      gEls.why.classList.add('show');
-      const nxt = document.createElement('button');
-      nxt.type = 'button';
-      nxt.className = 'btn primary';
-      nxt.textContent = (gIdx === total - 1) ? gt(GT.results) : gt(GT.next);
-      nxt.addEventListener('click', () => { gIdx++; gPicked = null; renderRound(); });
-      gEls.actions.appendChild(nxt);
-    } else {
-      gEls.why.classList.remove('show');
-      gEls.why.innerHTML = '';
-    }
-  }
-
-  function pick(i){
-    if (gPicked !== null) return;
-    gPicked = i;
-    if (i === NAME_ROUNDS[gIdx].answer) gScore++;
-    renderRound();
-  }
-
-  gEls.again.addEventListener('click', () => {
-    gIdx = 0; gScore = 0; gPicked = null; renderRound();
-  });
-
-  gameReady = true;
-  renderRound();
 </script>
 
 <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>

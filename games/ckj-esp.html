@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CKJ-ESP Match — a games.paulinavl.github.io game</title>
+<meta name="description" content="Does the word match the Spanish meaning? A quick contrastive-vocabulary game built from real CKJ-ESP articles, Mandarin, Korean, and Japanese, side by side.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FEFDFB;
+    --bg-panel:#F5F4EF;
+    --ink:#22241F;
+    --ink-soft:#5C5F55;
+    --red:#C23B2E;
+    --teal:#0E7F6F;
+    --gold:#C98A00;
+    --rule: rgba(34,36,31,0.14);
+    --font-display:'Kalam', cursive;
+    --font-body:'Source Serif 4', Georgia, serif;
+    --font-mono:'IBM Plex Mono', monospace;
+    --maxw: 780px;
+    --stroke-shadow: 1px 1px 0 rgba(0,0,0,0.04);
+  }
+  html[data-theme="dark"]{
+    --bg:#1D2620;
+    --bg-panel:#25322A;
+    --ink:#F3F0E4;
+    --ink-soft:#C6C2AC;
+    --red:#EA9280;
+    --teal:#8FE0C7;
+    --gold:#F0D27E;
+    --rule: rgba(243,240,228,0.18);
+    --font-display:'Caveat', cursive;
+    --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
+  }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:var(--font-body); font-size:18px; line-height:1.7;
+    -webkit-font-smoothing:antialiased;
+    transition:background .35s ease, color .35s ease;
+  }
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{animation-duration:0.01ms !important; transition-duration:0.01ms !important;}
+  }
+  a{color:var(--red); text-decoration-thickness:1px; text-underline-offset:3px;}
+  a:hover{color:var(--teal);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--teal); outline-offset:3px;}
+
+  .wrap{max-width:var(--maxw); margin:0 auto; padding:0 28px;}
+
+  .topbar{
+    display:flex; flex-wrap:wrap; gap:14px; justify-content:space-between; align-items:center;
+    padding-top:24px;
+  }
+  .backlink{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    border-bottom:1px solid var(--red); padding-bottom:1px;
+  }
+  .controls{ display:flex; flex-wrap:wrap; gap:8px; }
+  .toggle-group{
+    display:flex; align-items:center; gap:0;
+    border:2px solid var(--ink); border-radius:24px;
+    font-family:var(--font-mono); font-size:12px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .toggle-group button{
+    border:none; background:transparent; color:var(--ink-soft);
+    padding:7px 12px; cursor:pointer; font-family:var(--font-mono); font-size:12px;
+    transition:background .2s ease, color .2s ease;
+  }
+  .toggle-group button.active{ background:var(--ink); color:var(--bg); }
+
+  header.hero{padding:44px 0 30px;}
+  .eyebrow{
+    font-family:var(--font-mono); font-size:12.5px; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--teal); display:inline-block; padding:3px 9px; border:1px solid var(--teal);
+    border-radius:3px; margin-bottom:22px; transform:rotate(-1.2deg);
+  }
+  h1.title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(34px, 7vw, 50px);
+    line-height:1.05; margin:0 0 14px; text-shadow:var(--stroke-shadow);
+  }
+  .lede{ font-size:18px; color:var(--ink-soft); max-width:58ch; margin:0 0 14px; }
+  .note{
+    font-family:var(--font-mono); font-size:12px; color:var(--ink-soft); opacity:.85;
+    border-left:2px solid var(--rule); padding-left:10px; margin-top:8px; max-width:58ch;
+  }
+  .note a{ color:var(--red); }
+
+  section{ padding:24px 0 54px; }
+  .btn{
+    font-family:var(--font-mono); font-size:13.5px; text-decoration:none;
+    padding:10px 18px; border-radius:6px; border:1.5px solid var(--ink);
+    color:var(--ink); transition:all .2s ease; display:inline-block; cursor:pointer;
+    background:transparent;
+  }
+  .btn.primary{ background:var(--red); border-color:var(--red); color:var(--bg); }
+  .btn.primary:hover{ opacity:.85; }
+  .btn:hover{ background:var(--ink); color:var(--bg); }
+
+  /* game shell */
+  .game{
+    border:2px solid var(--gold); border-radius:12px;
+    padding:24px 22px; background:var(--bg-panel); margin-top:8px;
+  }
+  .game-top{
+    display:flex; flex-wrap:wrap; gap:8px 18px; justify-content:space-between; align-items:baseline;
+    font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft);
+  }
+  .ckj-round-title{
+    font-family:var(--font-display); font-weight:700; text-align:center;
+    font-size:clamp(20px,4.2vw,26px); line-height:1.2; margin:18px 0 4px; color:var(--gold);
+  }
+  .ckj-instructions{ font-size:15px; text-align:center; color:var(--ink-soft); margin:0 0 22px; }
+
+  .ckj-card{
+    text-align:center; border:1.5px solid var(--rule); border-radius:10px;
+    background:var(--bg); padding:28px 20px; margin-bottom:18px;
+  }
+  .ckj-word{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(26px,5.2vw,36px);
+    margin:0 0 14px; text-shadow:var(--stroke-shadow);
+  }
+  .ckj-vs{ font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--ink-soft); margin:0 0 8px; }
+  .ckj-meaning{ font-size:22px; color:var(--red); font-weight:600; margin:0; }
+
+  .ckj-choice-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-bottom:6px; }
+  .ckj-choice{
+    font-family:var(--font-mono); font-size:15px; padding:14px 26px;
+    border-radius:8px; border:1.5px solid var(--ink); background:transparent;
+    color:var(--ink); cursor:pointer; transition:background .15s ease, color .15s ease;
+    min-width:150px;
+  }
+  .ckj-choice:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
+  .ckj-choice.match{ border-color:var(--teal); color:var(--teal); }
+  .ckj-choice.match:hover:not(:disabled){ background:var(--teal); color:var(--bg); }
+  .ckj-choice.nomatch{ border-color:var(--red); color:var(--red); }
+  .ckj-choice.nomatch:hover:not(:disabled){ background:var(--red); color:var(--bg); }
+  .ckj-choice:disabled{ opacity:.4; cursor:default; }
+  .ckj-choice.chosen{ opacity:1 !important; }
+
+  .ckj-verdict{ text-align:center; font-family:var(--font-mono); font-size:13.5px; font-weight:600; margin:14px 0 4px; letter-spacing:.03em; }
+  .ckj-verdict.correct{ color:var(--teal); }
+  .ckj-verdict.wrong{ color:var(--red); }
+  .ckj-why{
+    margin:10px auto 0; max-width:50ch; border-left:3px solid var(--gold); padding-left:14px;
+    font-size:15.5px; color:var(--ink-soft); text-align:left; display:none;
+  }
+  .ckj-why.show{ display:block; }
+  .ckj-why b{ color:var(--ink); font-weight:600; }
+
+  .game-actions{ margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+  .game-final{ text-align:center; padding:6px 0; }
+  .game-score{
+    font-family:var(--font-display); font-size:36px; font-weight:700;
+    color:var(--red); line-height:1.1;
+  }
+  .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
+  .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
+  .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
+  .mastodon-input{
+    font-family:var(--font-mono); font-size:13px; padding:9px 12px;
+    border-radius:6px; border:1.5px solid var(--ink); background:var(--bg);
+    color:var(--ink); min-width:180px;
+  }
+  .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
+
+  footer{ padding:40px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<main class="wrap">
+  <div class="topbar">
+    <a class="backlink" href="../games.html">
+      <span class="i18n" data-lang="en">← All games</span>
+      <span class="i18n" data-lang="es" style="display:none">← Todos los juegos</span>
+      <span class="i18n" data-lang="zh" style="display:none">← 所有遊戲</span>
+    </a>
+    <div class="controls">
+      <div class="toggle-group" role="group" aria-label="Theme">
+        <button id="btn-light" type="button">☀ <span class="i18n" data-lang="en">marker</span><span class="i18n" data-lang="es" style="display:none">marcador</span><span class="i18n" data-lang="zh" style="display:none">麥克筆</span></button>
+        <button id="btn-dark" type="button">● <span class="i18n" data-lang="en">chalk</span><span class="i18n" data-lang="es" style="display:none">tiza</span><span class="i18n" data-lang="zh" style="display:none">粉筆</span></button>
+      </div>
+      <div class="toggle-group" role="group" aria-label="Language">
+        <button id="btn-en" type="button">EN</button>
+        <button id="btn-es" type="button">ES</button>
+        <button id="btn-zh" type="button">中</button>
+      </div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <span class="eyebrow">
+      <span class="i18n" data-lang="en">🀄 CKJ-ESP, playable</span>
+      <span class="i18n" data-lang="es" style="display:none">🀄 CKJ-ESP, para jugar</span>
+      <span class="i18n" data-lang="zh" style="display:none">🀄 CKJ-ESP,現在可以玩了</span>
+    </span>
+    <h1 class="title">
+      <span class="i18n" data-lang="en">CKJ-ESP Match</span>
+      <span class="i18n" data-lang="es" style="display:none">CKJ-ESP Empareja</span>
+      <span class="i18n" data-lang="zh" style="display:none">CKJ-ESP 配對</span>
+    </h1>
+    <p class="lede i18n" data-lang="en">Mandarin, Korean, Japanese, the Kangxi radicals underneath them, and the three scripts themselves — five rounds, match a word to its Spanish meaning or a symbol to its writing system. Arrow keys and taps both work. You have 3 lives.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Mandarín, coreano, japonés, los radicales Kangxi que subyacen a los tres, y los tres sistemas de escritura en sí: cinco rondas, empareja una palabra con su significado en español, o un símbolo con su sistema de escritura. Funciona con las flechas del teclado o tocando. Tienes 3 vidas.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">華語、韓語、日語、三者背後共通的康熙部首,以及三種文字系統本身——共五輪,將詞配對到西班牙語意思,或將符號配對到所屬的文字系統。鍵盤方向鍵或觸控皆可操作。你有3條生命。</p>
+    <p class="note i18n" data-lang="en">Every word, symbol, and meaning here comes straight from five real <a href="https://ckj-esp.netlify.app">CKJ-ESP</a> articles: <a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">"Aprender y estudiar"</a>, <a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">"El verbo 'ser'"</a>, <a href="https://ckj-esp.netlify.app/radicales-kangxi/">"Los 214 radicales Kangxi"</a>, <a href="https://ckj-esp.netlify.app/leer-zhuyin/">"Cómo leer 注音符號"</a>, <a href="https://ckj-esp.netlify.app/leer-hangul/">"Cómo leer 한글"</a>, and <a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">"Cómo leer ひらがな y カタカナ"</a>.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Cada palabra, símbolo y significado aquí viene directamente de cinco artículos reales de <a href="https://ckj-esp.netlify.app">CKJ-ESP</a>: <a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">«Aprender y estudiar»</a>, <a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">«El verbo "ser"»</a>, <a href="https://ckj-esp.netlify.app/radicales-kangxi/">«Los 214 radicales Kangxi»</a>, <a href="https://ckj-esp.netlify.app/leer-zhuyin/">«Cómo leer 注音符號»</a>, <a href="https://ckj-esp.netlify.app/leer-hangul/">«Cómo leer 한글»</a>, y <a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">«Cómo leer ひらがな y カタカナ»</a>.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">這裡的每個詞、符號與意思,都直接取自<a href="https://ckj-esp.netlify.app">CKJ-ESP</a>的五篇真實文章:<a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">「Aprender y estudiar」</a>、<a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">「El verbo 'ser'」</a>、<a href="https://ckj-esp.netlify.app/radicales-kangxi/">「Los 214 radicales Kangxi」</a>、<a href="https://ckj-esp.netlify.app/leer-zhuyin/">「Cómo leer 注音符號」</a>、<a href="https://ckj-esp.netlify.app/leer-hangul/">「Cómo leer 한글」</a>,以及<a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">「Cómo leer ひらがな y カタカナ」</a>。</p>
+  </header>
+
+  <section>
+    <div class="game" id="game-box">
+      <div class="game-top">
+        <span id="g-round"></span>
+        <span id="g-card"></span>
+        <span id="g-lives"></span>
+      </div>
+
+      <div id="g-play">
+        <h3 class="ckj-round-title" id="g-round-title"></h3>
+        <p class="ckj-instructions" id="g-instructions"></p>
+        <p class="mastodon-label" id="g-key-hint"></p>
+
+        <div class="ckj-card">
+          <p class="ckj-word" id="g-word"></p>
+          <p class="ckj-vs" id="g-vs"></p>
+          <p class="ckj-meaning" id="g-meaning"></p>
+        </div>
+
+        <div class="ckj-choice-row" id="g-choices"></div>
+        <p class="ckj-verdict" id="g-verdict"></p>
+        <div class="ckj-why" id="g-why"></div>
+
+        <div class="game-actions" id="g-actions"></div>
+      </div>
+
+      <div id="g-over" class="game-final" style="display:none;">
+        <p class="game-score" id="g-over-score"></p>
+        <p id="g-over-body"></p>
+        <div class="game-actions"><button class="btn primary" type="button" id="g-retry-1"></button></div>
+      </div>
+
+      <div id="g-end" class="game-final" style="display:none;">
+        <p class="game-score" id="g-end-score"></p>
+        <p id="g-end-verdict"></p>
+        <div class="share-row">
+          <a class="btn primary" id="g-bsky" href="#" target="_blank" rel="noopener">Bluesky</a>
+          <a class="btn" id="g-x" href="#" target="_blank" rel="noopener">X</a>
+          <a class="btn" id="g-facebook" href="#" target="_blank" rel="noopener">Facebook</a>
+          <a class="btn" id="g-linkedin" href="#" target="_blank" rel="noopener">LinkedIn</a>
+        </div>
+        <p class="mastodon-label" id="g-mastodon-label"></p>
+        <div class="mastodon-row">
+          <input type="text" id="g-mastodon-instance" class="mastodon-input" placeholder="mastodon.social">
+          <button class="btn" type="button" id="g-mastodon-btn"></button>
+        </div>
+        <div class="game-actions">
+          <button class="btn" type="button" id="g-copy"></button>
+          <button class="btn" type="button" id="g-retry-2"></button>
+        </div>
+        <p class="g-copy-note" id="g-copy-note" style="display:none;"></p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="i18n" data-lang="en">Part of the <a href="../index.html#projects">CKJ-ESP</a> project — a Spanish-first comparative dictionary for Mandarin, Korean, and Japanese.</span>
+    <span class="i18n" data-lang="es" style="display:none">Parte del proyecto <a href="../index.html#projects">CKJ-ESP</a>: un diccionario comparativo con el español al centro, para mandarín, coreano y japonés.</span>
+    <span class="i18n" data-lang="zh" style="display:none">屬於<a href="../index.html#projects">CKJ-ESP</a>專案的一部分——一套以西班牙語為核心的華語、韓語、日語比較辭典。</span>
+  </footer>
+</main>
+
+<script>
+  const root = document.documentElement;
+  const btnLight = document.getElementById('btn-light');
+  const btnDark = document.getElementById('btn-dark');
+  function applyTheme(t){
+    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
+    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    try{ localStorage.setItem('theme', t); }catch(e){}
+  }
+  let savedTheme = 'light';
+  try{
+    savedTheme = localStorage.getItem('theme') || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  }catch(e){}
+  applyTheme(savedTheme);
+  btnLight.addEventListener('click', () => applyTheme('light'));
+  btnDark.addEventListener('click', () => applyTheme('dark'));
+
+  const btnEn = document.getElementById('btn-en');
+  const btnEs = document.getElementById('btn-es');
+  const btnZh = document.getElementById('btn-zh');
+  let currentLang = 'en';
+  function applyLang(l){
+    currentLang = l;
+    document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
+    root.setAttribute('data-lang', l);
+    root.lang = l === 'zh' ? 'zh-Hant' : l;
+    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    try{ localStorage.setItem('lang', l); }catch(e){}
+    if (gameReady) render();
+  }
+  let savedLang = 'en';
+  try{ savedLang = localStorage.getItem('lang') || 'en'; }catch(e){}
+  btnEn.addEventListener('click', () => applyLang('en'));
+  btnEs.addEventListener('click', () => applyLang('es'));
+  btnZh.addEventListener('click', () => applyLang('zh'));
+
+  function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
+
+  /* ---------- share helper (same shape as index.html / games/eds-timeline.html) ---------- */
+  function buildShareLinks(text, hashtag, url){
+    const full = `${text} ${hashtag} ${url}`;
+    return {
+      full,
+      bsky: `https://bsky.app/intent/compose?text=${encodeURIComponent(full)}`,
+      x: `https://twitter.com/intent/tweet?text=${encodeURIComponent(text + ' ' + hashtag)}&url=${encodeURIComponent(url)}`,
+      facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+      linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`,
+      mastodon(instance){
+        const host = instance.trim().replace(/^https?:\/\//, '').replace(/\/.*$/, '');
+        return `https://${host}/share?text=${encodeURIComponent(full)}`;
+      }
+    };
+  }
+  function copyToClipboard(text, cb){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(cb).catch(() => fallbackCopy(text, cb));
+    } else {
+      fallbackCopy(text, cb);
+    }
+  }
+  function fallbackCopy(text, cb){
+    const ta = document.createElement('textarea');
+    ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+    document.body.appendChild(ta); ta.select();
+    try{ document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    cb();
+  }
+
+  /* ---------- CKJ-ESP match game ---------- */
+  var gameReady = false;
+
+  /* Every word + meaning below is sourced verbatim from two published CKJ-ESP
+     articles (see the links in the page header) — nothing here is invented. */
+  const ROUNDS = [
+    {
+      type: 'match',
+      title: { en:'Mandarin (Taiwan)', es:'Mandarín (Taiwán)', zh:'華語(台灣)' },
+      words: [
+        { display:'學 (xué)', meaning:'aprender' },
+        { display:'學校 (xuéxiào)', meaning:'escuela' },
+        { display:'學生 (xuéshēng)', meaning:'estudiante' },
+        { display:'大學 (dàxué)', meaning:'universidad' },
+        { display:'學習 (xuéxí)', meaning:'estudiar (forma formal)' },
+        { display:'是 (shì)', meaning:'ser' }
+      ]
+    },
+    {
+      type: 'match',
+      title: { en:'Korean', es:'Coreano', zh:'韓語' },
+      words: [
+        { display:'배우다 (baeuda)', meaning:'aprender' },
+        { display:'공부하다 (gongbuhada)', meaning:'estudiar' },
+        { display:'학교 (hakgyo)', meaning:'escuela' },
+        { display:'학생 (hakssaeng)', meaning:'estudiante' },
+        { display:'이다 (ida)', meaning:'ser' }
+      ]
+    },
+    {
+      type: 'match',
+      title: { en:'Japanese', es:'Japonés', zh:'日語' },
+      words: [
+        { display:'学ぶ (manabu)', meaning:'aprender' },
+        { display:'勉強する (benkyou suru)', meaning:'estudiar' },
+        { display:'学校 (gakkou)', meaning:'escuela' },
+        { display:'学生 (gakusei)', meaning:'estudiante' },
+        { display:'です (desu)', meaning:'ser' }
+      ]
+    },
+    {
+      type: 'match',
+      title: { en:'Kangxi Radicals', es:'Radicales Kangxi', zh:'康熙部首' },
+      words: [
+        { display:'人 (ㄖㄣˊ)', meaning:'persona / ser humano' },
+        { display:'口 (ㄎㄡˇ)', meaning:'boca' },
+        { display:'山 (ㄕㄢ)', meaning:'montaña' },
+        { display:'水 (ㄕㄨㄟˇ)', meaning:'agua' },
+        { display:'木 (ㄇㄨˋ)', meaning:'árbol / madera' },
+        { display:'火 (ㄏㄨㄛˇ)', meaning:'fuego' }
+      ]
+    },
+    {
+      type: 'identify',
+      title: { en:'Which Writing System?', es:'¿Qué sistema de escritura?', zh:'這是哪一種文字系統?' },
+      systems: [
+        { id:'zhuyin', label:{ en:'Zhuyin (注音)', es:'Zhuyin (注音)', zh:'注音' } },
+        { id:'hangul', label:{ en:'Hangul (한글)', es:'Hangul (한글)', zh:'諺文(한글)' } },
+        { id:'kana', label:{ en:'Kana (かな)', es:'Kana (かな)', zh:'假名' } }
+      ],
+      items: [
+        { symbol:'ㄅ', sound:'“b/p” (sin aspirar)', system:'zhuyin' },
+        { symbol:'ㄇ', sound:'“m”', system:'zhuyin' },
+        { symbol:'ㄚ', sound:'“a”', system:'zhuyin' },
+        { symbol:'ㄱ', sound:'“g/k”', system:'hangul' },
+        { symbol:'ㄴ', sound:'“n”', system:'hangul' },
+        { symbol:'ㅏ', sound:'“a”', system:'hangul' },
+        { symbol:'あ', sound:'“a”', system:'kana' },
+        { symbol:'か', sound:'“ka”', system:'kana' },
+        { symbol:'し', sound:'“sh”', system:'kana' }
+      ]
+    }
+  ];
+
+  const GT = {
+    round:       { en:'Round %a of %b: %t', es:'Ronda %a de %b: %t', zh:'第 %a / %b 輪:%t' },
+    card:        { en:'Card %a of %b', es:'Tarjeta %a de %b', zh:'第 %a / %b 張卡' },
+    lives:       { en:'📖 Lives: %s', es:'📖 Vidas: %s', zh:'📖 生命:%s' },
+    instructions:{ en:'Does the word match this Spanish meaning?', es:'¿La palabra coincide con este significado en español?', zh:'這個詞和這個西班牙語意思相符嗎?' },
+    identifyInstructions:{ en:'Which writing system is this symbol from?', es:'¿De qué sistema de escritura es este símbolo?', zh:'這個符號屬於哪一種文字系統?' },
+    keyHintMatch:{ en:'Keyboard: ← for no match, → for match, Enter for next', es:'Teclado: ← no coinciden, → coinciden, Enter para siguiente', zh:'鍵盤:← 不相符,→ 相符,Enter 進到下一題' },
+    keyHintIdentify:{ en:'Keyboard: 1 / 2 / 3 to pick, Enter for next', es:'Teclado: 1 / 2 / 3 para elegir, Enter para siguiente', zh:'鍵盤:1 / 2 / 3 選擇,Enter 進到下一題' },
+    vs:          { en:'means, in Spanish:', es:'significa, en español:', zh:'的西班牙語意思是:' },
+    soundsLike:  { en:'sounds like:', es:'suena como:', zh:'發音接近:' },
+    match:       { en:'✓ Match', es:'✓ Coinciden', zh:'✓ 相符' },
+    nomatch:     { en:'✗ No match', es:'✗ No coinciden', zh:'✗ 不相符' },
+    correct:     { en:'Correct', es:'Correcto', zh:'答對了' },
+    incorrect:   { en:'Incorrect', es:'Incorrecto', zh:'答錯了' },
+    why:         { en:'%w actually means <b>“%t”</b>.', es:'%w en realidad significa <b>«%t»</b>.', zh:'%w 實際上的意思是<b>「%t」</b>。' },
+    whyIdentify: { en:'%w is from <b>%t</b> — sounds like %s.', es:'%w es de <b>%t</b> — suena como %s.', zh:'%w 屬於<b>%t</b>——發音接近 %s。' },
+    next:        { en:'Next →', es:'Siguiente →', zh:'下一個 →' },
+    results:     { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
+    overScore:   { en:'Out of lives', es:'Sin vidas', zh:'生命值用完了' },
+    overBody:    { en:'You got %s of 31 right before running out of lives.', es:'Acertaste %s de 31 antes de quedarte sin vidas.', zh:'在生命值用完之前,你答對了31題中的%s題。' },
+    retry:       { en:'Try again', es:'Intentar de nuevo', zh:'再試一次' },
+    endScore:    { en:'%s / 31', es:'%s / 31', zh:'%s / 31' },
+    high:        { en:'Perfect — Mandarin, Korean, Japanese, and their writing systems, all correctly matched.', es:'Perfecto — mandarín, coreano, japonés, y sus sistemas de escritura, todo bien emparejado.', zh:'滿分——華語、韓語、日語與它們的文字系統,全部配對正確。' },
+    mid:         { en:'Solid contrastive instincts across three languages.', es:'Buen instinto contrastivo entre los tres idiomas.', zh:'在三種語言之間展現了不錯的對比直覺。' },
+    low:         { en:'This is exactly why CKJ-ESP puts them side by side instead of one at a time.', es:'Por esto CKJ-ESP los pone lado a lado, en vez de uno a la vez.', zh:'這正是為什麼 CKJ-ESP 把它們並列比較,而不是一次只教一種語言。' },
+    copy:        { en:'Copy score text (for Instagram, Threads, etc.)', es:'Copiar el texto (para Instagram, Threads, etc.)', zh:'複製分數文字(可用於 Instagram、Threads 等)' },
+    copied:      { en:'Copied — paste it wherever you like.', es:'Copiado — pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
+    mastodonLabel:{ en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
+    mastodonBtn: { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
+    shareText:   { en:'I matched %s/31 CKJ-ESP words and symbols to their real meanings', es:'Emparejé %s/31 palabras y símbolos de CKJ-ESP con su significado real', zh:'我在CKJ-ESP配對遊戲中,正確配對了31個詞與符號中的%s個' }
+  };
+
+  const gEls = {
+    round: document.getElementById('g-round'),
+    card: document.getElementById('g-card'),
+    lives: document.getElementById('g-lives'),
+    play: document.getElementById('g-play'),
+    roundTitle: document.getElementById('g-round-title'),
+    instructions: document.getElementById('g-instructions'),
+    keyHint: document.getElementById('g-key-hint'),
+    word: document.getElementById('g-word'),
+    vs: document.getElementById('g-vs'),
+    meaning: document.getElementById('g-meaning'),
+    choices: document.getElementById('g-choices'),
+    verdict: document.getElementById('g-verdict'),
+    why: document.getElementById('g-why'),
+    actions: document.getElementById('g-actions'),
+    over: document.getElementById('g-over'),
+    overScore: document.getElementById('g-over-score'),
+    overBody: document.getElementById('g-over-body'),
+    retry1: document.getElementById('g-retry-1'),
+    end: document.getElementById('g-end'),
+    endScore: document.getElementById('g-end-score'),
+    endVerdict: document.getElementById('g-end-verdict'),
+    retry2: document.getElementById('g-retry-2'),
+    bsky: document.getElementById('g-bsky'),
+    x: document.getElementById('g-x'),
+    facebook: document.getElementById('g-facebook'),
+    copy: document.getElementById('g-copy'),
+    copyNote: document.getElementById('g-copy-note'),
+    linkedin: document.getElementById('g-linkedin'),
+    mastodonLabel: document.getElementById('g-mastodon-label'),
+    mastodonInstance: document.getElementById('g-mastodon-instance'),
+    mastodonBtn: document.getElementById('g-mastodon-btn')
+  };
+
+  let lives, roundIdx, cardIdx, score, cards, picked, over, finished;
+
+  function shuffle(arr){
+    const a = arr.slice();
+    for (let i = a.length - 1; i > 0; i--){
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+  }
+
+  function buildRoundCards(round){
+    if (round.type === 'identify'){
+      return shuffle(round.items).map(it => ({
+        kind: 'identify', symbol: it.symbol, sound: it.sound, correctSystem: it.system
+      }));
+    }
+    const words = round.words;
+    return words.map((w, i) => {
+      const isMatch = Math.random() < 0.5;
+      let shown = w.meaning;
+      if (!isMatch){
+        let j = Math.floor(Math.random() * (words.length - 1));
+        if (j >= i) j++;
+        shown = words[j].meaning;
+      }
+      return { kind: 'match', word: w.display, trueMeaning: w.meaning, shownMeaning: shown, isMatch };
+    });
+  }
+
+  function resetGame(){
+    lives = 3; roundIdx = 0; score = 0; picked = null; over = false; finished = false;
+    cardIdx = 0;
+    cards = buildRoundCards(ROUNDS[0]);
+    render();
+  }
+
+  function choose(value){
+    if (picked !== null) return;
+    picked = value;
+    const card = cards[cardIdx];
+    const correct = (card.kind === 'identify') ? (value === card.correctSystem) : (value === card.isMatch);
+    if (correct) score++; else lives--;
+    render();
+  }
+
+  function advance(){
+    cardIdx++;
+    picked = null;
+    if (cardIdx >= cards.length){
+      roundIdx++;
+      if (roundIdx >= ROUNDS.length){
+        finished = true;
+      } else {
+        cardIdx = 0;
+        cards = buildRoundCards(ROUNDS[roundIdx]);
+      }
+    }
+    if (lives <= 0) over = true;
+    render();
+  }
+
+  function render(){
+    if (over){
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = 'none';
+      gEls.over.style.display = '';
+      gEls.overScore.textContent = gt(GT.overScore);
+      gEls.overBody.textContent = gt(GT.overBody).replace('%s', score);
+      gEls.retry1.textContent = gt(GT.retry);
+      return;
+    }
+    if (finished){
+      gEls.play.style.display = 'none';
+      gEls.over.style.display = 'none';
+      gEls.end.style.display = '';
+      const total = ROUNDS.reduce((n, r) => n + (r.type === 'identify' ? r.items.length : r.words.length), 0);
+      gEls.endScore.textContent = gt(GT.endScore).replace('%s', score);
+      const verdict = (score === total) ? gt(GT.high) : (score >= total - 3 ? gt(GT.mid) : gt(GT.low));
+      gEls.endVerdict.textContent = verdict;
+      gEls.retry2.textContent = gt(GT.retry);
+      gEls.copy.textContent = gt(GT.copy);
+      gEls.copyNote.style.display = 'none';
+      gEls.mastodonLabel.textContent = gt(GT.mastodonLabel);
+      gEls.mastodonBtn.textContent = gt(GT.mastodonBtn);
+      gEls.mastodonInstance.value = '';
+
+      const shareText = gt(GT.shareText).replace('%s', score);
+      const shareUrl = location.href.split('#')[0];
+      const links = buildShareLinks(shareText, '#CKJESPMatch', shareUrl);
+      gEls.bsky.href = links.bsky;
+      gEls.x.href = links.x;
+      gEls.facebook.href = links.facebook;
+      gEls.linkedin.href = links.linkedin;
+      gEls.mastodonBtn.onclick = () => {
+        const instance = gEls.mastodonInstance.value.trim();
+        if (!instance){ gEls.mastodonInstance.focus(); return; }
+        window.open(links.mastodon(instance), '_blank', 'noopener');
+      };
+      gEls.copy.onclick = () => copyToClipboard(links.full, () => {
+        gEls.copyNote.textContent = gt(GT.copied);
+        gEls.copyNote.style.display = '';
+      });
+      return;
+    }
+
+    gEls.play.style.display = '';
+    gEls.over.style.display = 'none';
+    gEls.end.style.display = 'none';
+
+    const round = ROUNDS[roundIdx];
+    const card = cards[cardIdx];
+    const isIdentify = card.kind === 'identify';
+    gEls.round.textContent = gt(GT.round).replace('%a', roundIdx + 1).replace('%b', ROUNDS.length).replace('%t', gt(round.title));
+    gEls.card.textContent = gt(GT.card).replace('%a', cardIdx + 1).replace('%b', cards.length);
+    gEls.lives.textContent = gt(GT.lives).replace('%s', lives);
+    gEls.roundTitle.textContent = gt(round.title);
+    gEls.instructions.textContent = isIdentify ? gt(GT.identifyInstructions) : gt(GT.instructions);
+    gEls.keyHint.textContent = isIdentify ? gt(GT.keyHintIdentify) : gt(GT.keyHintMatch);
+
+    if (isIdentify){
+      gEls.word.textContent = card.symbol;
+      gEls.vs.textContent = gt(GT.soundsLike);
+      gEls.meaning.textContent = card.sound;
+    } else {
+      gEls.word.textContent = card.word;
+      gEls.vs.textContent = gt(GT.vs);
+      gEls.meaning.textContent = `“${card.shownMeaning}”`;
+    }
+
+    gEls.choices.innerHTML = '';
+    if (isIdentify){
+      round.systems.forEach(sys => {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'ckj-choice';
+        b.textContent = gt(sys.label);
+        if (picked !== null){
+          b.disabled = true;
+          if (picked === sys.id) b.classList.add('chosen');
+        } else {
+          b.addEventListener('click', () => choose(sys.id));
+        }
+        gEls.choices.appendChild(b);
+      });
+    } else {
+      const matchBtn = document.createElement('button');
+      matchBtn.type = 'button';
+      matchBtn.className = 'ckj-choice match';
+      matchBtn.textContent = gt(GT.match);
+      const noBtn = document.createElement('button');
+      noBtn.type = 'button';
+      noBtn.className = 'ckj-choice nomatch';
+      noBtn.textContent = gt(GT.nomatch);
+
+      if (picked !== null){
+        matchBtn.disabled = true; noBtn.disabled = true;
+        if (picked === true) matchBtn.classList.add('chosen');
+        if (picked === false) noBtn.classList.add('chosen');
+      } else {
+        matchBtn.addEventListener('click', () => choose(true));
+        noBtn.addEventListener('click', () => choose(false));
+      }
+      gEls.choices.appendChild(matchBtn);
+      gEls.choices.appendChild(noBtn);
+    }
+
+    gEls.actions.innerHTML = '';
+    if (picked !== null){
+      const correct = isIdentify ? (picked === card.correctSystem) : (picked === card.isMatch);
+      gEls.verdict.textContent = correct ? gt(GT.correct) : gt(GT.incorrect);
+      gEls.verdict.className = 'ckj-verdict ' + (correct ? 'correct' : 'wrong');
+      if (isIdentify){
+        const sysLabel = gt(round.systems.find(s => s.id === card.correctSystem).label);
+        gEls.why.innerHTML = gt(GT.whyIdentify).replace('%w', `<b>${card.symbol}</b>`).replace('%t', sysLabel).replace('%s', card.sound);
+      } else {
+        gEls.why.innerHTML = gt(GT.why).replace('%w', `<b>${card.word}</b>`).replace('%t', card.trueMeaning);
+      }
+      gEls.why.classList.add('show');
+
+      const isLastCardOverall = (roundIdx === ROUNDS.length - 1) && (cardIdx === cards.length - 1);
+      const nxt = document.createElement('button');
+      nxt.type = 'button';
+      nxt.className = 'btn primary';
+      nxt.textContent = isLastCardOverall ? gt(GT.results) : gt(GT.next);
+      nxt.addEventListener('click', advance);
+      gEls.actions.appendChild(nxt);
+    } else {
+      gEls.verdict.textContent = '';
+      gEls.verdict.className = 'ckj-verdict';
+      gEls.why.classList.remove('show');
+      gEls.why.innerHTML = '';
+    }
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (!gameReady || over || finished) return;
+    const active = document.activeElement;
+    if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA')) return;
+    const card = cards[cardIdx];
+    if (picked === null){
+      if (card.kind === 'identify'){
+        const round = ROUNDS[roundIdx];
+        if (['1','2','3'].includes(e.key)){
+          const sys = round.systems[Number(e.key) - 1];
+          if (sys) choose(sys.id);
+        }
+      } else {
+        if (e.key === 'ArrowRight') choose(true);
+        else if (e.key === 'ArrowLeft') choose(false);
+      }
+    } else {
+      if (e.key === 'Enter' || e.key === 'ArrowRight'){
+        e.preventDefault();
+        advance();
+      }
+    }
+  });
+
+  gEls.retry1.addEventListener('click', resetGame);
+  gEls.retry2.addEventListener('click', resetGame);
+
+  applyLang(savedLang);
+  gameReady = true;
+  resetGame();
+</script>
+
+</body>
+</html>
