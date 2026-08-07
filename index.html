@@ -577,10 +577,15 @@
         <span class="i18n" data-lang="es" style="display:none">Descargar CV ↓</span>
         <span class="i18n" data-lang="zh" style="display:none">下載履歷 ↓</span>
       </a>
-      <a href="resume.html">
-        <span class="i18n" data-lang="en">Quick résumé →</span>
-        <span class="i18n" data-lang="es" style="display:none">Currículum rápido →</span>
-        <span class="i18n" data-lang="zh" style="display:none">快速履歷 →</span>
+      <a href="resume_version_a.html">
+        <span class="i18n" data-lang="en">Résumé (NLP/AI) →</span>
+        <span class="i18n" data-lang="es" style="display:none">Currículum (PLN/IA) →</span>
+        <span class="i18n" data-lang="zh" style="display:none">履歷(NLP/AI)→</span>
+      </a>
+      <a href="resume_version_b.html">
+        <span class="i18n" data-lang="en">Résumé (EdTech) →</span>
+        <span class="i18n" data-lang="es" style="display:none">Currículum (EdTech) →</span>
+        <span class="i18n" data-lang="zh" style="display:none">履歷(EdTech)→</span>
       </a>
       <a href="#support">
         <span class="i18n" data-lang="en">Support my work →</span>
@@ -1031,9 +1036,15 @@
       <span class="i18n" data-lang="es" style="display:none">Cosas que he construido</span>
       <span class="i18n" data-lang="zh" style="display:none">我打造過的東西</span>
     </h2>
-    <p class="lede i18n" data-lang="en">Research doesn't stay in papers if I can help it — most of it turns into a tool, a site, or an app.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Si depende de mí, la investigación no se queda solo en papers. Casi todo termina convirtiéndose en una herramienta, un sitio o una app.</p>
-    <p class="lede i18n" data-lang="zh" style="display:none">只要能力所及,我的研究不會只停留在論文裡——大多數最後都會變成一項工具、一個網站,或一款應用程式。</p>
+    <p class="lede i18n" data-lang="en">Research doesn't stay in papers if I can help it — most of it turns into a tool, a site, or an app. Grouped below the way I actually think about them: <b>EdTech</b> first, <b>Health Tech</b> after.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Si depende de mí, la investigación no se queda solo en papers. Casi todo termina convirtiéndose en una herramienta, un sitio o una app. Agrupados abajo tal como realmente los pienso: primero <b>tecnología educativa</b>, después <b>tecnología en salud</b>.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">只要能力所及,我的研究不會只停留在論文裡——大多數最後都會變成一項工具、一個網站,或一款應用程式。以下依照我實際思考它們的方式分組:先是<b>教育科技</b>,再來是<b>醫療科技</b>。</p>
+
+    <h3>
+      <span class="i18n" data-lang="en">EdTech</span>
+      <span class="i18n" data-lang="es" style="display:none">Tecnología educativa</span>
+      <span class="i18n" data-lang="zh" style="display:none">教育科技</span>
+    </h3>
 
     <div class="spotlight" id="carla-model">
       <h4>The Carla Model</h4>
@@ -1055,26 +1066,29 @@
       <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">CEFR</span><span class="tag">Streamlit</span></div>
     </div>
 
-    <div class="spotlight" id="zebraup" style="margin-top:26px;">
-      <h4>ZebraUp</h4>
+    <div class="spotlight" id="ckj-esp" style="margin-top:26px;">
+      <h4>CKJ-ESP</h4>
       <div class="i18n" data-lang="en">
-        <p>Built as an mHealth web app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. ZebraUp helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
-        <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study. More on why I built this in <a href="#journey">the honest part</a>.</p>
+        <p>CKJ-ESP is the idea that used to live a few sections down, listed as a hazy "shape TBD" — it shipped. A Spanish-first, Pleco-style comparative dictionary connecting Mandarin (Taiwan), Korean, and Japanese, side by side, in Spanish: vocabulary, grammar, and writing systems, plus the connections a "one language at a time" course never draws. Ten articles live so far — the copula (是 / 이다 / です), keyboard layouts (注音, hangul, かな), how to actually read hangul and hiragana/katakana, and the 214 Kangxi radicals among them — sourced from TOCFL/MOEdict, KRDICT, and JMdict, with stroke order from Taiwan's Ministry of Education. Chinese vocabulary throughout is colorized by tone with <a href="https://tonestamp.netlify.app">Tonestamp</a>.</p>
+        <p>Where it's going: more articles, closer integration with Tonestamp and leehzn, and eventually an API for anyone building CJK ↔ Spanish tools. This is the language project I move between three languages for daily — which makes it the one I'm most personally invested in keeping alive.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar (las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes). ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
-        <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas (dónde se rompe esa comunicación y qué realmente ayuda), con el objetivo de publicar un estudio que use ZebraUp como caso de estudio. Más sobre por qué construí esto en <a href="#journey">la parte honesta</a>.</p>
+        <p>CKJ-ESP es la idea que hace un rato vivía más abajo en esta página, listada como una difusa «forma por decidir» — y ya está en línea. Un diccionario comparativo con el español al centro, al estilo Pleco, que conecta mandarín (Taiwán), coreano y japonés, lado a lado, en español: vocabulario, gramática y sistemas de escritura, además de las conexiones que un curso de «un idioma a la vez» nunca traza. Diez artículos publicados hasta ahora — la cópula (是 / 이다 / です), los teclados (注音, hangul, かな), cómo leer de verdad hangul e hiragana/katakana, y los 214 radicales Kangxi, entre otros — con datos de TOCFL/MOEdict, KRDICT y JMdict, y trazos de escritura del Ministerio de Educación de Taiwán. El vocabulario chino está coloreado por tono con <a href="https://tonestamp.netlify.app">Tonestamp</a> en todo el sitio.</p>
+        <p>Lo que viene: más artículos, integración más estrecha con Tonestamp y leehzn, y eventualmente una API para quien quiera construir herramientas CJK ↔ español. Es el proyecto de idiomas entre el que me muevo a diario, en tres lenguas — lo que lo convierte en el que más me importa personalmente mantener con vida.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>這是一款為罕見或難以診斷疾病患者打造的行動醫療網頁應用程式。醫學術語中的「斑馬」,指的是那些在醫師優先考慮常見診斷時,容易被忽略的病例。ZebraUp協助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀紀錄、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
-        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。關於我為何打造這個工具,更多細節請見<a href="#journey">誠實的部分</a>。</p>
+        <p>CKJ-ESP,就是幾個段落之後、原本被列為「形式未定」的那個構想——如今已經上線。這是一套以西班牙語為核心、類似Pleco的比較式辭典,將台灣華語、韓語與日語並列比較,以西班牙語呈現:詞彙、語法與文字系統,還有「一次只學一種語言」的課程從未串連起來的關聯。目前已發表十篇文章——包括繫詞(是 / 이다 / です)、鍵盤配置(注音、韓文鍵盤、假名)、如何真正讀懂韓文與平假名/片假名,以及214個康熙部首——資料來源包括TOCFL/MOEdict、KRDICT與JMdict,筆順則取自台灣教育部。全站的中文詞彙都以<a href="https://tonestamp.netlify.app">Tonestamp</a>依聲調上色。</p>
+        <p>接下來:更多文章、與Tonestamp及leehzn更緊密的整合,以及未來可能推出的API,讓任何想打造CJK↔西班牙語工具的人都能使用。這是我每天在三種語言之間切換的語言專案——也因此,是我最想全力守護下去的一個。</p>
       </div>
       <div class="link-row">
-        <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
-        <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
-        <a href="https://bsky.app/profile/zebraup.bsky.social">@zebraup on Bluesky →</a>
+        <a href="https://ckj-esp.netlify.app">ckj-esp.netlify.app →</a>
+        <a href="https://ckj-esp.netlify.app/vision/">
+          <span class="i18n" data-lang="en">Vision &amp; structure →</span>
+          <span class="i18n" data-lang="es" style="display:none">Visión y estructura →</span>
+          <span class="i18n" data-lang="zh" style="display:none">願景與架構 →</span>
+        </a>
       </div>
-      <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
+      <div class="tagrow"><span class="tag">Comparative Linguistics</span><span class="tag">Lexicography</span><span class="tag">Spanish ↔ CJK</span><span class="tag">TOCFL / KRDICT / JMdict</span><span class="tag">Static Site</span></div>
     </div>
 
     <div class="grid two" style="margin-top:26px;">
@@ -1101,12 +1115,45 @@
           <span class="i18n" data-lang="es" style="display:none">Tone Stamp</span>
           <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
         </h4>
-        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de legibilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。</p>
+        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself. Now paired with Decks: free, browser-based flashcard sets organized by TOCFL level (準1 through 流利/Fluent), with flip cards, keyboard navigation, a zhuyin/pinyin/off reading toggle, and room for your own example sentences. Two of seven levels are live so far (準1 · 152 cards, 準2 · 179 cards); studying online stays free, with an optional Ko-fi link for anyone who wants to export or print a deck.</p>
+        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de legibilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo. Ahora viene con Decks: mazos de tarjetas (flashcards) gratuitos, en el navegador, organizados por nivel del TOCFL (準1 hasta 流利/Fluido), con tarjetas que se voltean, navegación por teclado, un selector de lectura zhuyin/pinyin/apagado, y espacio para tus propias frases de ejemplo. Dos de siete niveles ya están listos (準1 · 152 tarjetas, 準2 · 179 tarjetas); estudiar en línea se mantiene gratis, con un enlace opcional a Ko-fi para quien quiera exportar o imprimir un mazo.</p>
+        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。現在還多了Decks:免費、在瀏覽器中使用的字卡組,依TOCFL分級(準1到流利級)排列,可翻面、可用鍵盤操作,並提供注音/拼音/關閉的發音顯示切換,也能加入自己的例句。目前已上線兩個等級(準1・152張卡、準2・179張卡);線上學習維持免費,另提供選用的Ko-fi連結,供想匯出或列印字卡組的人使用。</p>
         <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
-        <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span></div>
+        <a class="link" href="https://tonestamp.netlify.app/decks/">
+          <span class="i18n" data-lang="en">Decks →</span>
+          <span class="i18n" data-lang="es" style="display:none">Decks →</span>
+          <span class="i18n" data-lang="zh" style="display:none">Decks →</span>
+        </a>
+        <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span><span class="tag">Flashcards</span><span class="tag">TOCFL</span></div>
       </div>
+    </div>
+
+    <h3 style="margin-top:38px;">
+      <span class="i18n" data-lang="en">Health Tech</span>
+      <span class="i18n" data-lang="es" style="display:none">Tecnología en salud</span>
+      <span class="i18n" data-lang="zh" style="display:none">醫療科技</span>
+    </h3>
+
+    <div class="spotlight" id="zebraup">
+      <h4>ZebraUp</h4>
+      <div class="i18n" data-lang="en">
+        <p>Built as an mHealth web app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. ZebraUp helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
+        <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study. More on why I built this in <a href="#journey">the honest part</a>.</p>
+      </div>
+      <div class="i18n" data-lang="es" style="display:none">
+        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar (las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes). ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
+        <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas (dónde se rompe esa comunicación y qué realmente ayuda), con el objetivo de publicar un estudio que use ZebraUp como caso de estudio. Más sobre por qué construí esto en <a href="#journey">la parte honesta</a>.</p>
+      </div>
+      <div class="i18n" data-lang="zh" style="display:none">
+        <p>這是一款為罕見或難以診斷疾病患者打造的行動醫療網頁應用程式。醫學術語中的「斑馬」,指的是那些在醫師優先考慮常見診斷時,容易被忽略的病例。ZebraUp協助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀紀錄、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
+        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。關於我為何打造這個工具,更多細節請見<a href="#journey">誠實的部分</a>。</p>
+      </div>
+      <div class="link-row">
+        <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
+        <a href="https://github.com/Poln4/ZebraUp">github.com/Poln4/ZebraUp →</a>
+        <a href="https://bsky.app/profile/zebraup.bsky.social">@zebraup on Bluesky →</a>
+      </div>
+      <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
     </div>
   </section>
 
@@ -1126,9 +1173,9 @@
     </h2>
 
     <div class="tldr">
-      <p class="i18n" data-lang="en">Three concepts, all still in my head: <b>leehzn</b>, a graded Spanish-reading platform for Korean/Chinese/Japanese speakers; <b>El Vecindario</b>, a visual-novel Spanish-learning game built around active production and zero-punishment failure; and <b>CJK-ESP</b>, a Spanish-first Pleco-style bridge between Spanish and Chinese/Japanese/Korean.</p>
-      <p class="i18n" data-lang="es" style="display:none">Tres conceptos, todos todavía en mi cabeza: <b>leehzn</b>, una plataforma de lectura graduada de español para hablantes de coreano, chino y japonés; <b>El Vecindario</b>, un juego de aprendizaje de español estilo novela visual centrado en la producción activa y el error sin castigo; y <b>CJK-ESP</b>, un puente hispano-primero estilo Pleco entre el español y el chino, japonés y coreano.</p>
-      <p class="i18n" data-lang="zh" style="display:none">三項仍停留在構想階段的計畫:<b>leehzn</b>,一個為韓語、中文、日語母語者設計的西班牙語分級閱讀平台;<b>El Vecindario</b>,一款以主動產出與「零懲罰式犯錯」為核心的視覺小說式西班牙語學習遊戲;以及 <b>CJK-ESP</b>,一套以西班牙語為核心、類似 Pleco 的西班牙語 ↔ 中日韓語橋樑。</p>
+      <p class="i18n" data-lang="en">Split the same way as Projects above. EdTech: <b>leehzn</b>, a graded Spanish-reading platform for Korean/Chinese/Japanese speakers, and <b>El Vecindario</b>, a visual-novel Spanish-learning game built around active production and zero-punishment failure. Health Tech: <b>ZebraPace</b>, a pacing-first energy and fitness tracker for EDS, PEM, and dysautonomia.</p>
+      <p class="i18n" data-lang="es" style="display:none">Divididos igual que en Proyectos, más arriba. EdTech: <b>leehzn</b>, una plataforma de lectura graduada de español para hablantes de coreano, chino y japonés, y <b>El Vecindario</b>, un juego de aprendizaje de español estilo novela visual centrado en la producción activa y el error sin castigo. Tecnología en salud: <b>ZebraPace</b>, un rastreador de energía y actividad física centrado en el ritmo (pacing), para el SED, el PEM y la disautonomía.</p>
+      <p class="i18n" data-lang="zh" style="display:none">分類方式與上方的「專案」一致。教育科技:<b>leehzn</b>,一個為韓語、中文、日語母語者設計的西班牙語分級閱讀平台;以及<b>El Vecindario</b>,一款以主動產出與「零懲罰式犯錯」為核心的視覺小說式西班牙語學習遊戲。醫療科技:<b>ZebraPace</b>,一款以節奏(pacing)為核心的能量與體能追蹤工具,適用於EDS、PEM與自律神經失調。</p>
     </div>
     <button type="button" class="story-toggle" data-target="dreams"></button>
 
@@ -1136,6 +1183,12 @@
     <p class="lede i18n" data-lang="en">Ideas I keep coming back to, in various stages of "not real yet." Listed here so I stay honest about the gap between dreaming them and shipping them.</p>
     <p class="lede i18n" data-lang="es" style="display:none">Ideas a las que sigo volviendo, en distintos grados de "todavía no son reales." Las dejo acá para ser honesta sobre la distancia entre soñarlas y construirlas.</p>
     <p class="lede i18n" data-lang="zh" style="display:none">這些是我不斷回頭想起的點子,處於各種「還不算真實存在」的階段。放在這裡,是為了誠實面對「想到」與「做出來」之間的距離。</p>
+
+    <h3>
+      <span class="i18n" data-lang="en">EdTech</span>
+      <span class="i18n" data-lang="es" style="display:none">Tecnología educativa</span>
+      <span class="i18n" data-lang="zh" style="display:none">教育科技</span>
+    </h3>
 
     <div class="grid two">
       <div class="card">
@@ -1153,20 +1206,35 @@
         <p class="i18n" data-lang="zh" style="display:none">一款以視覺小說形式呈現的西班牙語學習遊戲,刻意對抗「連續打卡陷阱」——沒有生命值,沒有Game Over。詞彙透過將「神秘單字」拖曳到情境中習得,而非直接翻譯;句子則透過拖曳詞塊組合而成,強迫主動產出而非單純選擇題作答。從一個溫和著陸的家庭場景(A1)開始,逐步擴展到整個街區——市場、外送任務、網路中斷危機——直到A2程度。</p>
         <div class="tagrow"><span class="tag i18n" data-lang="en">idea stage</span><span class="tag i18n" data-lang="es" style="display:none">etapa de idea</span><span class="tag i18n" data-lang="zh" style="display:none">構想階段</span><span class="tag">Game Design</span><span class="tag">Failing Forward</span><span class="tag">SLA Pedagogy</span></div>
       </div>
+    </div>
+
+    <h3 style="margin-top:38px;">
+      <span class="i18n" data-lang="en">Health Tech</span>
+      <span class="i18n" data-lang="es" style="display:none">Tecnología en salud</span>
+      <span class="i18n" data-lang="zh" style="display:none">醫療科技</span>
+    </h3>
+
+    <div class="grid two">
       <div class="card">
-        <h4>CJK-ESP</h4>
-        <p class="i18n" data-lang="en">Something like Pleco, but with Spanish at the center instead of English — connecting Spanish with Chinese, Japanese, and Korean, so each pair works on its own and the three CJK languages can also be traversed together for anyone (like me) working across all of them. Still deciding whether it's a dictionary, an API, or both — and whether it should be open-source, so others can help build it. Research phase.</p>
-        <p class="i18n" data-lang="es" style="display:none">Algo como Pleco, pero con el español al centro en vez del inglés — conectando el español con el chino, el japonés y el coreano, de modo que cada par funcione por sí solo y que las tres lenguas CJK también puedan recorrerse juntas para quien (como yo) se mueva entre todas. Todavía estoy decidiendo si es un diccionario, una API o ambos — y si debería ser de código abierto, para que otras personas puedan ayudar a construirlo. Fase de investigación.</p>
-        <p class="i18n" data-lang="zh" style="display:none">像 Pleco 一樣的工具,只是核心不是英語,而是西班牙語——連結西班牙語與中文、日語、韓語,讓每一組語言配對都能獨立運作,而三種 CJK 語言之間也能為(像我這樣)在全部語言之間穿梭的人彼此串連。仍在思考它究竟是字典、API,還是兩者兼備——也在思考是否該做成開放原始碼,讓其他人也能一起打造。仍在研究階段。</p>
+        <h4>ZebraPace</h4>
+        <div class="i18n" data-lang="en">
+          <p>🦓 "The 1% Journey." A pacing-first energy and fitness tracker for people managing Ehlers-Danlos Syndromes, Post-Exertional Malaise, dysautonomia, and their comorbidities. Traditional fitness apps reward streaks and linear progress — which can actively harm chronic, cyclical conditions — so ZebraPace works the other way: a "spoon" battery that reflects real daily capacity, a gentle 1% growth rule instead of a push, and PEM-precaution alerts if you overdo it. Rest counts as a successful health intervention, not a broken streak.</p>
+        </div>
+        <div class="i18n" data-lang="es" style="display:none">
+          <p>🦓 «El viaje del 1%». Un rastreador de energía y actividad física centrado en el ritmo (pacing), para personas que viven con Síndromes de Ehlers-Danlos, malestar post-esfuerzo (PEM), disautonomía y sus comorbilidades. Las apps de fitness tradicionales premian las rachas y el progreso lineal — algo que puede dañar activamente a quienes viven condiciones crónicas y cíclicas — así que ZebraPace hace lo contrario: una batería de «cucharas» que refleja la capacidad real del día, una regla de crecimiento del 1% en vez de exigir más, y alertas de precaución PEM si te excedes. Descansar cuenta como una intervención de salud exitosa, no como una racha rota.</p>
+        </div>
+        <div class="i18n" data-lang="zh" style="display:none">
+          <p>🦓「1%的旅程」。一款以「節奏(pacing)」為核心的能量與體能追蹤工具,專為患有埃勒斯-當洛斯症候群、運動後不適(PEM)、自律神經失調及其共病的人設計。傳統健身App獎勵連續打卡與線性進步,但這對慢性、週期性疾病患者反而可能造成傷害——ZebraPace反其道而行:以「湯匙」電量呈現當天真正的能量餘裕,以溫和的1%成長原則取代「再拼一點」的壓力,並在超出負荷時發出PEM警示。休息本身就是成功的健康介入,而不是打卡中斷。</p>
+        </div>
+        <p class="i18n" data-lang="en">Grew directly out of the same story behind <a href="#zebraup">ZebraUp</a>.</p>
+        <p class="i18n" data-lang="es" style="display:none">Nació directamente de la misma historia detrás de <a href="#zebraup">ZebraUp</a>.</p>
+        <p class="i18n" data-lang="zh" style="display:none">這個構想,直接源自<a href="#zebraup">ZebraUp</a>背後的同一段故事。</p>
+        <a class="link" href="https://zebrapace.streamlit.app">zebrapace.streamlit.app →</a>
         <div class="tagrow">
-          <span class="tag i18n" data-lang="en">shape TBD</span>
-          <span class="tag i18n" data-lang="es" style="display:none">forma por decidir</span>
-          <span class="tag i18n" data-lang="zh" style="display:none">形式未定</span>
-          <span class="tag">Lexicography</span>
-          <span class="tag">Spanish ↔ CJK</span>
-          <span class="tag i18n" data-lang="en">Open Source?</span>
-          <span class="tag i18n" data-lang="es" style="display:none">¿Código abierto?</span>
-          <span class="tag i18n" data-lang="zh" style="display:none">開源?</span>
+          <span class="tag i18n" data-lang="en">early beta</span>
+          <span class="tag i18n" data-lang="es" style="display:none">beta temprana</span>
+          <span class="tag i18n" data-lang="zh" style="display:none">早期測試版</span>
+          <span class="tag">Health Tech</span><span class="tag">Pacing</span><span class="tag">EDS / PEM</span><span class="tag">Streamlit</span>
         </div>
       </div>
     </div>
@@ -1332,7 +1400,8 @@
 
   <footer>
     <div class="foot-links">
-      <a href="resume.html">Quick résumé</a>
+      <a href="resume_version_a.html">Résumé (NLP/AI)</a>
+      <a href="resume_version_b.html">Résumé (EdTech)</a>
       <a href="mailto:paoo.ss@gmail.com">paoo.ss@gmail.com</a>
       <a href="https://linkedin.com/in/paulina-valenzuela-lagos">LinkedIn</a>
       <a href="https://orcid.org/0009-0006-1635-7823">ORCID</a>
@@ -1670,7 +1739,7 @@
 
   gameReady = true;
   renderRound();
-</script>>
+</script>
 
 <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
 <script type='text/javascript'>
