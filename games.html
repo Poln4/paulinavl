@@ -5,9 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Games — Paulina Valenzuela Lagos</title>
 <meta name="description" content="Small interactive games tied to Paulina Valenzuela Lagos's research and projects — readability, name data, and rare-disease history you can play with.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paulinavl.github.io/games.html">
+<meta property="og:title" content="Games — Paulina Valenzuela Lagos">
+<meta property="og:description" content="Small interactive games tied to Paulina Valenzuela Lagos's research and projects — readability, name data, and rare-disease history you can play with.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Games — Paulina Valenzuela Lagos">
+<meta name="twitter:description" content="Small interactive games tied to Paulina Valenzuela Lagos's research and projects — readability, name data, and rare-disease history you can play with.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FEFDFB;
@@ -141,6 +148,11 @@
     color:var(--gold); margin:0 0 10px;
   }
   .today-card h3{ font-family:var(--font-display); font-size:26px; margin:0 0 10px; font-weight:700; color:var(--gold); }
+  .today-tag{
+    font-family:var(--font-mono); font-size:10.5px; letter-spacing:.06em; text-transform:uppercase;
+    color:var(--gold); border:1px solid var(--gold); border-radius:20px; padding:1px 8px;
+    vertical-align:middle; display:inline-block; margin-bottom:2px;
+  }
 
   footer{ padding:50px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
 </style>
@@ -194,7 +206,13 @@
       <span class="i18n" data-lang="es" style="display:none">Juego del día</span>
       <span class="i18n" data-lang="zh" style="display:none">每日一玩</span>
     </h2>
-    <div class="today-card" id="today-card"></div>
+    <div class="today-card" id="today-card">
+      <p class="today-badge">Today's pick</p>
+      <h3>Whose name is it, anyway?</h3>
+      <p>Six names, six ways software gets them wrong. Guess how each one is really built.</p>
+      <div class="tagrow"><span class="tag">NAS Project</span><span class="hashtag">#NASGame</span></div>
+      <p style="margin-top:14px;"><a class="btn primary" href="games/nas.html">Play →</a></p>
+    </div>
   </section>
 
   <section id="all-games">
@@ -208,7 +226,32 @@
       <span class="i18n" data-lang="es" style="display:none">Todos los juegos</span>
       <span class="i18n" data-lang="zh" style="display:none">所有遊戲</span>
     </h2>
-    <div class="grid two" id="games-grid"></div>
+    <div class="grid two" id="games-grid">
+      <div class="card" data-id="nas">
+        <h3>Whose name is it, anyway?</h3>
+        <p>Six names, six ways software gets them wrong. Guess how each one is really built.</p>
+        <div class="tagrow"><span class="tag">NAS Project</span><span class="hashtag">#NASGame</span></div>
+        <p style="margin-top:14px;"><a class="btn" href="games/nas.html">Play →</a></p>
+      </div>
+      <div class="card" data-id="eds-timeline">
+        <h3>EDS Timeline</h3>
+        <p>Put thirteen centuries of rare-disease history, medical discovery, and policy in the order they actually happened.</p>
+        <div class="tagrow"><span class="tag">ZebraUp</span><span class="hashtag">#EDSTimelineGame</span></div>
+        <p style="margin-top:14px;"><a class="btn" href="games/eds-timeline.html">Play →</a></p>
+      </div>
+      <div class="card" data-id="ckj-esp">
+        <h3>CKJ-ESP Match</h3>
+        <p>Does the word match the Spanish meaning? Mandarin, Korean, and Japanese, one round each, built from real CKJ-ESP articles.</p>
+        <div class="tagrow"><span class="tag">CKJ-ESP</span><span class="hashtag">#CKJESPMatch</span></div>
+        <p style="margin-top:14px;"><a class="btn" href="games/ckj-esp.html">Play →</a></p>
+      </div>
+      <div class="card" data-id="reading-myths">
+        <h3>Myth or Fact?</h3>
+        <p>Six real claims about reading and language learning, backed by real research citations, straight from the Reading Club quiz.</p>
+        <div class="tagrow"><span class="tag">Reading Club</span><span class="hashtag">#ReadingMythsGame</span></div>
+        <p style="margin-top:14px;"><a class="btn" href="games/reading-myths.html">Play →</a></p>
+      </div>
+    </div>
   </section>
 </main>
 
@@ -217,8 +260,15 @@
   const btnLight = document.getElementById('btn-light');
   const btnDark = document.getElementById('btn-dark');
   function applyTheme(t){
-    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
-    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    if(t === 'dark'){
+      root.setAttribute('data-theme','dark');
+      btnDark.classList.add('active'); btnLight.classList.remove('active');
+      btnDark.setAttribute('aria-pressed','true'); btnLight.setAttribute('aria-pressed','false');
+    } else {
+      root.removeAttribute('data-theme');
+      btnLight.classList.add('active'); btnDark.classList.remove('active');
+      btnLight.setAttribute('aria-pressed','true'); btnDark.setAttribute('aria-pressed','false');
+    }
     try{ localStorage.setItem('theme', t); }catch(e){}
   }
   let savedTheme = 'light';
@@ -238,8 +288,9 @@
     document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
     root.setAttribute('data-lang', l);
     root.lang = l === 'zh' ? 'zh-Hant' : l;
-    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    [btnEn, btnEs, btnZh].forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
     ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].setAttribute('aria-pressed','true');
     try{ localStorage.setItem('lang', l); }catch(e){}
     renderGames();
   }
@@ -294,17 +345,6 @@
       hashtag: '#CKJESPMatch'
     },
     {
-      id: 'reading-club',
-      title: { en:'Reading Club game', es:'Juego del Club de Lectura', zh:'讀書會小遊戲' },
-      blurb: {
-        en:'A mini game inside the Reading Club site itself — part of the extensive-reading initiative, not built by me from scratch on this page.',
-        es:'Un mini juego dentro del propio sitio del Club de Lectura, parte de la iniciativa de lectura extensiva, no construido por mí desde cero en esta página.',
-        zh:'一個內建在讀書會網站裡的小遊戲,是廣泛閱讀計畫的一部分,並非在這個頁面上從零打造。'
-      },
-      href: 'https://poln4.pythonanywhere.com',
-      tag: 'Reading Club'
-    },
-    {
       id: 'reading-myths',
       title: { en:'Myth or Fact?', es:'¿Mito o hecho?', zh:'迷思還是事實?' },
       blurb: {
@@ -337,8 +377,9 @@
     GAMES.forEach(g => {
       const card = document.createElement('div');
       card.className = 'card';
+      card.dataset.id = g.id;
       card.innerHTML = `
-        <h3>${gt(g.title)}</h3>
+        <h3>${g.id === today.id ? `<span class="today-tag">${gt(GT.today)}</span> ` : ''}${gt(g.title)}</h3>
         <p>${gt(g.blurb)}</p>
         <div class="tagrow"><span class="tag">${g.tag}</span>${g.hashtag ? `<span class="hashtag">${g.hashtag}</span>` : ''}</div>
         <p style="margin-top:14px;"><a class="btn" href="${g.href}">${gt(GT.play)}</a></p>

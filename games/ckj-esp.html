@@ -5,9 +5,16 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>CKJ-ESP Match — a games.paulinavl.github.io game</title>
 <meta name="description" content="Does the word match the Spanish meaning? A quick contrastive-vocabulary game built from real CKJ-ESP articles, Mandarin, Korean, and Japanese, side by side.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paulinavl.github.io/games/ckj-esp.html">
+<meta property="og:title" content="CKJ-ESP Match">
+<meta property="og:description" content="Does the word match the Spanish meaning? A quick contrastive-vocabulary game built from real CKJ-ESP articles, Mandarin, Korean, and Japanese, side by side.">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CKJ-ESP Match">
+<meta name="twitter:description" content="Does the word match the Spanish meaning? A quick contrastive-vocabulary game built from real CKJ-ESP articles, Mandarin, Korean, and Japanese, side by side.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
     --bg:#FEFDFB;
@@ -208,9 +215,9 @@
       <span class="i18n" data-lang="es" style="display:none">CKJ-ESP Empareja</span>
       <span class="i18n" data-lang="zh" style="display:none">CKJ-ESP 配對</span>
     </h1>
-    <p class="lede i18n" data-lang="en">Mandarin, Korean, Japanese, the Kangxi radicals underneath them, and the three scripts themselves — five rounds, match a word to its Spanish meaning or a symbol to its writing system. Arrow keys and taps both work. You have 3 lives.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Mandarín, coreano, japonés, los radicales Kangxi que subyacen a los tres, y los tres sistemas de escritura en sí: cinco rondas, empareja una palabra con su significado en español, o un símbolo con su sistema de escritura. Funciona con las flechas del teclado o tocando. Tienes 3 vidas.</p>
-    <p class="lede i18n" data-lang="zh" style="display:none">華語、韓語、日語、三者背後共通的康熙部首,以及三種文字系統本身——共五輪,將詞配對到西班牙語意思,或將符號配對到所屬的文字系統。鍵盤方向鍵或觸控皆可操作。你有3條生命。</p>
+    <p class="lede i18n" data-lang="en">Mandarin, Korean, Japanese, the Kangxi radicals underneath them, and the three scripts themselves — five rounds of matching, plus a last one where the options disappear and you have to write the meaning yourself. Recognizing an answer and producing one from memory are different skills; this tests both. Arrow keys and taps both work. You have 3 lives.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Mandarín, coreano, japonés, los radicales Kangxi que subyacen a los tres, y los tres sistemas de escritura en sí: cinco rondas de emparejar, más una última en la que las opciones desaparecen y tienes que escribir el significado tú mismo. Reconocer una respuesta y producirla de memoria son habilidades distintas; esto pone a prueba ambas. Funciona con las flechas del teclado o tocando. Tienes 3 vidas.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">華語、韓語、日語、三者背後共通的康熙部首,以及三種文字系統本身——五輪配對題,再加上最後一輪:選項會消失,你得自己寫出答案。「認得出答案」和「自己想得出答案」是兩種不同的能力;這個遊戲兩者都會考驗到。鍵盤方向鍵或觸控皆可操作。你有3條生命。</p>
     <p class="note i18n" data-lang="en">Every word, symbol, and meaning here comes straight from five real <a href="https://ckj-esp.netlify.app">CKJ-ESP</a> articles: <a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">"Aprender y estudiar"</a>, <a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">"El verbo 'ser'"</a>, <a href="https://ckj-esp.netlify.app/radicales-kangxi/">"Los 214 radicales Kangxi"</a>, <a href="https://ckj-esp.netlify.app/leer-zhuyin/">"Cómo leer 注音符號"</a>, <a href="https://ckj-esp.netlify.app/leer-hangul/">"Cómo leer 한글"</a>, and <a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">"Cómo leer ひらがな y カタカナ"</a>.</p>
     <p class="note i18n" data-lang="es" style="display:none">Cada palabra, símbolo y significado aquí viene directamente de cinco artículos reales de <a href="https://ckj-esp.netlify.app">CKJ-ESP</a>: <a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">«Aprender y estudiar»</a>, <a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">«El verbo "ser"»</a>, <a href="https://ckj-esp.netlify.app/radicales-kangxi/">«Los 214 radicales Kangxi»</a>, <a href="https://ckj-esp.netlify.app/leer-zhuyin/">«Cómo leer 注音符號»</a>, <a href="https://ckj-esp.netlify.app/leer-hangul/">«Cómo leer 한글»</a>, y <a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">«Cómo leer ひらがな y カタカナ»</a>.</p>
     <p class="note i18n" data-lang="zh" style="display:none">這裡的每個詞、符號與意思,都直接取自<a href="https://ckj-esp.netlify.app">CKJ-ESP</a>的五篇真實文章:<a href="https://ckj-esp.netlify.app/aprender-xue-baeuda-manabu/">「Aprender y estudiar」</a>、<a href="https://ckj-esp.netlify.app/ser-copula-zh-ko-ja/">「El verbo 'ser'」</a>、<a href="https://ckj-esp.netlify.app/radicales-kangxi/">「Los 214 radicales Kangxi」</a>、<a href="https://ckj-esp.netlify.app/leer-zhuyin/">「Cómo leer 注音符號」</a>、<a href="https://ckj-esp.netlify.app/leer-hangul/">「Cómo leer 한글」</a>,以及<a href="https://ckj-esp.netlify.app/leer-hiragana-katakana/">「Cómo leer ひらがな y カタカナ」</a>。</p>
@@ -283,8 +290,15 @@
   const btnLight = document.getElementById('btn-light');
   const btnDark = document.getElementById('btn-dark');
   function applyTheme(t){
-    if(t === 'dark'){ root.setAttribute('data-theme','dark'); btnDark.classList.add('active'); btnLight.classList.remove('active'); }
-    else { root.removeAttribute('data-theme'); btnLight.classList.add('active'); btnDark.classList.remove('active'); }
+    if(t === 'dark'){
+      root.setAttribute('data-theme','dark');
+      btnDark.classList.add('active'); btnLight.classList.remove('active');
+      btnDark.setAttribute('aria-pressed','true'); btnLight.setAttribute('aria-pressed','false');
+    } else {
+      root.removeAttribute('data-theme');
+      btnLight.classList.add('active'); btnDark.classList.remove('active');
+      btnLight.setAttribute('aria-pressed','true'); btnDark.setAttribute('aria-pressed','false');
+    }
     try{ localStorage.setItem('theme', t); }catch(e){}
   }
   let savedTheme = 'light';
@@ -304,8 +318,9 @@
     document.querySelectorAll('.i18n').forEach(el => { el.style.display = (el.dataset.lang === l) ? '' : 'none'; });
     root.setAttribute('data-lang', l);
     root.lang = l === 'zh' ? 'zh-Hant' : l;
-    [btnEn, btnEs, btnZh].forEach(b => b.classList.remove('active'));
+    [btnEn, btnEs, btnZh].forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed','false'); });
     ({en: btnEn, es: btnEs, zh: btnZh})[l].classList.add('active');
+    ({en: btnEn, es: btnEs, zh: btnZh})[l].setAttribute('aria-pressed','true');
     try{ localStorage.setItem('lang', l); }catch(e){}
     if (gameReady) render();
   }
@@ -419,6 +434,28 @@
         { symbol:'か', sound:'“ka”', system:'kana' },
         { symbol:'し', sound:'“sh”', system:'kana' }
       ]
+    },
+    {
+      type: 'type',
+      title: { en:'Write It', es:'Escríbelo', zh:'寫出來' },
+      words: [
+        { display:'學 (xué)', meaning:'aprender', accept:['aprender'] },
+        { display:'學校 (xuéxiào)', meaning:'escuela', accept:['escuela'] },
+        { display:'學生 (xuéshēng)', meaning:'estudiante', accept:['estudiante'] },
+        { display:'大學 (dàxué)', meaning:'universidad', accept:['universidad'] },
+        { display:'學習 (xuéxí)', meaning:'estudiar (forma formal)', accept:['estudiar'] },
+        { display:'是 (shì)', meaning:'ser', accept:['ser'] },
+        { display:'배우다 (baeuda)', meaning:'aprender', accept:['aprender'] },
+        { display:'공부하다 (gongbuhada)', meaning:'estudiar', accept:['estudiar'] },
+        { display:'학교 (hakgyo)', meaning:'escuela', accept:['escuela'] },
+        { display:'학생 (hakssaeng)', meaning:'estudiante', accept:['estudiante'] },
+        { display:'이다 (ida)', meaning:'ser', accept:['ser'] },
+        { display:'学ぶ (manabu)', meaning:'aprender', accept:['aprender'] },
+        { display:'勉強する (benkyou suru)', meaning:'estudiar', accept:['estudiar'] },
+        { display:'学校 (gakkou)', meaning:'escuela', accept:['escuela'] },
+        { display:'学生 (gakusei)', meaning:'estudiante', accept:['estudiante'] },
+        { display:'です (desu)', meaning:'ser', accept:['ser'] }
+      ]
     }
   ];
 
@@ -428,8 +465,12 @@
     lives:       { en:'📖 Lives: %s', es:'📖 Vidas: %s', zh:'📖 生命:%s' },
     instructions:{ en:'Does the word match this Spanish meaning?', es:'¿La palabra coincide con este significado en español?', zh:'這個詞和這個西班牙語意思相符嗎?' },
     identifyInstructions:{ en:'Which writing system is this symbol from?', es:'¿De qué sistema de escritura es este símbolo?', zh:'這個符號屬於哪一種文字系統?' },
+    typeInstructions:{ en:'Type the Spanish meaning — no options this time.', es:'Escribe el significado en español: esta vez sin opciones.', zh:'請輸入西班牙語意思——這次沒有選項可選。' },
     keyHintMatch:{ en:'Keyboard: ← for no match, → for match, Enter for next', es:'Teclado: ← no coinciden, → coinciden, Enter para siguiente', zh:'鍵盤:← 不相符,→ 相符,Enter 進到下一題' },
     keyHintIdentify:{ en:'Keyboard: 1 / 2 / 3 to pick, Enter for next', es:'Teclado: 1 / 2 / 3 para elegir, Enter para siguiente', zh:'鍵盤:1 / 2 / 3 選擇,Enter 進到下一題' },
+    keyHintType: { en:'Type your answer, press Enter to check', es:'Escribe tu respuesta, presiona Enter para comprobar', zh:'輸入答案,按 Enter 檢查' },
+    typePlaceholder:{ en:'Type in Spanish…', es:'Escribe en español…', zh:'請輸入西班牙語…' },
+    submit:      { en:'Check', es:'Comprobar', zh:'檢查' },
     vs:          { en:'means, in Spanish:', es:'significa, en español:', zh:'的西班牙語意思是:' },
     soundsLike:  { en:'sounds like:', es:'suena como:', zh:'發音接近:' },
     match:       { en:'✓ Match', es:'✓ Coinciden', zh:'✓ 相符' },
@@ -438,12 +479,13 @@
     incorrect:   { en:'Incorrect', es:'Incorrecto', zh:'答錯了' },
     why:         { en:'%w actually means <b>“%t”</b>.', es:'%w en realidad significa <b>«%t»</b>.', zh:'%w 實際上的意思是<b>「%t」</b>。' },
     whyIdentify: { en:'%w is from <b>%t</b> — sounds like %s.', es:'%w es de <b>%t</b> — suena como %s.', zh:'%w 屬於<b>%t</b>——發音接近 %s。' },
+    whyType:     { en:'%w means <b>“%t”</b>. You wrote: “%u”.', es:'%w significa <b>«%t»</b>. Escribiste: «%u».', zh:'%w 的意思是<b>「%t」</b>。你寫的是:「%u」。' },
     next:        { en:'Next →', es:'Siguiente →', zh:'下一個 →' },
     results:     { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
     overScore:   { en:'Out of lives', es:'Sin vidas', zh:'生命值用完了' },
-    overBody:    { en:'You got %s of 31 right before running out of lives.', es:'Acertaste %s de 31 antes de quedarte sin vidas.', zh:'在生命值用完之前,你答對了31題中的%s題。' },
+    overBody:    { en:'You got %s of 47 right before running out of lives.', es:'Acertaste %s de 47 antes de quedarte sin vidas.', zh:'在生命值用完之前,你答對了47題中的%s題。' },
     retry:       { en:'Try again', es:'Intentar de nuevo', zh:'再試一次' },
-    endScore:    { en:'%s / 31', es:'%s / 31', zh:'%s / 31' },
+    endScore:    { en:'%s / 47', es:'%s / 47', zh:'%s / 47' },
     high:        { en:'Perfect — Mandarin, Korean, Japanese, and their writing systems, all correctly matched.', es:'Perfecto — mandarín, coreano, japonés, y sus sistemas de escritura, todo bien emparejado.', zh:'滿分——華語、韓語、日語與它們的文字系統,全部配對正確。' },
     mid:         { en:'Solid contrastive instincts across three languages.', es:'Buen instinto contrastivo entre los tres idiomas.', zh:'在三種語言之間展現了不錯的對比直覺。' },
     low:         { en:'This is exactly why CKJ-ESP puts them side by side instead of one at a time.', es:'Por esto CKJ-ESP los pone lado a lado, en vez de uno a la vez.', zh:'這正是為什麼 CKJ-ESP 把它們並列比較,而不是一次只教一種語言。' },
@@ -451,7 +493,7 @@
     copied:      { en:'Copied — paste it wherever you like.', es:'Copiado — pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
     mastodonLabel:{ en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
     mastodonBtn: { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
-    shareText:   { en:'I matched %s/31 CKJ-ESP words and symbols to their real meanings', es:'Emparejé %s/31 palabras y símbolos de CKJ-ESP con su significado real', zh:'我在CKJ-ESP配對遊戲中,正確配對了31個詞與符號中的%s個' }
+    shareText:   { en:'I matched %s/47 CKJ-ESP words and symbols to their real meanings', es:'Emparejé %s/47 palabras y símbolos de CKJ-ESP con su significado real', zh:'我在CKJ-ESP配對遊戲中,正確配對了47個詞與符號中的%s個' }
   };
 
   const gEls = {
@@ -499,10 +541,24 @@
     return a;
   }
 
+  function normalize(s){
+    return (s || '')
+      .toLowerCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
+      .replace(/[¿?¡!.,]/g, '')
+      .trim()
+      .replace(/\s+/g, ' ');
+  }
+
   function buildRoundCards(round){
     if (round.type === 'identify'){
       return shuffle(round.items).map(it => ({
         kind: 'identify', symbol: it.symbol, sound: it.sound, correctSystem: it.system
+      }));
+    }
+    if (round.type === 'type'){
+      return shuffle(round.words).map(w => ({
+        kind: 'type', word: w.display, trueMeaning: w.meaning, accept: w.accept
       }));
     }
     const words = round.words;
@@ -527,9 +583,16 @@
 
   function choose(value){
     if (picked !== null) return;
-    picked = value;
     const card = cards[cardIdx];
-    const correct = (card.kind === 'identify') ? (value === card.correctSystem) : (value === card.isMatch);
+    let correct;
+    if (card.kind === 'identify'){
+      correct = (value === card.correctSystem);
+    } else if (card.kind === 'type'){
+      correct = card.accept.includes(normalize(value));
+    } else {
+      correct = (value === card.isMatch);
+    }
+    picked = value;
     if (correct) score++; else lives--;
     render();
   }
@@ -600,18 +663,25 @@
 
     const round = ROUNDS[roundIdx];
     const card = cards[cardIdx];
-    const isIdentify = card.kind === 'identify';
     gEls.round.textContent = gt(GT.round).replace('%a', roundIdx + 1).replace('%b', ROUNDS.length).replace('%t', gt(round.title));
     gEls.card.textContent = gt(GT.card).replace('%a', cardIdx + 1).replace('%b', cards.length);
     gEls.lives.textContent = gt(GT.lives).replace('%s', lives);
     gEls.roundTitle.textContent = gt(round.title);
-    gEls.instructions.textContent = isIdentify ? gt(GT.identifyInstructions) : gt(GT.instructions);
-    gEls.keyHint.textContent = isIdentify ? gt(GT.keyHintIdentify) : gt(GT.keyHintMatch);
+    gEls.instructions.textContent =
+      card.kind === 'identify' ? gt(GT.identifyInstructions) :
+      card.kind === 'type' ? gt(GT.typeInstructions) : gt(GT.instructions);
+    gEls.keyHint.textContent =
+      card.kind === 'identify' ? gt(GT.keyHintIdentify) :
+      card.kind === 'type' ? gt(GT.keyHintType) : gt(GT.keyHintMatch);
 
-    if (isIdentify){
+    if (card.kind === 'identify'){
       gEls.word.textContent = card.symbol;
       gEls.vs.textContent = gt(GT.soundsLike);
       gEls.meaning.textContent = card.sound;
+    } else if (card.kind === 'type'){
+      gEls.word.textContent = card.word;
+      gEls.vs.textContent = '';
+      gEls.meaning.textContent = '';
     } else {
       gEls.word.textContent = card.word;
       gEls.vs.textContent = gt(GT.vs);
@@ -619,7 +689,7 @@
     }
 
     gEls.choices.innerHTML = '';
-    if (isIdentify){
+    if (card.kind === 'identify'){
       round.systems.forEach(sys => {
         const b = document.createElement('button');
         b.type = 'button';
@@ -633,6 +703,29 @@
         }
         gEls.choices.appendChild(b);
       });
+    } else if (card.kind === 'type'){
+      const input = document.createElement('input');
+      input.type = 'text';
+      input.className = 'mastodon-input';
+      input.placeholder = gt(GT.typePlaceholder);
+      input.autocomplete = 'off';
+      input.spellcheck = false;
+      const submitBtn = document.createElement('button');
+      submitBtn.type = 'button';
+      submitBtn.className = 'btn primary';
+      submitBtn.textContent = gt(GT.submit);
+      const doSubmit = () => { if (input.value.trim()) choose(input.value); };
+      if (picked !== null){
+        input.value = picked;
+        input.disabled = true;
+        submitBtn.disabled = true;
+      } else {
+        submitBtn.addEventListener('click', doSubmit);
+        input.addEventListener('keydown', (e) => { if (e.key === 'Enter'){ e.preventDefault(); doSubmit(); } });
+      }
+      gEls.choices.appendChild(input);
+      gEls.choices.appendChild(submitBtn);
+      if (picked === null) setTimeout(() => input.focus(), 0);
     } else {
       const matchBtn = document.createElement('button');
       matchBtn.type = 'button';
@@ -657,12 +750,17 @@
 
     gEls.actions.innerHTML = '';
     if (picked !== null){
-      const correct = isIdentify ? (picked === card.correctSystem) : (picked === card.isMatch);
+      const correct =
+        card.kind === 'identify' ? (picked === card.correctSystem) :
+        card.kind === 'type' ? card.accept.includes(normalize(picked)) :
+        (picked === card.isMatch);
       gEls.verdict.textContent = correct ? gt(GT.correct) : gt(GT.incorrect);
       gEls.verdict.className = 'ckj-verdict ' + (correct ? 'correct' : 'wrong');
-      if (isIdentify){
+      if (card.kind === 'identify'){
         const sysLabel = gt(round.systems.find(s => s.id === card.correctSystem).label);
         gEls.why.innerHTML = gt(GT.whyIdentify).replace('%w', `<b>${card.symbol}</b>`).replace('%t', sysLabel).replace('%s', card.sound);
+      } else if (card.kind === 'type'){
+        gEls.why.innerHTML = gt(GT.whyType).replace('%w', `<b>${card.word}</b>`).replace('%t', card.trueMeaning).replace('%u', picked);
       } else {
         gEls.why.innerHTML = gt(GT.why).replace('%w', `<b>${card.word}</b>`).replace('%t', card.trueMeaning);
       }
