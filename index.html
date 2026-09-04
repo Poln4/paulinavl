@@ -1072,19 +1072,22 @@
       <span class="i18n" data-lang="es" style="display:none">Tecnología educativa</span>
       <span class="i18n" data-lang="zh" style="display:none">教育科技</span>
     </h3>
-
+    <!-- ============ CARLA SPOTLIGHT ============ -->
     <div class="spotlight" id="carla-model">
       <h4>The Carla Model</h4>
       <div class="i18n" data-lang="en">
-        <p>CARLA is a hybrid readability model for Spanish — the engine behind <a href="#research">Study 1</a>, released as a live web app you can paste any Spanish text into. It returns a CEFR level (A1–C2), predicted from linguistic feature analysis fused with transformer embeddings, trained on 800+ Spanish texts. It's the first dream on this page I actually got to build — and, so far, the biggest thing I've contributed to Spanish-language learning: a working answer to a question a decade of teaching left me with. <em>Is this text too hard for the person in front of me?</em> It's named for my 乾女兒 — my goddaughter — whose Spanish name is Carla, the same way roBERTa or MarIA fold meaning into a model's name: read as a backronym, CARLA is <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
-        <p>Where it's going: a recommender that pairs CARLA's score with Project Gutenberg's Spanish catalog, so a learner at low B1 can find authentic texts they can actually read — not "graded" down to their level, not miles past it. Building CARLA also gave me the technical confidence to start <a href="#zebraup">ZebraUp</a>. But this one came first. It's still the one I'm proudest of.</p>
+        <p>CARLA is a hybrid readability model for Spanish — the engine behind <a href="#research">Study 1</a>, built, trained, and shipped solo: fine-tuned open-source transformers (BERTIN, BETO, MarIA) on consumer hardware, fused with 238 psycholinguistic features (69 after L2 Synthesis selection) into a CatBoost ensemble, and released as a live web app you can paste any Spanish text into. It returns a CEFR level (A1–C2) at ~0.96 QWK / ~87% accuracy on 822 CEFR-labelled texts.</p>
+        <p>The "BERTIN paradox" is the frugal-engineering point: the weakest model alone became the strongest hybrid partner — no big lab, no huge GPU budget, just deliberate feature design. It's a working answer to the question a decade of teaching left me with. <em>Is this text too hard for the person in front of me?</em> Named for my 乾女兒 — my goddaughter — whose Spanish name is Carla, read as a backronym: <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
+        <p>Where it's going: a recommender pairing CARLA's score with Project Gutenberg's Spanish catalog, so a learner at low B1 can find authentic texts they can actually read — not "graded" down to their level, not miles past it. Building CARLA also gave me the technical confidence to start <a href="#zebraup">ZebraUp</a>. But this one came first. It's still the one I'm proudest of.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>CARLA es un modelo híbrido de lecturabilidad para el español (el motor detrás del <a href="#research">Estudio 1</a>), publicado como una app web donde puedes pegar cualquier texto en español y recibir un nivel MCER (A1–C2). Combina análisis de características lingüísticas con embeddings de transformers, sobre un corpus propio de más de 800 textos. Es el primer sueño de esta página que realmente pude construir, y hasta ahora es la mayor contribución que he hecho al aprendizaje del español: una respuesta concreta a la pregunta que una década enseñando me dejó. <em>¿Este texto es demasiado difícil para la persona que tengo delante?</em> Lleva el nombre de mi 乾女兒 (mi ahijada), cuyo nombre en español es Carla, del mismo modo en que roBERTa o MarIA cargan de sentido el nombre de un modelo: leído como acrónimo, CARLA es <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
-        <p>Lo que viene: un recomendador que combine el puntaje de CARLA con el catálogo de Proyecto Gutenberg en español, para que un aprendiz en nivel B1 bajo pueda encontrar textos auténticos que realmente pueda leer, ni "graduados" a su nivel, ni a millas de distancia. Construir CARLA también me dio la confianza técnica para empezar <a href="#zebraup">ZebraUp</a>. Pero este proyecto vino primero. Sigue siendo del que estoy más orgullosa.</p>
+        <p>CARLA es un modelo híbrido de lecturabilidad para el español — el motor detrás del <a href="#research">Estudio 1</a>, desarrollado, entrenado y publicado en solitario: ajusté modelos transformer de código abierto (BERTIN, BETO, MarIA) en hardware de consumo, combinándolos con 238 características psicolingüísticas (69 tras la selección L2 Synthesis) en un ensamble con CatBoost, y lo desplegué como una app web donde puedes pegar cualquier texto en español. Clasifica el nivel MCER (A1–C2) con un QWK de ~0.96 y una precisión de ~87% sobre 822 textos etiquetados.</p>
+        <p>La «paradoja de BERTIN» resume esta ingeniería frugal: el modelo más débil por sí solo se convirtió en el compañero híbrido más potente. Sin grandes laboratorios ni presupuestos millonarios de GPU, solo diseño lingüístico consciente. Es una respuesta práctica a la pregunta que me dejaron diez años de docencia. <em>¿Este texto es demasiado difícil para la persona que tengo delante?</em> Lleva el nombre de mi 乾女兒 (mi ahijada), cuyo nombre en español es Carla, leído como acrónimo: <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation.</p>
+        <p>Lo que viene: un recomendador que combine el puntaje de CARLA con el catálogo de Proyecto Gutenberg en español, para que un aprendiz en nivel B1 bajo pueda encontrar textos auténticos que realmente pueda leer, ni «graduados» a su nivel, ni a millas de distancia. Construir CARLA también me dio la confianza técnica para empezar <a href="#zebraup">ZebraUp</a>. Pero este proyecto vino primero. Sigue siendo del que estoy más orgullosa.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>CARLA 是一套西班牙語混合可讀性模型——<a href="#research">研究一</a>背後的引擎,現已上線為一個網頁應用:任何西班牙語文本貼上去,它都會回傳一個 CEFR 等級(A1–C2)。它結合語言特徵分析與 Transformer 嵌入向量,在超過 800 篇西班牙語文本上訓練而成。這是這一頁上,我第一個真正做出來的夢想——到目前為止,也是我對西班牙語學習領域最大的一份貢獻:對一個十多年教西班牙語留給我的問題,一個可運作的答案。<em>這篇文章,對眼前這個人來說,會不會太難?</em> 它是以我的乾女兒命名的——她的西班牙文名字,正是 Carla,就像 roBERTa 或 MarIA 那樣,把意義藏進模型的名字裡:當作縮寫來看,CARLA 就是 <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation。</p>
+        <p>CARLA 是一套西班牙語混合可讀性模型——<a href="#research">研究一</a>背後的引擎,由我一人獨立開發、訓練與部署上線:在個人消費級硬體上微調開源 Transformer 模型(BERTIN、BETO、MarIA),並將 238 項心理語言與句法特徵(經 L2 Synthesis 篩選後保留 69 項)與 CatBoost 模型融合,打造成一個只需貼上任何西語文本即可分析的即時網頁應用。在 822 篇標註 CEFR 等級的文本上,達成了 ~0.96 QWK 與 ~87% 的多分類準確率。</p>
+        <p>「BERTIN 悖論」正是這項節省資源工程(frugal engineering)的亮點:單獨表現最弱的模型,在與語言特徵結合後卻成為最強大的混合夥伴——沒有大型實驗室,也沒有龐大的 GPU 預算,只有精準的特徵工程設計。這是我十年教學經驗中一直試圖回答的問題:<em>這篇文章,對眼前這個人來說,會不會太難?</em> 它是以我的乾女兒命名的——她的西班牙文名字,正是 Carla,當作縮寫來看,CARLA 就是 <strong>C</strong>omputational <strong>A</strong>ssessment of <strong>R</strong>eadability and <strong>L</strong>eveling <strong>A</strong>utomation。</p>
         <p>接下來:一套將 CARLA 的分數與古騰堡計畫(Project Gutenberg)西班牙語書目結合的推薦系統,讓例如 B1 初階的學習者,能找到自己真正讀得懂的真實文本——不是為他們降階改寫的,也不是遠遠超出他們程度的。打造 CARLA 也給了我開始 <a href="#zebraup">ZebraUp</a> 所需的技術信心。但 CARLA 才是最早的。它,仍然是我最引以為傲的作品。</p>
       </div>
       <div class="link-row">
@@ -1092,19 +1095,20 @@
       </div>
       <div class="tagrow"><span class="tag">Python</span><span class="tag">transformers</span><span class="tag">NLP</span><span class="tag">BERTIN</span><span class="tag">CatBoost</span><span class="tag">Feature Engineering</span><span class="tag">CEFR</span><span class="tag">Streamlit</span></div>
     </div>
-
+    
+    <!-- ============ CKJ-ESP SPOTLIGHT ============ -->
     <div class="spotlight" id="ckj-esp" style="margin-top:26px;">
       <h4>CKJ-ESP</h4>
       <div class="i18n" data-lang="en">
-        <p>CKJ-ESP is the idea that used to live a few sections down, listed as a hazy "shape TBD" — it shipped. A Spanish-first, Pleco-style comparative dictionary connecting Mandarin (Taiwan), Korean, and Japanese, side by side, in Spanish: vocabulary, grammar, and writing systems, plus the connections a "one language at a time" course never draws. Ten articles live so far — the copula (是 / 이다 / です), keyboard layouts (注音, hangul, かな), how to actually read hangul and hiragana/katakana, and the 214 Kangxi radicals among them — sourced from TOCFL/MOEdict, KRDICT, and JMdict, with stroke order from Taiwan's Ministry of Education.</p>
+        <p>CKJ-ESP is the idea that used to live a few sections down, listed as a hazy "shape TBD" — it shipped. A Spanish-first, Pleco-style comparative dictionary connecting Mandarin (Taiwan), Korean, and Japanese, side by side, in Spanish: vocabulary, grammar, and writing systems, plus the connections a "one language at a time" course never draws. Ten articles live so far — the copula (是 / 이다 / です), keyboard layouts (注音, hangul, かな), how to actually read hangul and hiragana/katakana, and the 214 Kangxi radicals among them — sourced from TOCFL/MOEdict, KRDICT, and JMdict, with stroke order from Taiwan's Ministry of Education. Built as a static site — no server, no tracking, just text and structure.</p>
         <p>Where it's going: more articles, closer integration with Tonestamp and leehzn, and eventually an API for anyone building CJK ↔ Spanish tools. This is the language project I move between three languages for daily — which makes it the one I'm most personally invested in keeping alive.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>CKJ-ESP es la idea que hace un rato vivía más abajo en esta página, listada como una difusa «forma por decidir». Ya está en línea. Un diccionario comparativo con el español al centro, al estilo Pleco, que conecta mandarín (Taiwán), coreano y japonés, lado a lado, en español: vocabulario, gramática y sistemas de escritura, además de las conexiones que un curso de «un idioma a la vez» nunca traza. Diez artículos publicados hasta ahora, entre ellos la cópula (是 / 이다 / です), los teclados (注音, hangul, かな), cómo leer de verdad hangul e hiragana/katakana, y los 214 radicales Kangxi, con datos de TOCFL/MOEdict, KRDICT y JMdict, y trazos de escritura del Ministerio de Educación de Taiwán.</p>
+        <p>CKJ-ESP es la idea que hace un rato vivía más abajo en esta página, listada como una difusa «forma por decidir». Ya está en línea. Un diccionario comparativo con el español al centro, al estilo Pleco, que conecta mandarín (Taiwán), coreano y japonés, lado a lado, en español: vocabulario, gramática y sistemas de escritura, además de las conexiones que un curso de «un idioma a la vez» nunca traza. Diez artículos publicados hasta ahora, entre ellos la cópula (是 / 이다 / です), los teclados (注音, hangul, かな), cómo leer de verdad hangul e hiragana/katakana, y los 214 radicales Kangxi, con datos de TOCFL/MOEdict, KRDICT y JMdict, y trazos de escritura del Ministerio de Educación de Taiwán. Desarrollado como sitio estático — sin servidores, sin rastreo, pura estructura y texto.</p>
         <p>Lo que viene: más artículos, integración más estrecha con Tonestamp y leehzn, y eventualmente una API para quien quiera construir herramientas CJK ↔ español. Es el proyecto de idiomas entre el que me muevo a diario, en tres lenguas, lo que lo convierte en el que más me importa personalmente mantener con vida.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>CKJ-ESP,就是幾個段落之後、原本被列為「形式未定」的那個構想——如今已經上線。這是一套以西班牙語為核心、類似Pleco的比較式辭典,將台灣華語、韓語與日語並列比較,以西班牙語呈現:詞彙、語法與文字系統,還有「一次只學一種語言」的課程從未串連起來的關聯。目前已發表十篇文章——包括繫詞(是 / 이다 / です)、鍵盤配置(注音、韓文鍵盤、假名)、如何真正讀懂韓文與平假名/片假名,以及214個康熙部首——資料來源包括TOCFL/MOEdict、KRDICT與JMdict,筆順則取自台灣教育部。</p>
+        <p>CKJ-ESP,就是幾個段落之後、原本被列為「形式未定」的那個構想——如今已經上線。這是一套以西班牙語為核心、類似Pleco的比較式辭典,將台灣華語、韓語與日語並列比較,以西班牙語呈現:詞彙、語法與文字系統,還有「一次只學一種語言」的課程從未串連起來的關聯。目前已發表十篇文章——包括繫詞(是 / 이다 / です)、鍵盤配置(注音、韓文鍵盤、假名)、如何真正讀懂韓文與平假名/片假名,以及214個康熙部首——資料來源包括TOCFL/MOEdict、KRDICT與JMdict,筆順則取自台灣教育部。全站以靜態網站架構建立——無伺服器負擔、無追蹤程式碼,回歸純粹的文本與結構。</p>
         <p>接下來:更多文章、與Tonestamp及leehzn更緊密的整合,以及未來可能推出的API,讓任何想打造CJK↔西班牙語工具的人都能使用。這是我每天在三種語言之間切換的語言專案——也因此,是我最想全力守護下去的一個。</p>
       </div>
       <div class="link-row">
@@ -1123,6 +1127,7 @@
       <div class="tagrow"><span class="tag">Comparative Linguistics</span><span class="tag">Lexicography</span><span class="tag">Spanish ↔ CJK</span><span class="tag">TOCFL / KRDICT / JMdict</span><span class="tag">Static Site</span></div>
     </div>
 
+    <!-- ============ GRID: NAS + READING CLUB + TONE STAMP ============ -->
     <div class="grid two" style="margin-top:26px;">
       <div class="card">
         <h4>NAS Project</h4>
@@ -1146,25 +1151,26 @@
         </a>
         <div class="tagrow"><span class="tag">Flask</span><span class="tag">Python</span><span class="tag">EdTech</span><span class="tag">Extensive Reading</span><span class="tag">Community Building</span></div>
       </div>
+      <!-- ============ TONE STAMP CARD ============ -->
       <div class="card">
-        <h4>
-          <span class="i18n" data-lang="en">Tone Stamp</span>
-          <span class="i18n" data-lang="es" style="display:none">Tone Stamp</span>
-          <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
-        </h4>
-        <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself. Now paired with Decks: free, browser-based flashcard sets organized by TOCFL level (準1 through 流利/Fluent), with flip cards, keyboard navigation, a zhuyin/pinyin/off reading toggle, and room for your own example sentences. Two of seven levels are live so far (準1 · 152 cards, 準2 · 179 cards); studying online stays free, with an optional Ko-fi link for anyone who wants to export or print a deck.</p>
-        <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de lecturabilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo. Ahora viene con Decks: mazos de tarjetas (flashcards) gratuitos, en el navegador, organizados por nivel del TOCFL (準1 hasta 流利/Fluido), con tarjetas que se voltean, navegación por teclado, un selector de lectura zhuyin/pinyin/apagado, y espacio para tus propias frases de ejemplo. Dos de siete niveles ya están listos (準1 · 152 tarjetas, 準2 · 179 tarjetas); estudiar en línea se mantiene gratis, con un enlace opcional a Ko-fi para quien quiera exportar o imprimir un mazo.</p>
-        <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。現在還多了Decks:免費、在瀏覽器中使用的字卡組,依TOCFL分級(準1到流利級)排列,可翻面、可用鍵盤操作,並提供注音/拼音/關閉的發音顯示切換,也能加入自己的例句。目前已上線兩個等級(準1・152張卡、準2・179張卡);線上學習維持免費,另提供選用的Ko-fi連結,供想匯出或列印字卡組的人使用。</p>
-        <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
-        <a class="link" href="https://tonestamp.netlify.app/decks/">
-          <span class="i18n" data-lang="en">Decks →</span>
-          <span class="i18n" data-lang="es" style="display:none">Decks →</span>
-          <span class="i18n" data-lang="zh" style="display:none">Decks →</span>
-        </a>
-        <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span><span class="tag">Flashcards</span><span class="tag">TOCFL</span></div>
+      <h4>
+        <span class="i18n" data-lang="en">Tone Stamp</span>
+        <span class="i18n" data-lang="es" style="display:none">Tone Stamp</span>
+        <span class="i18n" data-lang="zh" style="display:none">Tone Stamp</span>
+      </h4>
+      <p class="i18n" data-lang="en">A reading tool for learners of Chinese that colors characters to make components, radicals, or pronunciation patterns visible at a glance — the same instinct behind my <a href="#research">Spanish readability work</a>, aimed at a language I'm still learning myself. Now paired with Decks: free, browser-based flashcard sets organized by TOCFL level (準1 through 流利/Fluent), with flip cards, keyboard navigation, a zhuyin/pinyin/off reading toggle, and room for your own example sentences. Two of seven levels are live so far (準1 · 152 cards, 準2 · 179 cards); studying online stays free, with an optional Ko-fi link for anyone who wants to export or print a deck.</p>
+      <p class="i18n" data-lang="es" style="display:none">Una herramienta de lectura para estudiantes de chino que colorea los caracteres para hacer visibles a simple vista sus componentes, radicales o patrones de pronunciación, el mismo instinto detrás de mi <a href="#research">trabajo de lecturabilidad</a> en español, aplicado a un idioma que yo misma sigo aprendiendo. Ahora viene con Decks: mazos de tarjetas (flashcards) gratuitos, en el navegador, organizados por nivel del TOCFL (準1 hasta 流利/Fluido), con tarjetas que se voltean, navegación por teclado, un selector de lectura zhuyin/pinyin/apagado, y espacio para tus propias frases de ejemplo. Dos de siete niveles ya están listos (準1 · 152 tarjetas, 準2 · 179 tarjetas); estudiar en línea se mantiene gratis, con un enlace opcional a Ko-fi para quien quiera exportar o imprimir un mazo.</p>
+      <p class="i18n" data-lang="zh" style="display:none">一款為中文學習者設計的閱讀工具,透過為漢字上色,讓部件、部首或發音規律一目了然——這和我在<a href="#research">西班牙語可讀性研究</a>中的想法如出一轍,只是這次用在一個我自己也還在學習的語言上。現在還多了Decks:免費、在瀏覽器中使用的字卡組,依TOCFL分級(準1到流利級)排列,可翻面、可用鍵盤操作,並提供注音/拼音/關閉的發音顯示切換,也能加入自己的例句。目前已上線兩個等級(準1・152張卡、準2・179張卡);線上學習維持免費,另提供選用的Ko-fi連結,供想匯出或列印字卡組的人使用。</p>
+      <a class="link" href="https://tonestamp.netlify.app">tonestamp.netlify.app →</a>
+      <a class="link" href="https://tonestamp.netlify.app/decks/">
+        <span class="i18n" data-lang="en">Decks →</span>
+        <span class="i18n" data-lang="es" style="display:none">Decks →</span>
+        <span class="i18n" data-lang="zh" style="display:none">Decks →</span>
+      </a>
+      <div class="tagrow"><span class="tag">EdTech</span><span class="tag">Chinese Pedagogy</span><span class="tag">Readability</span><span class="tag">Visualization</span><span class="tag">Flashcards</span><span class="tag">TOCFL</span></div>
       </div>
-    </div>
-
+    </div><!-- /grid two -->
+    
     <h3 style="margin-top:38px;">
       <span class="i18n" data-lang="en">Health Tech</span>
       <span class="i18n" data-lang="es" style="display:none">Tecnología en salud</span>
@@ -1174,16 +1180,19 @@
     <div class="spotlight" id="zebraup">
       <h4>ZebraUp</h4>
       <div class="i18n" data-lang="en">
-        <p>Built as an mHealth web app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. ZebraUp helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
+        <p>ZebraUp is an mHealth app for people navigating rare or hard-to-diagnose conditions — the "zebras," in medical slang, that get overlooked while clinicians look for more common explanations. It helps patients walk into short consultations with concrete data instead of a blurred memory of symptoms: structured symptom tracking, a timeline they can hand to a new specialist, and language built around how patients actually describe what's happening to them, not just clinical checklists.</p>
+        <p>It is also a study in solo, privacy-first engineering: a local-first Dart/Flutter app designed so the patient's data stays on their device, with no mandatory cloud dependency — a deliberate single-developer architecture that removes servers, subscriptions, and vulnerability surface from the equation. The point is legibility: making an invisible, disbelieved illness visible to the only person who can treat it.</p>
         <p>I'm currently gathering structured data on how patients with complex, multi-system conditions communicate with their care teams — where that communication breaks down, and what actually helps — with the aim of publishing a study that uses ZebraUp as its case study. More on why I built this in <a href="#journey">the honest part</a>.</p>
       </div>
       <div class="i18n" data-lang="es" style="display:none">
-        <p>Construida como una app web de salud móvil para personas que navegan condiciones raras o difíciles de diagnosticar (las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes). ZebraUp ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado de síntomas, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
+        <p>ZebraUp es una app de mHealth para personas que navegan condiciones raras o difíciles de diagnosticar — las "cebras", en la jerga médica, que quedan sin ver mientras los clínicos buscan explicaciones más comunes. Ayuda a los pacientes a llegar a consultas breves con datos concretos en vez de un recuerdo difuso de sus síntomas: seguimiento estructurado, una línea de tiempo que pueden entregar a un nuevo especialista, y un lenguaje construido a partir de cómo los pacientes realmente describen lo que les pasa, no solo listas clínicas de verificación.</p>
+        <p>Es también un ejercicio de ingeniería en solitario con privacidad como prioridad: una aplicación en Dart/Flutter con arquitectura <em>local-first</em>, donde los datos residen exclusivamente en el dispositivo del usuario sin depender obligatoriamente de la nube. Una decisión deliberada de desarrollo individual que elimina servidores, suscripciones y riesgos de seguridad. El objetivo es la legibilidad: hacer visible una condición invisible ante el único profesional que puede tratarla.</p>
         <p>Actualmente estoy recopilando datos estructurados sobre cómo se comunican con sus equipos médicos las personas con condiciones complejas y multisistémicas (dónde se rompe esa comunicación y qué realmente ayuda), con el objetivo de publicar un estudio que use ZebraUp como caso de estudio. Más sobre por qué construí esto en <a href="#journey">la parte honesta</a>.</p>
       </div>
       <div class="i18n" data-lang="zh" style="display:none">
-        <p>這是一款為罕見或難以診斷疾病患者打造的行動醫療網頁應用程式。醫學術語中的「斑馬」,指的是那些在醫師優先考慮常見診斷時,容易被忽略的病例。ZebraUp協助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀紀錄、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
-        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以ZebraUp作為案例研究的論文。關於我為何打造這個工具,更多細節請見<a href="#journey">誠實的部分</a>。</p>
+        <p>ZebraUp 是一款專為罕見或難以診斷疾病患者打造的 mHealth 應用程式——也就是醫學術語中被忽略的「斑馬」,那些在醫師優先考慮常見診斷時容易被忽略的病例。它幫助病患在短暫的門診時間裡,帶著具體的資料而非模糊的症狀記憶進入診間:結構化的症狀追蹤、可交給新專科醫師參考的時間軸,以及貼近病患實際描述症狀方式(而非僅是臨床檢核表)所設計的用語。</p>
+        <p>這同時也是一項以「隱私優先」為核心的獨立工程實踐:採用 Dart/Flutter 開發的「本地優先」(local-first)架構,確保患者的醫療數據完全保存在本機裝置上,無需強制依賴雲端伺服器——這種刻意的單人開發架構設計,徹底消除了伺服器維護成本、訂閱費用與隱私外洩風險。核心目標就是「可讀性」:讓隱形且常被忽視的疾病,在能給予治療的醫師眼前變得清晰可見。</p>
+        <p>我目前正在蒐集結構化資料,了解患有複雜、多系統疾病的病患如何與醫療團隊溝通——溝通在哪裡出現斷點、什麼真正有幫助——目標是發表一篇以 ZebraUp 作為案例研究的論文。關於我為何打造這個工具,更多細節請見<a href="#journey">誠實的部分</a>。</p>
       </div>
       <div class="link-row">
         <a href="https://zebraup-beta.netlify.app">zebraup-beta.netlify.app →</a>
@@ -1196,6 +1205,30 @@
         </a>
       </div>
       <div class="tagrow"><span class="tag">Dart</span><span class="tag">Flutter</span><span class="tag">health tech</span><span class="tag">mHealth</span><span class="tag">Patient Advocacy</span><span class="tag">UX Writing</span></div>
+    </div>
+
+    <!-- ============ ZEBRAPACE CARD (projects + dreams compatible) ============ -->
+    <div class="card">
+      <h4>ZebraPace</h4>
+      <div class="i18n" data-lang="en">
+        <p>🦓 "The 1% Journey." A pacing-first energy and fitness tracker for people managing Ehlers-Danlos Syndromes, Post-Exertional Malaise, dysautonomia, and their comorbidities. Traditional fitness apps reward streaks and linear progress — which can actively harm chronic, cyclical conditions — so ZebraPace works the other way: a "spoon" battery that reflects real daily capacity, a gentle 1% growth rule instead of a push, and PEM-precaution alerts if you overdo it. Rest counts as a successful health intervention, not a broken streak.</p>
+        <p>Grew directly out of the same story behind <a href="#zebraup">ZebraUp</a>. Currently running with just me as the case study (early beta on Streamlit). If you're navigating something similar and are curious, I'm happy to share this first phase before building it out further.</p>
+      </div>
+      <div class="i18n" data-lang="es" style="display:none">
+        <p>🦓 «El viaje del 1%». Un rastreador de energía y actividad física centrado en el ritmo (pacing), para personas que viven con Síndromes de Ehlers-Danlos, malestar post-esfuerzo (PEM), disautonomía y sus comorbilidades. Las apps de fitness tradicionales premian las rachas y el progreso lineal (algo que puede dañar activamente a quienes viven condiciones crónicas y cíclicas), así que ZebraPace hace lo contrario: una batería de «cucharas» que refleja la capacidad real del día, una regla de crecimiento del 1% en vez de exigir más, y alertas de precaución PEM si te excedes. Descansar cuenta como una intervención de salud exitosa, no como una racha rota.</p>
+        <p>Nació directamente de la misma historia detrás de <a href="#zebraup">ZebraUp</a>. Por ahora la estoy usando solo yo, a modo de caso de estudio (beta temprana en Streamlit). Si estás viviendo algo similar y te da curiosidad, con gusto comparto esta primera fase antes de avanzar a algo más elaborado.</p>
+      </div>
+      <div class="i18n" data-lang="zh" style="display:none">
+        <p>🦓「1%的旅程」。一款以「節奏(pacing)」為核心的能量與體能追蹤工具,專為患有埃勒斯-當洛斯症候群、運動後不適(PEM)、自律神經失調及其共病的人設計。傳統健身App獎勵連續打卡與線性進步,但這對慢性、週期性疾病患者反而可能造成傷害——ZebraPace反其道而行:以「湯匙」電量呈現當天真正的能量餘裕,以溫和的1%成長原則取代「再拼一點」的壓力,並在超出負荷時發出PEM警示。休息本身就是成功的健康介入,而不是打卡中斷。</p>
+        <p>這個構想,直接源自<a href="#zebraup">ZebraUp</a>背後的同一段故事。目前只有我自己在使用,作為案例研究(Streamlit 早期測試版)。如果你也有類似經歷並感到好奇,我很樂意在進一步完善之前,先分享這個第一階段的版本。</p>
+      </div>
+      <a class="link" href="https://zebrapace.streamlit.app">zebrapace.streamlit.app →</a>
+      <div class="tagrow">
+        <span class="tag i18n" data-lang="en">early beta</span>
+        <span class="tag i18n" data-lang="es" style="display:none">beta temprana</span>
+        <span class="tag i18n" data-lang="zh" style="display:none">早期測試版</span>
+        <span class="tag">Health Tech</span><span class="tag">Pacing</span><span class="tag">EDS / PEM</span><span class="tag">Streamlit</span>
+      </div>
     </div>
   </section>
 
@@ -1250,7 +1283,7 @@
       </div>
     </div>
 
-    <h3 style="margin-top:38px;">
+    <!-- <h3 style="margin-top:38px;">
       <span class="i18n" data-lang="en">Health Tech</span>
       <span class="i18n" data-lang="es" style="display:none">Tecnología en salud</span>
       <span class="i18n" data-lang="zh" style="display:none">醫療科技</span>
@@ -1280,7 +1313,7 @@
         </div>
       </div>
     </div>
-    </div>
+    </div> -->
   </section>
 
   <section id="skills" class="reveal">
