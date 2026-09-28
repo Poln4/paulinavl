@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paulina Valenzuela Lagos — Welcome</title>
+<meta name="description" content="Paulina Valenzuela Lagos — computational linguist, Spanish instructor, and solo builder. Pick a destination and get your passport stamped.">
+<meta property="og:title" content="Paulina Valenzuela Lagos — Welcome">
+<meta property="og:description" content="Pick a destination, get your passport stamped: CKJ-ESP, Tone Stamp, CARLA, ZebraUp and the full story.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paulinavl.com/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+/* ---------- tokens: marker (light) ---------- */
+:root{
+  --bg:#f3ede1; --ink:#1f1c18; --muted:#6f675b; --page:#fffaf0; --page-2:#f7efdd;
+  --line:rgba(120,90,40,.10); --cover:#6d1f2b; --cover-2:#4a121b; --foil:#e2c27d;
+  --shadow:rgba(60,40,10,.22); --ticket:#fffdf7; --accent:#c42f3a;
+  --red:#c42f3a; --blue:#2450b8; --green:#23774a; --purple:#6b3aa0;
+  --orange:#c7650f; --teal:#10807e; --brown:#8a4b20; --pink:#b8336a; --navy:#1e3a6e;
+  --hand:"Kalam", "Noto Sans TC", "PingFang TC", system-ui, sans-serif;
+  --title:"Caveat", "Kalam", "Noto Sans TC", cursive;
+  --mono:"Special Elite", ui-monospace, "Courier New", monospace;
+}
+/* ---------- tokens: chalk (dark) ---------- */
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#121517; --ink:#f1eee6; --muted:#a8a59c; --page:#20262a; --page-2:#1a1f22;
+    --line:rgba(255,255,255,.05); --cover:#233a5a; --cover-2:#16263d; --foil:#e8d49a;
+    --shadow:rgba(0,0,0,.5); --ticket:#262d31; --accent:#ff8f8f;
+    --red:#ff8f8f; --blue:#8fb6ff; --green:#8fe0aa; --purple:#caa4ff;
+    --orange:#ffc07e; --teal:#80e3dc; --brown:#e5b88e; --pink:#ff9fc6; --navy:#a9c4ff;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121517; --ink:#f1eee6; --muted:#a8a59c; --page:#20262a; --page-2:#1a1f22;
+  --line:rgba(255,255,255,.05); --cover:#233a5a; --cover-2:#16263d; --foil:#e8d49a;
+  --shadow:rgba(0,0,0,.5); --ticket:#262d31; --accent:#ff8f8f;
+  --red:#ff8f8f; --blue:#8fb6ff; --green:#8fe0aa; --purple:#caa4ff;
+  --orange:#ffc07e; --teal:#80e3dc; --brown:#e5b88e; --pink:#ff9fc6; --navy:#a9c4ff;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+html{overflow-x:clip}
+body{
+  background:var(--bg); color:var(--ink); font-family:var(--hand);
+  min-height:100vh; overflow-x:hidden; line-height:1.45;
+  background-image:radial-gradient(var(--line) 1px, transparent 1px);
+  background-size:22px 22px;
+}
+a{color:inherit}
+button{font:inherit;color:inherit}
+
+/* ---------- top bar ---------- */
+.bar{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;justify-content:space-between;
+  padding:14px 16px;max-width:1040px;margin:0 auto}
+.bar .grp{display:flex;gap:.35rem;align-items:center}
+.pill{border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:.15rem .7rem;
+  cursor:pointer;font-size:.95rem;opacity:.55}
+.pill[aria-pressed="true"]{opacity:1;background:var(--ink);color:var(--bg)}
+.skip{font-size:1rem;text-decoration:none;border-bottom:2px solid var(--accent);padding-bottom:1px}
+.skip:hover{color:var(--accent)}
+
+/* ---------- hero ---------- */
+header.hero{text-align:center;padding:8px 16px 4px;max-width:760px;margin:0 auto}
+.hello{font-family:var(--title);font-size:clamp(3rem,10vw,5.2rem);line-height:1;margin:.1em 0 .1em;
+  min-height:1.1em;transition:opacity .35s, transform .35s}
+.hello.swap{opacity:0;transform:translateY(6px)}
+.sub{font-size:clamp(1.05rem,2.6vw,1.25rem);margin:.2rem 0 0;color:var(--muted)}
+.counter{font-family:var(--mono);font-size:.95rem;margin:.6rem 0 0;letter-spacing:.04em}
+.counter b{color:var(--accent)}
+.done{font-family:var(--title);font-size:1.6rem;color:var(--accent);margin:.2rem 0 0;min-height:1.6rem}
+
+/* ---------- passport ---------- */
+.stage{max-width:1000px;margin:18px auto 150px;padding:0 16px;perspective:2200px}
+.passport{position:relative}
+.cover{
+  display:block;margin:0 auto;width:min(380px,100%);aspect-ratio:5/7;border:0;cursor:pointer;
+  background:linear-gradient(135deg,var(--cover),var(--cover-2));color:var(--foil);
+  border-radius:10px 18px 18px 10px;box-shadow:0 18px 40px var(--shadow), inset 10px 0 0 rgba(0,0,0,.18);
+  display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:34px 20px 26px;
+  transform-origin:left center;transition:transform .9s cubic-bezier(.6,.05,.3,1), opacity .5s .5s;
+}
+.cover:hover{transform:rotateY(-8deg)}
+.cover:focus-visible{outline:3px dashed var(--accent);outline-offset:6px}
+.cover .ttl{font-family:var(--mono);letter-spacing:.28em;font-size:1rem;text-align:center;line-height:1.9}
+.cover .emb{width:44%;aspect-ratio:1}
+.cover .who{font-family:var(--mono);letter-spacing:.14em;font-size:.82rem;text-align:center;line-height:1.6}
+.cover .tap{font-family:var(--title);font-size:1.5rem;color:var(--foil);opacity:.9;animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px)}}
+.passport.open .cover{transform:rotateY(-175deg);opacity:0;pointer-events:none;position:absolute;left:0;right:0;top:0}
+
+.spread{display:none;grid-template-columns:1fr 1fr;border-radius:12px;box-shadow:0 22px 50px var(--shadow);
+  background:var(--page);position:relative}
+.passport.open .spread{display:grid;animation:rise .7s .15s both}
+@keyframes rise{from{opacity:0;transform:translateY(14px) scale(.98)}}
+.spread::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:34px;transform:translateX(-50%);
+  background:linear-gradient(90deg,transparent,var(--shadow) 48%,var(--shadow) 52%,transparent);opacity:.35;pointer-events:none}
+.page{padding:26px 26px 22px;position:relative;min-height:540px;
+  background:
+   repeating-radial-gradient(circle at 30% 40%, transparent 0 9px, var(--line) 9px 10px),
+   linear-gradient(var(--page),var(--page-2));}
+.page.l{border-radius:12px 0 0 12px}
+.page.r{border-radius:0 12px 12px 0}
+.pgno{position:absolute;bottom:10px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.page.l .pgno{left:22px}.page.r .pgno{right:22px}
+.sec{font-family:var(--mono);font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);
+  margin:0 0 10px;display:flex;gap:.6rem;align-items:center}
+.sec::after{content:"";flex:1;border-top:1.5px dashed var(--muted);opacity:.5}
+
+/* holder block */
+.holder{display:grid;grid-template-columns:92px 1fr;gap:14px;margin-bottom:18px}
+.photo{aspect-ratio:4/5;border:2px solid var(--ink);border-radius:6px;display:grid;place-items:center;
+  font-size:2.3rem;font-family:"Noto Serif TC","PingFang TC",serif;background:var(--page-2);position:relative;overflow:hidden}
+.photo::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(45deg,transparent 0 6px,var(--line) 6px 7px)}
+dl{margin:0;display:grid;gap:4px}
+dt{font-family:var(--mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+dd{margin:0 0 4px;font-size:1.02rem;line-height:1.25}
+.mrz{font-family:ui-monospace,"Courier New",monospace;font-size:.72rem;letter-spacing:.12em;color:var(--muted);
+  word-break:break-all;margin-top:14px;line-height:1.5;opacity:.8}
+
+/* ---------- stamp slots ---------- */
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(118px,1fr));gap:18px 12px;justify-items:center}
+.slots.home{grid-template-columns:repeat(2,minmax(118px,1fr))}
+.slot{position:relative;border:0;background:none;cursor:pointer;padding:0;width:118px;height:118px;
+  display:grid;place-items:center;border-radius:14px;-webkit-tap-highlight-color:transparent}
+.slot.rect{height:96px;width:134px}
+.slot:focus-visible{outline:3px dashed var(--accent);outline-offset:3px}
+.outline{position:absolute;inset:6px;border:2px dashed var(--muted);opacity:.55;display:grid;place-items:center;
+  text-align:center;padding:8px;transition:opacity .2s, transform .2s, border-color .2s}
+.slot.circle .outline{border-radius:50%}
+.slot.rect .outline{border-radius:8px}
+.lbl{font-size:.95rem;line-height:1.1}
+.lbl small{display:block;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;opacity:.8;margin-top:3px}
+.slot:hover .outline{opacity:1;border-color:var(--accent);transform:scale(1.04) rotate(-2deg)}
+.stamp{position:absolute;inset:0;display:grid;place-items:center;opacity:0;pointer-events:none;
+  transform:rotate(var(--rot,0deg)) scale(1.9);mix-blend-mode:multiply}
+:root[data-theme="dark"] .stamp{mix-blend-mode:screen}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stamp{mix-blend-mode:screen}}
+.stamp svg{width:100%;height:100%;overflow:visible}
+.slot.stamped .outline{opacity:0}
+.slot.stamped .stamp{opacity:.92;transform:rotate(var(--rot,0deg)) scale(1)}
+.slot.thunk .stamp{animation:thunk .38s cubic-bezier(.3,1.6,.5,1) both}
+@keyframes thunk{0%{opacity:0;transform:rotate(var(--rot)) scale(1.9)}60%{opacity:1;transform:rotate(var(--rot)) scale(.94)}100%{opacity:.92;transform:rotate(var(--rot)) scale(1)}}
+.spread.shake{animation:shake .28s}
+@keyframes shake{25%{transform:translate(1px,2px)}50%{transform:translate(-1px,-1px)}75%{transform:translate(1px,0)}}
+.ink{color:var(--c)}
+
+.hint{text-align:center;font-family:var(--title);font-size:1.35rem;color:var(--muted);margin:14px 0 0}
+
+/* ---------- boarding pass ---------- */
+#ticket{position:fixed;left:0;right:0;bottom:0;display:flex;justify-content:center;padding:0 12px 14px;
+  transform:translateY(120%);transition:transform .45s cubic-bezier(.2,.9,.3,1.15);z-index:20;pointer-events:none}
+#ticket.show{transform:none}
+.tk{pointer-events:auto;width:min(680px,100%);display:grid;grid-template-columns:1fr 190px;background:var(--ticket);
+  border-radius:14px;box-shadow:0 14px 40px var(--shadow);border:1.5px solid var(--ink);overflow:hidden}
+.tk-main{padding:14px 18px;border-top:6px solid var(--c,var(--accent))}
+.tk-route{font-family:var(--mono);font-size:.85rem;letter-spacing:.14em;color:var(--muted);display:flex;gap:.5rem;align-items:center}
+.tk-route b{font-size:1.4rem;color:var(--ink);letter-spacing:.08em}
+.tk-name{font-family:var(--title);font-size:2rem;margin:0;line-height:1.05}
+.tk-desc{margin:.2rem 0 .3rem;font-size:1.02rem}
+.tk-host{font-family:var(--mono);font-size:.75rem;color:var(--muted);margin:0;word-break:break-all}
+.tk-stub{border-left:2px dashed var(--muted);padding:14px;display:flex;flex-direction:column;gap:8px;justify-content:center;position:relative}
+.tk-stub::before,.tk-stub::after{content:"";position:absolute;left:-11px;width:20px;height:20px;border-radius:50%;background:var(--bg);border:1.5px solid var(--ink)}
+.tk-stub::before{top:-11px}.tk-stub::after{bottom:-11px}
+.tk-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;align-self:flex-start;
+  border:1.5px solid var(--c,var(--accent));color:var(--c,var(--accent));border-radius:4px;padding:1px 6px}
+.board{display:block;text-align:center;text-decoration:none;background:var(--ink);color:var(--bg);border-radius:10px;
+  padding:.55rem .6rem;font-size:1.15rem;font-weight:700}
+.board:hover{background:var(--c,var(--accent));color:#fff}
+.keep{background:none;border:0;cursor:pointer;color:var(--muted);text-decoration:underline;font-size:.92rem}
+
+footer{text-align:center;font-size:.85rem;color:var(--muted);padding:0 16px 30px}
+footer button{background:none;border:0;text-decoration:underline;cursor:pointer;color:var(--muted);font-size:.85rem}
+
+/* ---------- small screens ---------- */
+@media (max-width:760px){
+  .spread{grid-template-columns:1fr}
+  .spread::after{display:none}
+  .page{min-height:0;padding:22px 16px 34px}
+  .page.l{border-radius:12px 12px 0 0;border-bottom:2px dashed var(--line)}
+  .page.r{border-radius:0 0 12px 12px}
+  .slots{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .slot{width:108px;height:108px}
+  .slot.rect{width:122px;height:88px}
+  .tk{grid-template-columns:1fr}
+  .tk-stub{border-left:0;border-top:2px dashed var(--muted);flex-direction:row;flex-wrap:wrap;align-items:center}
+  .tk-stub::before,.tk-stub::after{display:none}
+  .board{flex:1}
+  .stage{margin-bottom:220px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<!-- shared ink texture for all stamps -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <filter id="rough" x="-10%" y="-10%" width="120%" height="120%">
+    <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="4" result="n"/>
+    <feDisplacementMap in="SourceGraphic" in2="n" scale="2.2" result="d"/>
+    <feTurbulence type="fractalNoise" baseFrequency="1.6" numOctaves="1" seed="9" result="s"/>
+    <feColorMatrix in="s" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  -2.4 0 0 0 2.1" result="m"/>
+    <feComposite in="d" in2="m" operator="in"/>
+  </filter>
+</svg>
+
+<nav class="bar" aria-label="Settings">
+  <div class="grp" role="group" aria-label="Language">
+    <button class="pill" data-lang="en">EN</button>
+    <button class="pill" data-lang="es">ES</button>
+    <button class="pill" data-lang="zh">中</button>
+  </div>
+  <div class="grp">
+    <button class="pill" id="theme" aria-pressed="true"></button>
+    <button class="pill" id="sound" aria-pressed="true"></button>
+  </div>
+  <a class="skip" id="skip" href="#"></a>
+</nav>
+
+<header class="hero">
+  <h1 class="hello" id="hello">Hola.</h1>
+  <p class="sub" data-i="sub"></p>
+  <p class="counter" id="counter" aria-live="polite"></p>
+  <p class="done" id="done" aria-live="polite"></p>
+</header>
+
+<main class="stage">
+  <div class="passport" id="passport">
+    <button class="cover" id="cover">
+      <span class="ttl">PASAPORTE<br>PASSPORT<br>護照</span>
+      <!-- lens emblem: "an engineer of lenses" -->
+      <svg class="emb" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor">
+        <circle cx="50" cy="50" r="46" stroke-width="2"/>
+        <circle cx="50" cy="50" r="40" stroke-width="1" stroke-dasharray="2 4"/>
+        <circle cx="44" cy="44" r="18" stroke-width="3.5"/>
+        <path d="M57 57 L72 72" stroke-width="6" stroke-linecap="round"/>
+        <text x="44" y="50" text-anchor="middle" font-size="14" fill="currentColor" stroke="none" font-family="serif">Ñ</text>
+      </svg>
+      <span class="who">PAULINA VALENZUELA LAGOS<br>范寶琳</span>
+      <span class="tap" data-i="open"></span>
+    </button>
+
+    <div class="spread" id="spread">
+      <section class="page l" aria-labelledby="h-holder">
+        <p class="sec" id="h-holder" data-i="holderSec"></p>
+        <div class="holder">
+          <div class="photo" aria-hidden="true">范</div>
+          <dl>
+            <dt data-i="holder"></dt><dd>Paulina Valenzuela Lagos · 范寶琳</dd>
+            <dt data-i="occ"></dt><dd data-i="occVal"></dd>
+            <dt data-i="base"></dt><dd>Taipei ⇄ Santiago</dd>
+            <dt data-i="issued"></dt><dd id="issued"></dd>
+          </dl>
+        </div>
+        <p class="sec" data-i="homeSec"></p>
+        <div class="slots home" id="slots-l"></div>
+        <p class="mrz" aria-hidden="true">P&lt;CHLVALENZUELA&lt;LAGOS&lt;&lt;PAULINA&lt;ANDREA&lt;&lt;&lt;&lt;<br>A1A2B1B2C1C2&lt;&lt;TPE&lt;SCL&lt;&lt;MAKING&lt;THE&lt;INVISIBLE&lt;LEGIBLE</p>
+        <span class="pgno">01</span>
+      </section>
+      <section class="page r" aria-labelledby="h-visas">
+        <p class="sec" id="h-visas" data-i="visasSec"></p>
+        <div class="slots" id="slots-r"></div>
+        <p class="hint" data-i="hint"></p>
+        <span class="pgno">02</span>
+      </section>
+    </div>
+  </div>
+</main>
+
+<aside id="ticket" aria-live="polite" aria-hidden="true">
+  <div class="tk" id="tk">
+    <div class="tk-main">
+      <div class="tk-route"><b>PVL</b><span>✈ ─ ─ ─</span><b id="tk-code"></b></div>
+      <h2 class="tk-name" id="tk-name"></h2>
+      <p class="tk-desc" id="tk-desc"></p>
+      <p class="tk-host" id="tk-host"></p>
+    </div>
+    <div class="tk-stub">
+      <span class="tk-tag" id="tk-tag"></span>
+      <a class="board" id="tk-board" href="#"></a>
+      <a class="keep" id="tk-alt" href="#" hidden></a>
+      <button class="keep" id="tk-close" data-i="keep"></button>
+    </div>
+  </div>
+</aside>
+
+<footer>
+  <span data-i="foot"></span> · <button id="reset" data-i="reset"></button>
+</footer>
+
+<script>
+/* ======================================================
+   CONFIG — where your current portfolio will live once
+   this page takes over the root. Change if you pick /cv/.
+   ====================================================== */
+const STORY_URL = "/story/";
+
+const DEST = [
+  { id:"story", page:"l", shape:"circle", c:"--red", glyph:"范", code:"STY", name:"The Story", url:STORY_URL, tag:"home",
+    desc:{en:"The full story: teaching, research, what I've built, and the honest part.",
+          es:"La historia completa: docencia, investigación, lo que he construido y la parte honesta.",
+          zh:"完整故事:教學、研究、我打造的作品,以及誠實的部分。"}},
+  { id:"games", page:"l", shape:"circle", c:"--orange", glyph:"▶", code:"ARC", name:"Arcade", url:"/games", tag:"live",
+    desc:{en:"Small games: names, myths, matches, and timelines.",
+          es:"Juegos pequeños: nombres, mitos, parejas y cronologías.",
+          zh:"小遊戲:名字、迷思、配對與時間軸。"}},
+  { id:"ckj", page:"r", shape:"circle", c:"--blue", glyph:"是", code:"CKJ", name:"CKJ-ESP", url:"https://ckj.paulinavl.com", tag:"live",
+    desc:{en:"A Spanish-first comparative dictionary: Mandarin, Korean and Japanese, side by side.",
+          es:"Diccionario comparativo con el español al centro: mandarín, coreano y japonés, lado a lado.",
+          zh:"以西班牙語為核心的比較辭典:華語、韓語、日語並列對照。"}},
+  { id:"tone", page:"r", shape:"rect", c:"--purple", glyph:"mǎ", code:"TNS", name:"Tone Stamp", url:"https://tonestamp.paulinavl.com", tag:"live",
+    desc:{en:"Colored characters that make Mandarin tones visible at a glance.",
+          es:"Caracteres coloreados que hacen visibles los tonos del mandarín.",
+          zh:"為漢字上色,讓華語聲調一眼看得見。"}},
+  { id:"decks", page:"r", shape:"rect", c:"--pink", glyph:"卡", code:"DCK", name:"Decks", url:"https://tonestamp.paulinavl.com/decks/", tag:"live",
+    desc:{en:"Free TOCFL flashcard decks with a zhuyin / pinyin toggle.",
+          es:"Mazos de tarjetas TOCFL gratuitos, con zhuyin o pinyin.",
+          zh:"免費TOCFL字卡,可切換注音/拼音。"}},
+  { id:"carla", page:"r", shape:"circle", c:"--green", glyph:"B1", code:"CRL", name:"CARLA", url:"https://carla-esp.streamlit.app", tag:"live",
+    desc:{en:"Paste any Spanish text, get its CEFR level (A1–C2).",
+          es:"Pega cualquier texto en español y obtén su nivel MCER (A1–C2).",
+          zh:"貼上任何西語文本,立即取得CEFR等級(A1–C2)。"}},
+  { id:"leehzn", page:"r", shape:"rect", c:"--teal", glyph:"읽", code:"LHZ", name:"leehzn", url:"https://leehzn.paulinavl.com", tag:"preview",
+    desc:{en:"Graded Spanish reading for Korean, Chinese and Japanese speakers.",
+          es:"Lectura graduada de español para hablantes de coreano, chino y japonés.",
+          zh:"為韓、中、日母語者設計的西班牙語分級閱讀。"}},
+  { id:"zebraup", page:"r", shape:"circle", c:"--navy", glyph:"≋", code:"ZUP", name:"ZebraUp", url:"https://zebraup.netlify.app", tag:"beta",
+    alt:{url:"https://zebraup-beta.netlify.app", label:{en:"or try the beta app →", es:"o prueba la app beta →", zh:"或試用測試版 →"}},
+    desc:{en:"Local-first symptom tracking for hard-to-see conditions.",
+          es:"Registro de síntomas local-first para condiciones difíciles de ver.",
+          zh:"本地優先的症狀追蹤,為難以被看見的疾病而生。"}},
+  { id:"zebrapace", page:"r", shape:"rect", c:"--brown", glyph:"1%", code:"ZPC", name:"ZebraPace", url:"https://zebrapace.netlify.app", tag:"beta",
+    desc:{en:"A pacing-first energy tracker where rest counts as a win.",
+          es:"Un rastreador de energía centrado en el ritmo, donde descansar cuenta como logro.",
+          zh:"以節奏為核心的能量追蹤工具,休息也算一次成功。"}},
+];
+
+const T = {
+  en:{sub:"Welcome! Pick a destination and get your passport stamped.",open:"tap to open",
+      holderSec:"Holder",holder:"Name",occ:"Occupation",occVal:"Engineer of lenses — language & health tech",base:"Base",issued:"Issued to you",
+      homeSec:"Home",visasSec:"Visas · side projects",hint:"tap a slot to stamp it ✦",
+      keep:"keep stamping",board:"Board →",home:"home",live:"live",beta:"beta",preview:"preview",
+      skip:"skip the game → full story",stamps:"stamps",done:"Honorary polyglot! Every page stamped.",
+      foot:"Made by one person in Taipei",reset:"reset my stamps",marker:"☀ marker",chalk:"● chalk",on:"♪ on",off:"♪ off"},
+  es:{sub:"¡Bienvenida, bienvenido! Elige un destino y sella tu pasaporte.",open:"toca para abrir",
+      holderSec:"Titular",holder:"Nombre",occ:"Ocupación",occVal:"Ingeniera de lentes: tecnología para idiomas y salud",base:"Base",issued:"Emitido para ti",
+      homeSec:"Casa",visasSec:"Visas · proyectos paralelos",hint:"toca un espacio para sellarlo ✦",
+      keep:"seguir sellando",board:"Abordar →",home:"casa",live:"en línea",beta:"beta",preview:"vista previa",
+      skip:"saltar el juego → historia completa",stamps:"sellos",done:"¡Políglota honoraria! Pasaporte completo.",
+      foot:"Hecho por una sola persona en Taipéi",reset:"borrar mis sellos",marker:"☀ marcador",chalk:"● tiza",on:"♪ sí",off:"♪ no"},
+  zh:{sub:"歡迎!選一個目的地,在護照上蓋個章吧。",open:"點一下打開",
+      holderSec:"持照人",holder:"姓名",occ:"職業",occVal:"打造透鏡的工程師——語言與醫療科技",base:"所在地",issued:"簽發給你",
+      homeSec:"家",visasSec:"簽證・周邊專案",hint:"點一下空格來蓋章 ✦",
+      keep:"繼續蓋章",board:"登機 →",home:"家",live:"上線",beta:"測試版",preview:"預覽",
+      skip:"跳過遊戲 → 完整故事",stamps:"枚印章",done:"榮譽多語人!每一頁都蓋滿了。",
+      foot:"由台北的一個人獨立打造",reset:"清除我的印章",marker:"☀ 麥克筆",chalk:"● 粉筆",on:"♪ 開",off:"♪ 關"}
+};
+
+/* ---------- storage (safe) ---------- */
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem(k); return v===null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem(k, JSON.stringify(v)); }catch(e){} }
+};
+let stamps = store.get("pvl-stamps", {});
+let lang = store.get("pvl-lang", null) || (navigator.language||"en").slice(0,2);
+if(!T[lang]) lang = "en";
+let sound = store.get("pvl-sound", true);
+
+const $ = s => document.querySelector(s);
+const root = document.documentElement;
+const today = () => new Date().toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"}).toUpperCase();
+
+/* ---------- stamp art ---------- */
+function stampSVG(d, date){
+  const g = d.glyph, gs = g.length > 1 ? 24 : 30;
+  if(d.shape === "circle"){
+    return `<svg viewBox="0 0 120 120" class="ink" style="--c:var(${d.c})"><g filter="url(#rough)">
+      <circle cx="60" cy="60" r="55" fill="none" stroke="currentColor" stroke-width="3.5"/>
+      <circle cx="60" cy="60" r="46" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      <path id="t-${d.id}" d="M 24 60 A 36 36 0 0 1 96 60" fill="none"/>
+      <path id="b-${d.id}" d="M 21 60 A 39 39 0 0 0 99 60" fill="none"/>
+      <text font-size="11" font-weight="700" letter-spacing="1.6" fill="currentColor" font-family="Special Elite, monospace">
+        <textPath href="#t-${d.id}" startOffset="50%" text-anchor="middle">${d.name.toUpperCase()}</textPath></text>
+      <text x="60" y="${60+gs*0.36}" text-anchor="middle" font-size="${gs}" font-weight="700" fill="currentColor">${g}</text>
+      <text font-size="8.5" letter-spacing="1" fill="currentColor" font-family="Special Elite, monospace">
+        <textPath href="#b-${d.id}" startOffset="50%" text-anchor="middle">★ ${date} ★</textPath></text>
+    </g></svg>`;
+  }
+  return `<svg viewBox="0 0 140 96" class="ink" style="--c:var(${d.c})"><g filter="url(#rough)">
+    <rect x="3" y="3" width="134" height="90" rx="9" fill="none" stroke="currentColor" stroke-width="3.5"/>
+    <rect x="10" y="10" width="120" height="76" rx="4" fill="none" stroke="currentColor" stroke-width="1.2"/>
+    <text x="70" y="27" text-anchor="middle" font-size="12" font-weight="700" letter-spacing="1.8" fill="currentColor" font-family="Special Elite, monospace">${d.name.toUpperCase()}</text>
+    <text x="70" y="${50+gs*0.36}" text-anchor="middle" font-size="${gs}" font-weight="700" fill="currentColor">${g}</text>
+    <text x="70" y="80" text-anchor="middle" font-size="8.5" letter-spacing="1" fill="currentColor" font-family="Special Elite, monospace">ENTRY · ${date}</text>
+  </g></svg>`;
+}
+
+/* ---------- build slots ---------- */
+function buildSlots(){
+  ["l","r"].forEach(p => {
+    const box = $("#slots-"+p); box.innerHTML = "";
+    DEST.filter(d => d.page === p).forEach(d => {
+      const b = document.createElement("button");
+      b.className = "slot " + d.shape; b.dataset.id = d.id;
+      const st = stamps[d.id];
+      if(st){ b.classList.add("stamped"); b.style.setProperty("--rot", st.rot+"deg"); }
+      b.innerHTML = `<span class="outline"><span class="lbl">${d.name}<small>${d.code}</small></span></span>
+                     <span class="stamp" aria-hidden="true">${stampSVG(d, st ? st.date : today())}</span>`;
+      b.addEventListener("click", () => onStamp(d, b));
+      box.appendChild(b);
+    });
+  });
+  labelSlots();
+}
+function labelSlots(){
+  document.querySelectorAll(".slot").forEach(b => {
+    const d = DEST.find(x => x.id === b.dataset.id);
+    b.setAttribute("aria-label", `${d.name} — ${d.desc[lang]}${stamps[d.id] ? " ✓" : ""}`);
+  });
+}
+
+/* ---------- sound: a soft rubber-stamp thump ---------- */
+let ac;
+function thump(){
+  if(!sound) return;
+  try{
+    ac = ac || new (window.AudioContext || window.webkitAudioContext)();
+    const t = ac.currentTime, len = 0.12;
+    const buf = ac.createBuffer(1, ac.sampleRate*len, ac.sampleRate), ch = buf.getChannelData(0);
+    for(let i=0;i<ch.length;i++) ch[i] = (Math.random()*2-1) * Math.pow(1 - i/ch.length, 3);
+    const n = ac.createBufferSource(); n.buffer = buf;
+    const f = ac.createBiquadFilter(); f.type = "lowpass"; f.frequency.value = 700;
+    const g = ac.createGain(); g.gain.setValueAtTime(0.5, t); g.gain.exponentialRampToValueAtTime(0.001, t+len);
+    n.connect(f).connect(g).connect(ac.destination); n.start(t);
+    const o = ac.createOscillator(), og = ac.createGain();
+    o.frequency.setValueAtTime(110, t); o.frequency.exponentialRampToValueAtTime(45, t+0.1);
+    og.gain.setValueAtTime(0.35, t); og.gain.exponentialRampToValueAtTime(0.001, t+0.12);
+    o.connect(og).connect(ac.destination); o.start(t); o.stop(t+0.13);
+  }catch(e){}
+}
+
+/* ---------- stamping ---------- */
+function onStamp(d, b){
+  if(!stamps[d.id]){
+    const rot = Math.round(Math.random()*26 - 13);
+    stamps[d.id] = { rot, date: today() };
+    store.set("pvl-stamps", stamps);
+    b.style.setProperty("--rot", rot+"deg");
+    b.querySelector(".stamp").innerHTML = stampSVG(d, stamps[d.id].date);
+    b.classList.add("stamped","thunk");
+    setTimeout(() => { thump(); const s=$("#spread"); s.classList.remove("shake"); void s.offsetWidth; s.classList.add("shake"); if(navigator.vibrate) navigator.vibrate(18); }, 190);
+    setTimeout(() => b.classList.remove("thunk"), 450);
+    updateCount(); labelSlots();
+    setTimeout(() => showTicket(d), 420);
+  } else showTicket(d);
+}
+
+/* ---------- boarding pass ---------- */
+let current = null;
+function showTicket(d){
+  current = d;
+  const tk = $("#tk"); tk.style.setProperty("--c", `var(${d.c})`);
+  $("#tk-code").textContent = d.code;
+  $("#tk-name").textContent = d.name;
+  $("#tk-desc").textContent = d.desc[lang];
+  $("#tk-host").textContent = new URL(d.url, location.href).href.replace(/^https?:\/\//,"").replace(/\/$/,"");
+  $("#tk-tag").textContent = T[lang][d.tag];
+  const a = $("#tk-board"); a.href = d.url; a.textContent = T[lang].board;
+  const alt = $("#tk-alt");
+  if(d.alt){ alt.hidden = false; alt.href = d.alt.url; alt.textContent = d.alt.label[lang]; } else alt.hidden = true;
+  const t = $("#ticket"); t.classList.add("show"); t.setAttribute("aria-hidden","false");
+}
+function hideTicket(){ const t=$("#ticket"); t.classList.remove("show"); t.setAttribute("aria-hidden","true"); current=null; }
+$("#tk-close").addEventListener("click", hideTicket);
+document.addEventListener("keydown", e => { if(e.key === "Escape") hideTicket(); });
+
+/* ---------- counter ---------- */
+function updateCount(){
+  const n = Object.keys(stamps).filter(k => DEST.some(d => d.id === k)).length;
+  $("#counter").innerHTML = `<b>${n}</b> / ${DEST.length} ${T[lang].stamps}`;
+  $("#done").textContent = n === DEST.length ? T[lang].done : "";
+}
+
+/* ---------- language ---------- */
+function setLang(l){
+  lang = l; store.set("pvl-lang", l);
+  root.lang = l === "zh" ? "zh-Hant" : l;
+  document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === l));
+  document.querySelectorAll("[data-i]").forEach(el => { const v = T[l][el.dataset.i]; if(v) el.textContent = v; });
+  $("#skip").textContent = T[l].skip; $("#skip").href = STORY_URL;
+  $("#issued").textContent = today();
+  paintTheme(); paintSound(); updateCount(); labelSlots();
+  if(current) showTicket(current);
+}
+document.querySelectorAll("[data-lang]").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+/* ---------- theme (marker / chalk) ---------- */
+let theme = store.get("pvl-theme", null);
+function isDark(){ return theme ? theme === "dark" : matchMedia("(prefers-color-scheme: dark)").matches; }
+function paintTheme(){ $("#theme").textContent = isDark() ? T[lang].chalk : T[lang].marker; }
+$("#theme").addEventListener("click", () => {
+  theme = isDark() ? "light" : "dark"; store.set("pvl-theme", theme);
+  root.dataset.theme = theme; paintTheme();
+});
+if(theme) root.dataset.theme = theme;
+
+/* ---------- sound toggle ---------- */
+function paintSound(){ const b=$("#sound"); b.textContent = sound ? T[lang].on : T[lang].off; b.setAttribute("aria-pressed", sound); }
+$("#sound").addEventListener("click", () => { sound = !sound; store.set("pvl-sound", sound); paintSound(); });
+
+/* ---------- cover ---------- */
+function openPassport(){ $("#passport").classList.add("open"); }
+$("#cover").addEventListener("click", openPassport);
+if(Object.keys(stamps).length) openPassport();  // returning visitors land on the open passport
+
+/* ---------- reset ---------- */
+$("#reset").addEventListener("click", () => { stamps = {}; store.set("pvl-stamps", stamps); hideTicket(); buildSlots(); updateCount(); });
+
+/* ---------- rotating greeting ---------- */
+const hellos = ["Hola.","Hello.","你好。","안녕.","こんにちは。"];
+let hi = 0;
+if(!matchMedia("(prefers-reduced-motion: reduce)").matches){
+  setInterval(() => {
+    const h = $("#hello"); h.classList.add("swap");
+    setTimeout(() => { hi = (hi+1) % hellos.length; h.textContent = hellos[hi]; h.classList.remove("swap"); }, 350);
+  }, 2400);
+}
+
+buildSlots();
+setLang(lang);
+</script>
+</body>
+</html>
