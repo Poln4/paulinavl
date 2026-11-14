@@ -3,15 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Whose Name Is It, Anyway? — a games.paulinavl.github.io game</title>
-<meta name="description" content="Six names, six ways software gets them wrong. Guess how each one is really built, from the NAS project.">
+<title>Whose Name Is It, Anyway? — a three-level name game · paulinavl.github.io</title>
+<meta name="description" content="Seventeen names, three levels, and one rule: acknowledge a name the way its owner does — don't impose your own system on it. From the NAS project.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://paulinavl.github.io/games/nas.html">
 <meta property="og:title" content="Whose Name Is It, Anyway?">
-<meta property="og:description" content="Six names, six ways software gets them wrong. Guess how each one is really built, from the NAS project.">
+<meta property="og:description" content="Seventeen names, three levels, and one rule: acknowledge a name the way its owner does. From the NAS project.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Whose Name Is It, Anyway?">
-<meta name="twitter:description" content="Six names, six ways software gets them wrong. Guess how each one is really built, from the NAS project.">
+<meta name="twitter:description" content="Seventeen names, three levels, and one rule: acknowledge a name the way its owner does.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Kalam:wght@700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+TC:wght@400;600;700&display=swap" rel="stylesheet">
@@ -43,7 +43,8 @@
     --font-display:'Caveat', cursive;
     --stroke-shadow: 0 0 6px rgba(243,240,228,0.18);
   }
-  html[data-lang="zh"]{ --font-display:'Noto Sans TC', var(--font-display); --font-body:'Noto Sans TC', var(--font-body); }
+  html[data-lang="zh"]{ --font-display:'Noto Sans TC', 'Kalam', cursive; --font-body:'Noto Sans TC', 'Source Serif 4', Georgia, serif; }
+  html[data-lang="zh"][data-theme="dark"]{ --font-display:'Noto Sans TC', 'Caveat', cursive; }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
   body{
@@ -122,6 +123,11 @@
     font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft);
     letter-spacing:.08em; text-transform:uppercase;
   }
+  .game-level{
+    font-family:var(--font-mono); font-size:11.5px; color:var(--gold);
+    text-align:center; letter-spacing:.1em; text-transform:uppercase;
+    margin:16px 0 -10px;
+  }
   .game-name{
     font-family:var(--font-display); font-weight:700; text-align:center;
     font-size:clamp(26px,5.4vw,40px); line-height:1.2; margin:20px 0 6px;
@@ -137,6 +143,7 @@
     font-family:var(--font-mono); font-size:14px; padding:10px 18px;
     border-radius:6px; border:1.5px solid var(--ink); background:transparent;
     color:var(--ink); cursor:pointer; transition:background .2s ease, color .2s ease, border-color .2s ease;
+    text-align:left;
   }
   .opt:hover:not(:disabled){ background:var(--ink); color:var(--bg); }
   .opt:disabled{ cursor:default; }
@@ -155,6 +162,7 @@
     font-family:var(--font-display); font-size:40px; font-weight:700;
     color:var(--red); line-height:1.1;
   }
+  .game-levels{ font-family:var(--font-mono); font-size:12.5px; color:var(--ink-soft); margin:4px 0 0; letter-spacing:.04em; }
   .g-copy-note{ font-family:var(--font-mono); font-size:12px; color:var(--teal); margin-top:10px; }
   .share-row{ display:flex; flex-wrap:wrap; gap:10px; justify-content:center; margin-top:8px; }
   .mastodon-row{ display:flex; flex-wrap:wrap; gap:8px; justify-content:center; align-items:center; margin-top:12px; }
@@ -164,6 +172,22 @@
     color:var(--ink); min-width:180px;
   }
   .mastodon-label{ font-family:var(--font-mono); font-size:11.5px; color:var(--ink-soft); width:100%; text-align:center; margin:10px 0 -2px; }
+
+  /* level interstitial */
+  .interstitial{ text-align:center; padding:26px 8px 10px; display:none; }
+  .interstitial.show{ display:block; }
+  .interstitial .lv-num{
+    font-family:var(--font-mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--teal); border:1px solid var(--teal); border-radius:3px;
+    display:inline-block; padding:3px 10px; margin-bottom:16px; transform:rotate(1deg);
+  }
+  .interstitial .lv-title{
+    font-family:var(--font-display); font-weight:700; font-size:clamp(24px,5vw,34px);
+    margin:0 0 10px; text-shadow:var(--stroke-shadow);
+  }
+  .interstitial .lv-desc{
+    color:var(--ink-soft); font-size:16px; max-width:52ch; margin:0 auto 20px;
+  }
 
   footer{ padding:40px 0 80px; font-family:var(--font-mono); font-size:13px; color:var(--ink-soft); }
 </style>
@@ -192,21 +216,21 @@
 
   <header class="hero">
     <span class="eyebrow">
-      <span class="i18n" data-lang="en">🪪 NAS project, playable</span>
-      <span class="i18n" data-lang="es" style="display:none">🪪 proyecto NAS, para jugar</span>
-      <span class="i18n" data-lang="zh" style="display:none">🪪 NAS 專案,現在可以玩了</span>
+      <span class="i18n" data-lang="en">🪪 NAS project, playable — now in three levels</span>
+      <span class="i18n" data-lang="es" style="display:none">🪪 proyecto NAS, para jugar — ahora en tres niveles</span>
+      <span class="i18n" data-lang="zh" style="display:none">🪪 NAS 專案,現在可以玩了——共三個等級</span>
     </span>
     <h1 class="title">
       <span class="i18n" data-lang="en">Whose name is it, anyway?</span>
       <span class="i18n" data-lang="es" style="display:none">¿De quién es este nombre?</span>
       <span class="i18n" data-lang="zh" style="display:none">這是誰的名字?</span>
     </h1>
-    <p class="lede i18n" data-lang="en">Six names, six ways software gets them wrong. Guess how each one is really built — starting with the two I signed my site with. There is a reason I write my name the way I do; by the end you will have it.</p>
-    <p class="lede i18n" data-lang="es" style="display:none">Seis nombres, seis formas en que el software se equivoca con ellos. Adivina cómo está construido cada uno, empezando por los dos con los que firmo mi sitio. Hay una razón por la que escribo mi nombre así; al final la vas a tener.</p>
-    <p class="lede i18n" data-lang="zh" style="display:none">六個名字,六種軟體弄錯它們的方式。猜猜每個名字實際的結構——就從我在網站上署名的那兩個開始。我這樣書寫自己的名字是有原因的;玩到最後,你就會知道。</p>
-    <p class="note i18n" data-lang="en">An interactive demo built on the <a href="../index.html#projects">NAS project</a> — a system for handling diverse name structures in software.</p>
-    <p class="note i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <a href="../index.html#projects">proyecto NAS</a>, un sistema para manejar la diversidad de estructuras de nombres en el software.</p>
-    <p class="note i18n" data-lang="zh" style="display:none">一個以<a href="../index.html#projects">NAS專案</a>為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。</p>
+    <p class="lede i18n" data-lang="en">Seventeen names, three levels, one rule. Level 1: spot the structure. Level 2: find the hidden unit. Level 3 is the hard one — a name isn't yours to interpret. Acknowledging someone means using <em>their</em> reading of their name, not imposing your system on it. Get it wrong politely, and it's still wrong.</p>
+    <p class="lede i18n" data-lang="es" style="display:none">Diecisiete nombres, tres niveles, una regla. Nivel 1: descubre la estructura. Nivel 2: encuentra la unidad escondida. El nivel 3 es el difícil: el nombre de alguien no es tuyo para interpretarlo. Reconocer a alguien significa usar <em>su</em> lectura de su nombre, no imponerle tu sistema. Equivocarse con cortesía sigue siendo equivocarse.</p>
+    <p class="lede i18n" data-lang="zh" style="display:none">十七個名字、三個等級、一條規則。等級一:看出結構。等級二:找出隱藏的單位。等級三最難——別人的名字不是讓你來解讀的。承認一個人,就是用<em>他</em>對自己名字的理解,而不是把你的系統強加在他身上。客氣地弄錯,仍然是弄錯。</p>
+    <p class="note i18n" data-lang="en">An interactive demo built on the <a href="../index.html#projects">NAS project</a> — a system for handling diverse name structures in software. Structure examples follow the project's documentation. Every notation here except Paulina's illustrates the structure; none was published by the person named — and Level 3 explains why that difference matters.</p>
+    <p class="note i18n" data-lang="es" style="display:none">Una demostración interactiva basada en el <a href="../index.html#projects">proyecto NAS</a>, un sistema para manejar la diversidad de estructuras de nombres en el software. Los ejemplos de estructura siguen la documentación del proyecto. Todas las notaciones, salvo la de Paulina, ilustran la estructura; ninguna la publicó la persona nombrada — y el nivel 3 explica por qué esa diferencia importa.</p>
+    <p class="note i18n" data-lang="zh" style="display:none">一個以<a href="../index.html#projects">NAS專案</a>為基礎的互動示範——一套用來處理軟體中多元姓名結構的系統。結構範例依循專案文件;除了 Paulina 本人的標記,其餘標記都只是示意結構,並非當事人自己發表的——等級三會說明這個差別為什麼重要。</p>
   </header>
 
   <section>
@@ -216,6 +240,7 @@
         <span id="game-tally"></span>
       </div>
       <div id="game-play">
+        <p class="game-level" id="game-level"></p>
         <p class="game-name" id="game-name"></p>
         <p class="game-origin" id="game-origin"></p>
         <p class="game-q" id="game-q"></p>
@@ -223,8 +248,15 @@
         <div class="game-why" id="game-why"></div>
         <div class="game-actions" id="game-actions"></div>
       </div>
+      <div id="game-interstitial" class="interstitial">
+        <span class="lv-num" id="lv-num"></span>
+        <p class="lv-title" id="lv-title"></p>
+        <p class="lv-desc" id="lv-desc"></p>
+        <button class="btn primary" type="button" id="lv-begin"></button>
+      </div>
       <div id="game-end" class="game-final" style="display:none;">
         <p class="game-score" id="game-score"></p>
+        <p class="game-levels" id="game-levels"></p>
         <p id="game-verdict" style="margin-top:6px;"></p>
         <div class="share-row">
           <a class="btn primary" id="game-bsky" href="#" target="_blank" rel="noopener">Bluesky</a>
@@ -302,7 +334,7 @@
 
   function gt(o){ return (o && (o[currentLang] || o.en)) || ''; }
 
-  /* ---------- share helper (same shape as index.html / other games) ---------- */
+  /* ---------- share helper ---------- */
   function buildShareLinks(text, hashtag, url){
     const full = `${text} ${hashtag} ${url}`;
     return {
@@ -329,104 +361,327 @@
     ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
     document.body.appendChild(ta); ta.select();
     try{ document.execCommand('copy'); }catch(e){}
-    document.body.removeChild(ta);
-    cb();
+    document.body.removeChild(ta); cb();
   }
+
+  /* ---------- levels ---------- */
+  const LEVELS = {
+    1: {
+      title: { en:'Level 1 · Spot the structure', es:'Nivel 1 · Descubre la estructura', zh:'等級一・看出結構' },
+      desc: {
+        en:'Warm-up. Every name here is built differently — your job is to see the joints before you guess where they bend.',
+        es:'Calentamiento. Cada nombre está construido de forma distinta: tu trabajo es ver las junturas antes de adivinar por dónde se doblan.',
+        zh:'暖身。每個名字的結構都不同——先看出接縫在哪,再猜它會在哪裡被折彎。'
+      }
+    },
+    2: {
+      title: { en:'Level 2 · Find the hidden unit', es:'Nivel 2 · Encuentra la unidad escondida', zh:'等級二・找出隱藏的單位' },
+      desc: {
+        en:'Some names carry units no Western template has a box for: patronymics, matronymics, toponymics, generational suffixes, identity markers. They look like surnames. They are not.',
+        es:'Algunos nombres llevan unidades para las que ninguna plantilla occidental tiene casilla: patronímicos, matronímicos, topónimos, sufijos generacionales, marcadores de identidad. Parecen apellidos. No lo son.',
+        zh:'有些名字帶著西方模板裡沒有欄位可放的單位:父名、母名、地名、世代後綴、身分標記。它們看起來像姓氏。但它們不是。'
+      }
+    },
+    3: {
+      title: { en:'Level 3 · Acknowledge, don’t assume', es:'Nivel 3 · Reconocer, no suponer', zh:'等級三・承認,而非假定' },
+      desc: {
+        en:'The hard level. Now you can read NAS notation — and the trap changes shape. The rudest move in naming isn’t splitting a name badly. It’s deciding for someone else how their name works, then being confidently wrong. A name is acknowledged on the owner’s terms, or not at all.',
+        es:'El nivel difícil. Ahora sabes leer la notación NAS — y la trampa cambia de forma. El gesto más grosero con un nombre no es cortarlo mal. Es decidir por otro cómo funciona su nombre, y equivocarse con seguridad. Un nombre se reconoce en los términos de su dueño, o no se reconoce.',
+        zh:'最難的一關。你已經會讀 NAS 標記了——但陷阱換了形狀。對名字最失禮的舉動,不是切錯位置,而是替別人決定他的名字怎麼運作,然後自信滿滿地弄錯。名字要依主人的方式被承認,否則就別承認。'
+      }
+    }
+  };
 
   /* ---------- name game ---------- */
   const NAME_ROUNDS = [
-    {
-      name: '范寶琳',
-      origin: { en:'Chinese · Paulina’s own Chinese name', es:'Chino · el nombre chino de Paulina', zh:'中文・Paulina 的中文名' },
-      q: { en:'Which part is the family name?', es:'¿Cuál parte es el apellido?', zh:'哪一部分是姓氏?' },
-      options: [
-        { en:'范 (Fàn)', es:'范 (Fàn)', zh:'范 (Fàn)' },
-        { en:'寶琳 (Bǎo-lín)', es:'寶琳 (Bǎo-lín)', zh:'寶琳 (Bǎo-lín)' }
-      ],
-      answer: 0,
-      why: {
-        en:'In Chinese the family name comes <b>first</b> — 范 (Fàn) — followed by the given name 寶琳. Software that assumes “first name = given name” flips it, and very politely calls her Ms. Bǎo-lín.',
-        es:'En chino el apellido va <b>primero</b> — 范 (Fàn) — seguido del nombre de pila 寶琳. El software que asume que «el primer nombre es el nombre de pila» lo invierte y la llama, muy cortésmente, señorita Bǎo-lín.',
-        zh:'中文的姓氏在<b>前</b>——范——接著才是名字寶琳。若軟體預設「第一個字就是名」,就會顛倒過來,客氣地稱她為「寶琳小姐」。'
-      }
-    },
-    {
-      name: 'Paulina Andrea Valenzuela Lagos',
-      origin: { en:'Chilean · Spanish-language naming', es:'Chileno · nomenclatura hispana', zh:'智利・西語圈命名方式' },
-      q: { en:'Which name would she be alphabetized under?', es:'¿Bajo qué nombre se ordenaría alfabéticamente?', zh:'依字母排序時,她會被歸在哪個名字之下?' },
-      options: [
-        { en:'Andrea', es:'Andrea', zh:'Andrea' },
-        { en:'Valenzuela', es:'Valenzuela', zh:'Valenzuela' },
-        { en:'Lagos', es:'Lagos', zh:'Lagos' }
-      ],
-      answer: 1,
-      why: {
-        en:'Spanish-speaking countries use <b>two</b> surnames: the father’s (Valenzuela) then the mother’s (Lagos). She files under Valenzuela. A form with a single “last name” box grabs Lagos instead — and quietly deletes half her family.',
-        es:'Los países hispanohablantes usan <b>dos</b> apellidos: el paterno (Valenzuela) y luego el materno (Lagos). Se ordena bajo Valenzuela. Un formulario con una sola casilla de «apellido» toma Lagos — y borra en silencio a la mitad de su familia.',
-        zh:'西語國家使用<b>兩個</b>姓氏:父姓(Valenzuela)在前,母姓(Lagos)在後,排序時歸在 Valenzuela。只有單一「姓氏」欄位的表單會抓走 Lagos,悄悄刪掉她一半的家族。'
-      }
-    },
-    {
-      name: 'Jón Einarsson',
-      origin: { en:'Icelandic', es:'Islandés', zh:'冰島' },
-      q: { en:'What is “Einarsson”?', es:'¿Qué es «Einarsson»?', zh:'「Einarsson」是什麼?' },
-      options: [
-        { en:'A family name passed down', es:'Un apellido heredado', zh:'世代相傳的家族姓氏' },
-        { en:'“Einar’s son” — it changes every generation', es:'«Hijo de Einar» — cambia en cada generación', zh:'「Einar 之子」——每一代都會改變' }
-      ],
-      answer: 1,
-      why: {
-        en:'Icelandic names are <b>patronymic</b>: Jón, son of Einar. His own children would be Jónsson or Jónsdóttir — never Einarsson. There is no shared family name at all, which is why the Icelandic phone book is alphabetized by <em>given</em> name.',
-        es:'Los nombres islandeses son <b>patronímicos</b>: Jón, hijo de Einar. Sus propios hijos serían Jónsson o Jónsdóttir — nunca Einarsson. No existe un apellido familiar compartido, y por eso la guía telefónica islandesa se ordena por el <em>nombre de pila</em>.',
-        zh:'冰島採用<b>父名制</b>:Jón 是 Einar 之子。他自己的孩子會是 Jónsson 或 Jónsdóttir,而不會是 Einarsson。家族之間根本沒有共同姓氏——這也是為什麼冰島電話簿是按<em>名字</em>排序的。'
-      }
-    },
-    {
-      name: 'Sukarno',
-      origin: { en:'Indonesian', es:'Indonesio', zh:'印尼' },
-      q: { en:'What is his surname?', es:'¿Cuál es su apellido?', zh:'他的姓氏是什麼?' },
-      options: [
-        { en:'Sukarno', es:'Sukarno', zh:'Sukarno' },
-        { en:'He does not have one', es:'No tiene', zh:'他沒有姓氏' }
-      ],
-      answer: 1,
-      why: {
-        en:'<b>Mononyms</b> are common in Indonesia — the country’s first president went by one name, full stop. Systems that require a surname force people to duplicate their name, type a placeholder, or invent a family they never had.',
-        es:'Los <b>mononímicos</b> son comunes en Indonesia — el primer presidente del país usaba un solo nombre, y punto. Los sistemas que exigen un apellido obligan a la gente a duplicar su nombre, escribir un relleno, o inventar una familia que nunca tuvo.',
-        zh:'<b>單名</b>在印尼很常見——印尼首任總統就只有一個名字。強制要求填寫姓氏的系統,會逼人重複輸入自己的名字、隨便填個字,或憑空捏造一個從來不存在的家族。'
-      }
-    },
-    {
-      name: 'María del Carmen Rodríguez García',
-      origin: { en:'Spanish · compound given name', es:'Español · nombre compuesto', zh:'西班牙・複合名' },
-      q: { en:'What is her given name?', es:'¿Cuál es su nombre de pila?', zh:'她的「名字」是哪一個?' },
-      options: [
-        { en:'María', es:'María', zh:'María' },
-        { en:'María del Carmen', es:'María del Carmen', zh:'María del Carmen' },
-        { en:'Carmen', es:'Carmen', zh:'Carmen' }
-      ],
-      answer: 1,
-      why: {
-        en:'“María del Carmen” is <b>one</b> compound given name, not two separate ones. Split it at the space and you start sending letters to “Dear María” — a name she may never once have been called. Her friends most likely call her Carmen, or Maricarmen.',
-        es:'«María del Carmen» es <b>un solo</b> nombre compuesto, no dos nombres separados. Si lo cortas en el espacio, terminas escribiendo «Estimada María» — un nombre con el que quizá nunca la han llamado. Sus amigas probablemente le dicen Carmen, o Maricarmen.',
-        zh:'「María del Carmen」是<b>一個</b>複合名,而不是兩個分開的名字。若從空格處切開,你寄出的信會寫著「親愛的 María」——一個她可能從沒被這樣叫過的名字。她的朋友多半叫她 Carmen 或 Maricarmen。'
-      }
-    },
-    {
-      name: 'Nguyễn Thị Hương',
-      origin: { en:'Vietnamese', es:'Vietnamita', zh:'越南' },
-      q: { en:'What would people actually call her?', es:'¿Cómo la llamaría la gente en realidad?', zh:'人們實際上會怎麼稱呼她?' },
-      options: [
-        { en:'Ms. Nguyễn', es:'Sra. Nguyễn', zh:'Nguyễn 女士' },
-        { en:'Ms. Hương', es:'Sra. Hương', zh:'Hương 女士' }
-      ],
-      answer: 1,
-      why: {
-        en:'Vietnamese order puts the family name first (Nguyễn — shared by roughly 40% of the country), then a middle name, then the given name. But people are addressed by their <b>given</b> name: Ms. Hương. Sort a Vietnamese list by family name and almost half of it lands in one bucket.',
-        es:'El orden vietnamita pone primero el apellido (Nguyễn — compartido por cerca del 40% del país), luego un nombre intermedio, y al final el nombre de pila. Pero a las personas se las trata por su <b>nombre de pila</b>: Sra. Hương. Ordena una lista vietnamita por apellido y casi la mitad cae en una sola casilla.',
-        zh:'越南的順序是姓氏在前(Nguyễn——全國約四成的人都姓阮),接著是中間名,最後才是名字。但人們是以<b>名字</b>相稱的:Hương 女士。若把越南名單按姓氏排序,幾乎一半的人都會擠進同一格。'
-      }
+  /* ===== LEVEL 1 ===== */
+  {
+    level: 1,
+    name: 'Cristiano Ronaldo dos Santos Aveiro',
+    origin: { en:'Portuguese', es:'Portugués', zh:'葡萄牙' },
+    q: { en:'Which surname came from his father?', es:'¿Cuál apellido viene de su padre?', zh:'哪一個姓氏來自他的父親?' },
+    options: [
+      { en:'dos Santos', es:'dos Santos', zh:'dos Santos' },
+      { en:'Aveiro', es:'Aveiro', zh:'Aveiro' }
+    ],
+    answer: 1,
+    why: {
+      en:'Portugal flips the usual Spanish order: the <b>maternal</b> surname comes first (dos Santos), the paternal one last (Aveiro). Read it with Spanish eyes and you file him under the wrong family. NAS: <b>(n.N.s-.s)</b> — note that <em>dos Santos</em> is one unit, <code>s-</code>, connector included.',
+      es:'Portugal invierte el orden habitual español: el apellido <b>materno</b> va primero (dos Santos) y el paterno al final (Aveiro). Léelo con ojos españoles y lo archivas en la familia equivocada. NAS: <b>(n.N.s-.s)</b> — ojo, <em>dos Santos</em> es una sola unidad, <code>s-</code>, conector incluido.',
+      zh:'葡萄牙的順序與西語相反:<b>母姓</b>在前(dos Santos),父姓在最後(Aveiro)。用西語的直覺去讀,就會把他歸錯家族。NAS:<b>(n.N.s-.s)</b>——注意 <em>dos Santos</em> 是一個單位,寫作 <code>s-</code>,連接詞包含在內。'
     }
+  },
+  {
+    level: 1,
+    name: 'Kardos Alice',
+    origin: { en:'Hungarian', es:'Húngaro', zh:'匈牙利' },
+    q: { en:'A Hungarian phone directory lists her under…', es:'Una guía telefónica húngara la lista bajo…', zh:'匈牙利的電話簿會把她列在……' },
+    options: [
+      { en:'Alice', es:'Alice', zh:'Alice' },
+      { en:'Kardos', es:'Kardos', zh:'Kardos' }
+    ],
+    answer: 1,
+    why: {
+      en:'Hungarian puts the family name <b>first</b>, in Latin script — no characters involved, no excuse for software to miss it: Kardos Alice <b>(S.N)</b>. Import her into a system that assumes "first word = given name" and every automated email calls her Ms. Alice.',
+      es:'El húngaro pone el apellido <b>primero</b>, en alfabeto latino — sin caracteres que lo delaten, sin excusa para que el software lo pase por alto: Kardos Alice <b>(S.N)</b>. Si la importas a un sistema que asume «primera palabra = nombre de pila», cada correo automático la llamará señorita Alice.',
+      zh:'匈牙利語把姓氏放在<b>最前面</b>,而且用的是拉丁字母——沒有方塊字可以推託,軟體沒有藉口認錯:Kardos Alice <b>(S.N)</b>。一旦匯入「第一個字=名字」的系統,每封自動信件都會稱她 Alice 小姐。'
+    }
+  },
+  {
+    level: 1,
+    name: '上野純子 (Ueno Junko)',
+    origin: { en:'Japanese', es:'Japonés', zh:'日本' },
+    q: { en:'Which unit is her given name?', es:'¿Cuál unidad es su nombre de pila?', zh:'哪一個單位是她的名字?' },
+    options: [
+      { en:'上野 (Ueno)', es:'上野 (Ueno)', zh:'上野 (Ueno)' },
+      { en:'純子 (Junko)', es:'純子 (Junko)', zh:'純子 (Junko)' }
+    ],
+    answer: 1,
+    why: {
+      en:'Japanese, like Chinese and Korean, is family-name-first: 上野 純子 is <b>(S-.n-)</b>. The surname is <code>S-</code>: capital because it’s what most settings address her by (Ueno-san), hyphen because 上野 is <b>two characters acting as one unit</b> — the hyphen means "these parts belong together." Every East Asian name imported into a first/last-name form gets silently flipped, and nobody notices until a letter arrives addressed to the wrong half.',
+      es:'El japonés, como el chino y el coreano, va apellido primero: 上野 純子 es <b>(S-.n-)</b>. El apellido es <code>S-</code>: mayúscula porque es como se la trata en la mayoría de contextos (Ueno-san), y guion porque 上野 son <b>dos caracteres que actúan como una sola unidad</b> — el guion indica «estas partes van juntas». Cada nombre de Asia oriental importado a un formulario nombre/apellido se invierte en silencio, y nadie lo nota hasta que llega una carta dirigida a la mitad equivocada.',
+      zh:'日語與中文、韓語一樣,姓氏在前:上野 純子 是 <b>(S-.n-)</b>。姓氏標記為 <code>S-</code>:大寫,是因為多數場合以姓氏稱呼她(Ueno さん);連字符,是因為上野是<b>兩個字組成的一個單位</b>——連字符表示「這幾個字屬於同一體」。每個東亞名字被塞進「名/姓」表單時都被悄悄對調,直到寄錯一半的信寄到,才有人發現。'
+    }
+  },
+  {
+    level: 1,
+    name: 'María del Carmen Rodríguez García',
+    origin: { en:'Spanish · compound given name', es:'Español · nombre compuesto', zh:'西班牙・複合名' },
+    q: { en:'What is her given name?', es:'¿Cuál es su nombre de pila?', zh:'她的「名字」是哪一個?' },
+    options: [
+      { en:'María', es:'María', zh:'María' },
+      { en:'María del Carmen', es:'María del Carmen', zh:'María del Carmen' },
+      { en:'Carmen', es:'Carmen', zh:'Carmen' }
+    ],
+    answer: 1,
+    why: {
+      en:'“María del Carmen” is <b>one</b> compound given name — in NAS terms a single <code>n--</code>, a longer multi-part unit acting as one. Split it at the space and your mail-merge writes “Dear María”, a name she may never once have been called. Level 3 shows you this trick again, wearing different clothes.',
+      es:'«María del Carmen» es <b>un solo</b> nombre compuesto — en términos NAS, un <code>n--</code>: una unidad multiparte tratada como una sola. Córtalo en el espacio y tu correo masivo escribirá «Estimada María», un nombre con el que quizá nunca la han llamado. En el nivel 3 verás este truco otra vez, con otro disfraz.',
+      zh:'「María del Carmen」是<b>一個</b>複合名——用 NAS 的說法就是一個 <code>n--</code>:多個部分組成的單一單位。從空格處切開,你的合併寄信就會寫出「親愛的 María」——一個她可能從沒被叫過的名字。等級三裡,這個把戲會換一套服裝再出場。'
+    }
+  },
+  /* ===== LEVEL 2 ===== */
+  {
+    level: 2,
+    name: 'Vladimir Vladimirovich Putin',
+    origin: { en:'Russian', es:'Ruso', zh:'俄羅斯' },
+    q: { en:'In a formal Russian setting, how is he addressed?', es:'En un contexto formal ruso, ¿cómo se le trata?', zh:'在正式的俄語場合,該怎麼稱呼他?' },
+    options: [
+      { en:'Mr. Putin', es:'Señor Putin', zh:'Putin 先生' },
+      { en:'Vladimir Vladimirovich', es:'Vladimir Vladimirovich', zh:'Vladimir Vladimirovich' },
+      { en:'Vladimir', es:'Vladimir', zh:'Vladimir' }
+    ],
+    answer: 1,
+    why: {
+      en:'The middle unit is a <b>patronymic</b> — Vladimirovich, “son of Vladimir.” In Russian, formal respect means given name + patronymic, <b>not</b> surname: <b>(N.P.s)</b> formal, <b>(N.p.s)</b> casual. The capital <code>P</code> marks it as the preferred form of address in that context. Call him “Mr. Putin” at a Russian table and you aren’t wrong, exactly — but you’ve picked the distant, outsider’s form over the respectful one. The form that feels most normal to you isn’t the most polite one here.',
+      es:'La unidad del medio es un <b>patronímico</b>: Vladimirovich, «hijo de Vladimir». En ruso, el respeto formal es nombre de pila + patronímico, <b>no</b> apellido: <b>(N.P.s)</b> formal, <b>(N.p.s)</b> informal. La mayúscula <code>P</code> marca que es la forma preferida en ese contexto. Llamarlo «señor Putin» en una mesa rusa no es exactamente un error — pero eliges la forma distante, de forastero, en vez de la respetuosa. La forma que te parece más normal no es aquí la más cortés.',
+      zh:'中間那個單位是<b>父名</b>——Vladimirovich,「Vladimir 之子」。俄語的正式尊稱是名字+父名,<b>不是</b>姓氏:正式用 <b>(N.P.s)</b>,日常用 <b>(N.p.s)</b>。大寫的 <code>P</code> 表示在那個語境中,這才是偏好的稱呼方式。在俄國餐桌上叫他「Putin 先生」不算錯,但你選了疏遠的、外人的叫法,而不是尊敬的那種。你覺得最正常的叫法,在這裡並不是最有禮貌的。'
+    }
+  },
+  {
+    level: 2,
+    name: 'Abiy Ahmed',
+    origin: { en:'Ethiopian', es:'Etíope', zh:'衣索比亞' },
+    q: { en:'What is “Ahmed”?', es:'¿Qué es «Ahmed»?', zh:'「Ahmed」是什麼?' },
+    options: [
+      { en:'A family surname, shared with his relatives', es:'Un apellido familiar, compartido con sus parientes', zh:'與親人共享的家族姓氏' },
+      { en:'His father’s given name', es:'El nombre de pila de su padre', zh:'他父親的名字' },
+      { en:'A middle name', es:'Un segundo nombre', zh:'中間名' }
+    ],
+    answer: 1,
+    why: {
+      en:'Ethiopian naming follows given name + father’s given name — <b>(N.p)</b> — often followed by the grandfather’s given name: in full he is Abiy Ahmed Ali. None of these is a family surname. Ahmed is his father’s <em>personal</em> name. Force “Surname” into a database and you invent a family lineage that doesn’t exist, then sort an entire country by their dads’ first names.',
+      es:'La nominación etíope es nombre de pila + nombre del padre — <b>(N.p)</b> —, a menudo seguido del nombre del abuelo: su nombre completo es Abiy Ahmed Ali. Ninguno es un apellido familiar. Ahmed es el nombre <em>personal</em> de su padre. Exigir «Apellido» en una base de datos inventa un linaje familiar que no existe, y ordena a todo un país por el nombre de pila de sus padres.',
+      zh:'衣索比亞的命名是名字+父親的名字——<b>(N.p)</b>——常常再加上祖父的名字:他的全名是 Abiy Ahmed Ali。這些都不是家族姓氏。Ahmed 是他父親的<em>個人</em>名字。強迫資料庫填「姓氏」,等於憑空發明一個不存在的家族世系,然後把整個國家按他們父親的名字排序。'
+    }
+  },
+  {
+    level: 2,
+    name: 'Ísadóra Bjarkardóttir Barney',
+    origin: { en:'Icelandic · matronymic', es:'Islandés · matronímico', zh:'冰島・母名制' },
+    q: { en:'“Bjarkardóttir” — daughter of whom?', es:'«Bjarkardóttir» — ¿hija de quién?', zh:'「Bjarkardóttir」——誰的女兒?' },
+    options: [
+      { en:'Her father, Bjarkur', es:'Su padre, Bjarkur', zh:'她的父親 Bjarkur' },
+      { en:'Her mother, Björk', es:'Su madre, Björk', zh:'她的母親 Björk' },
+      { en:'The Bjarkur family clan', es:'El clan familiar Bjarkur', zh:'Bjarkur 家族' }
+    ],
+    answer: 1,
+    why: {
+      en:'It’s a <b>matronymic</b>: Bjarkardóttir = “daughter of Björk” — yes, <em>that</em> Björk, her mother. NAS writes <b>(N.m.s)</b>: the <code>m</code> marks a unit built from the mother’s given name, and Barney — her father’s family surname — is present but not required for address. A matronymic is not a “maternal surname”: it isn’t inherited at all, it’s assembled fresh each generation from a parent’s first name. Guess “family clan” and you’ve invented her a dynasty.',
+      es:'Es un <b>matronímico</b>: Bjarkardóttir = «hija de Björk» — sí, <em>esa</em> Björk, su madre. NAS lo escribe <b>(N.m.s)</b>: la <code>m</code> marca una unidad construida con el nombre de la madre, y Barney — el apellido familiar de su padre — está presente pero no es necesario para dirigirse a ella. Un matronímico no es un «apellido materno»: no se hereda, se arma de nuevo en cada generación con el nombre de un progenitor. Adivinar «clan familiar» es inventarle una dinastía.',
+      zh:'這是<b>母名</b>:Bjarkardóttir =「Björk 的女兒」——對,就是<em>那位</em>Björk,她的母親。NAS 寫作 <b>(N.m.s)</b>:<code>m</code> 表示這個單位是由母親的名字構成,而 Barney——她父親的家族姓——有寫出來,但稱呼時不需要。母名不等於「母親的姓氏」:它根本不是繼承來的,而是每一代用父母的本名重新組合出來的。猜「家族氏族」,你就替她編了一個王朝。'
+    }
+  },
+  {
+    level: 2,
+    name: 'Harpreet Kaur Ahluwalia',
+    origin: { en:'Sikh · compound identity marker', es:'Sij · marcador compuesto de identidad', zh:'錫克・複合身分標記' },
+    q: { en:'What is “Kaur”?', es:'¿Qué es «Kaur»?', zh:'「Kaur」是什麼?' },
+    options: [
+      { en:'Her mother’s name, like a matronymic', es:'El nombre de su madre, como un matronímico', zh:'她母親的名字,類似母名' },
+      { en:'An identity marker many Sikh women carry — for some it sits alongside the given name, for others it is the surname', es:'Un marcador de identidad que muchas mujeres sikhs llevan: para algunas va junto al nombre de pila, para otras es el apellido', zh:'許多錫克女性帶有的身分標記——對某些人而言伴隨名字,對另一些人而言就是姓氏' },
+      { en:'Her middle name', es:'Su segundo nombre', zh:'她的中間名' }
+    ],
+    answer: 1,
+    why: {
+      en:'If you picked it, you got it right — because the right answer is “it depends on her.” <em>Singh</em> and <em>Kaur</em> function differently for different people: for some they sit alongside the given name, for others they have become the effective surname. NAS v.2 refuses to pick for them: <b>(N.tn.S)</b> if Kaur works in the given-name slot, <b>(N.ts)</b> if it works as the surname. Which one applies is <b>her</b> call, not a rule about the tradition. Level 3 is made of questions like this.',
+      es:'Si la elegiste, acertaste — porque la respuesta correcta es «depende de ella». <em>Singh</em> y <em>Kaur</em> funcionan distinto según la persona: para algunas van junto al nombre de pila, para otras se han vuelto el apellido efectivo. NAS v.2 se niega a decidir por ellas: <b>(N.tn.S)</b> si Kaur funciona en el espacio del nombre, <b>(N.ts)</b> si funciona como apellido. Cuál aplica lo decide <b>ella</b>, no una regla sobre la tradición. El nivel 3 está hecho de preguntas así.',
+      zh:'選了它就答對了——因為正確答案就是「由她決定」。<em>Singh</em> 與 <em>Kaur</em> 對不同的人有不同的作用:對某些人,它伴隨名字;對另一些人,它已成為實際的姓氏。NAS v.2 拒絕替人決定:Kaur 作用在名字位置時寫 <b>(N.tn.S)</b>,作為姓氏時寫 <b>(N.ts)</b>。用哪一個,由<b>她</b>決定,而不是由傳統的規則決定。等級三就是由這樣的問題構成的。'
+    }
+  },
+  {
+    level: 2,
+    name: 'Martin Luther King Jr.',
+    origin: { en:'United States · generational suffix', es:'Estados Unidos · sufijo generacional', zh:'美國・世代後綴' },
+    q: { en:'A form has room for “First / Middle / Last”. Can “Jr.” be safely dropped?', es:'Un formulario tiene espacio para «Nombre / Segundo / Apellido». ¿Se puede omitir «Jr.» sin problema?', zh:'表單只有「名/中間名/姓」三格。「Jr.」可以安心省略嗎?' },
+    options: [
+      { en:'Yes — it’s just an honorific, like Dr.', es:'Sí — es solo un honorífico, como Dr.', zh:'可以——它只是個敬稱,就像 Dr. 一樣' },
+      { en:'No — dropping it changes which person is meant', es:'No — omitirlo cambia a qué persona se refiere', zh:'不行——省略它會變成指另一個人' }
+    ],
+    answer: 1,
+    why: {
+      en:'“Jr.” is a <b>generational suffix</b>, NAS <code>g</code> — not a title. A title can be dropped without changing who is meant; a generational suffix can’t: Martin Luther King and Martin Luther King Jr. are <b>two different people</b>. Systems that quietly strip suffixes to fit a three-box template don’t simplify names — they merge father and son into one record.',
+      es:'«Jr.» es un <b>sufijo generacional</b>, NAS <code>g</code> — no un título. Un título puede omitirse sin cambiar a quién se refiere; un sufijo generacional no: Martin Luther King y Martin Luther King Jr. son <b>dos personas distintas</b>. Los sistemas que recortan silenciosamente los sufijos para caber en tres casillas no simplifican nombres — fusionan al padre y al hijo en un solo registro.',
+      zh:'「Jr.」是<b>世代後綴</b>,NAS 記作 <code>g</code>——不是敬稱。敬稱省略之後,指的還是同一個人;世代後綴不行:Martin Luther King 與 Martin Luther King Jr. 是<b>兩個不同的人</b>。為了塞進三格模板而悄悄砍掉後綴的系統,並沒有把名字簡化——它把父親和兒子合併成了同一筆紀錄。'
+    }
+  },
+  {
+    level: 2,
+    name: 'Kottai Venkataraman Anand',
+    origin: { en:'South Indian / Tamil', es:'Indio del sur / Tamil', zh:'南印度・坦米爾' },
+    q: { en:'His colleagues know him as “K. V. Anand”. What should they actually call him?', es:'Sus colegas lo conocen como «K. V. Anand». ¿Cómo deberían llamarlo realmente?', zh:'同事都叫他「K. V. Anand」。那麼該怎麼稱呼他?' },
+    options: [
+      { en:'Mr. Kottai', es:'Sr. Kottai', zh:'Kottai 先生' },
+      { en:'Mr. Venkataraman', es:'Sr. Venkataraman', zh:'Venkataraman 先生' },
+      { en:'Anand', es:'Anand', zh:'Anand' }
+    ],
+    answer: 2,
+    why: {
+      en:'Many Tamil names run <b>place, father, person</b>: Kottai is his ancestral village (a <b>toponymic</b>, NAS <code>o</code>), Venkataraman is his father’s given name (<code>p</code>), and Anand — last — is the name people use, <b>(o.p.N)</b>. Both leading units compress into initials without changing anything: K. V. Anand carries the very same notation. Address the village or the father and you’ve reached past the person entirely.',
+      es:'Muchos nombres tamiles van <b>lugar, padre, persona</b>: Kottai es su pueblo ancestral (un <b>topónimo</b>, NAS <code>o</code>), Venkataraman es el nombre de su padre (<code>p</code>), y Anand — al final — es el nombre que la gente usa: <b>(o.p.N)</b>. Ambas unidades iniciales se comprimen en iniciales sin cambiar nada: K. V. Anand lleva exactamente la misma notación. Dirigirse al pueblo o al padre es pasar por completo junto a la persona.',
+      zh:'許多坦米爾名字的順序是<b>地名、父親、本人</b>:Kottai 是祖籍村落(<b>地名單位</b>,NAS 記作 <code>o</code>),Venkataraman 是父親的名字(<code>p</code>),排在最後的 Anand 才是大家用的名字——<b>(o.p.N)</b>。前面兩個單位縮寫成字首,什麼也不會改變:K. V. Anand 的標記完全相同。稱呼他的村子或他的父親,就等於完全繞過了他這個人。'
+    }
+  },
+  /* ===== LEVEL 3 ===== */
+  {
+    level: 3,
+    name: 'Siti Nurhaliza binti Tarudin',
+    origin: { en:'Malay', es:'Malayo', zh:'馬來' },
+    q: { en:'Her database has one “Last name” box. What is the least-wrong thing the system can do?', es:'Su base de datos tiene una sola casilla de «Apellido». ¿Qué es lo menos incorrecto que puede hacer el sistema?', zh:'她的資料庫只有一個「姓氏」欄位。系統最不錯的做法是什麼?' },
+    options: [
+      { en:'Split “binti Tarudin” and file the surname as Tarudin', es:'Separar «binti Tarudin» y archivar el apellido como Tarudin', zh:'把「binti Tarudin」拆開,姓氏填 Tarudin' },
+      { en:'Duplicate her name into both boxes so nothing is empty', es:'Duplicar su nombre en ambas casillas para que nada quede vacío', zh:'把她的名字複製到兩個欄位,免得留白' },
+      { en:'Leave the surname optional — her name is Siti Nurhaliza (N-.p-), and there is no family surname to file', es:'Dejar el apellido opcional: su nombre es Siti Nurhaliza (N-.p-) y no hay apellido familiar que archivar', zh:'姓氏設為選填——她的名字是 Siti Nurhaliza (N-.p-),本來就沒有家族姓氏可填' }
+    ],
+    answer: 2,
+    why: {
+      en:'Malay names have no inherited family surname: <em>binti Tarudin</em> is one patronymic unit, “daughter of Tarudin” — <b>(N-.p-)</b>, addressed as Siti Nurhaliza. The first two options are what real systems do, and both are the same move: <b>inventing a structure because the template demands one</b>. The polite move is to make the form fit the name, not the name fit the form — exactly what NAS asks of software.',
+      es:'Los nombres malayos no tienen apellido familiar heredado: <em>binti Tarudin</em> es una sola unidad patronímica, «hija de Tarudin» — <b>(N-.p-)</b>, y se le trata como Siti Nurhaliza. Las dos primeras opciones son lo que hacen los sistemas reales, y ambas son el mismo movimiento: <b>inventar una estructura porque la plantilla la exige</b>. Lo cortés es que el formulario se adapte al nombre, no el nombre al formulario — exactamente lo que NAS le pide al software.',
+      zh:'馬來名字沒有繼承來的家族姓氏:<em>binti Tarudin</em> 是一個父名單位,「Tarudin 之女」——<b>(N-.p-)</b>,稱呼時用 Siti Nurhaliza。前兩個選項是真實系統的做法,而它們其實是同一個動作:<b>因為模板要求,就憑空發明一個結構</b>。客氣的做法是讓表單遷就名字,而不是讓名字遷就表單——這正是 NAS 對軟體的要求。'
+    }
+  },
+  {
+    level: 3,
+    name: 'Paulina Valenzuela (N.(n.)S.(s.))',
+    origin: { en:'NAS v.2 · her actual email signature', es:'NAS v.2 · su firma de correo real', zh:'NAS v.2・她真實的郵件簽名' },
+    q: { en:'What does the lowercase (s.) tell you about “Lagos”?', es:'¿Qué te dice la (s.) minúscula sobre «Lagos»?', zh:'小寫的 (s.) 告訴你關於「Lagos」的什麼?' },
+    options: [
+      { en:'Lagos is present in the text but not needed for address', es:'Lagos aparece en el texto pero no hace falta para dirigirse a ella', zh:'Lagos 有寫出來,但稱呼時不需要' },
+      { en:'Lagos is acknowledged to exist, but she chose not to write it in this rendering', es:'Se reconoce que Lagos existe, pero ella eligió no escribirlo en esta versión', zh:'Lagos 被承認存在,但她在這個版本中選擇不寫出來' },
+      { en:'Lagos is a nickname', es:'Lagos es un apodo', zh:'Lagos 是個綽號' }
+    ],
+    answer: 1,
+    why: {
+      en:'The parentheses are the <b>implied</b> state: the unit exists, the reader is told so, but it is <em>not written</em> in this rendering. Her formal rendering — the next name — writes both surnames out. Same person, two honest renderings — and the <b>consistency rule</b> means the notation always tells you what’s actually on the page: capitals mark preference, parentheses mark absence. If you see (s.), the surname is not there — don’t go looking for it.',
+      es:'Los paréntesis son el estado <b>implícito</b>: la unidad existe, se le hace saber al lector, pero <em>no está escrita</em> en esta versión. Su versión formal — el siguiente nombre — escribe ambos apellidos. Misma persona, dos versiones honestas — y la <b>regla de consistencia</b> hace que la notación siempre diga qué hay realmente en la página: mayúsculas marcan preferencia, paréntesis marcan ausencia. Si ves (s.), el apellido no está — no salgas a buscarlo.',
+      zh:'括號是<b>隱含</b>狀態:這個單位存在,讀者也被告知了,但在這個版本中<em>沒有寫出來</em>。她的正式版本——也就是下一個名字——兩個姓氏都會寫出來。同一個人,兩種誠實的呈現——而<b>一致性規則</b>保證標記永遠告訴你頁面上實際寫了什麼:大寫標記偏好,括號標記缺席。看到 (s.),那個姓氏就不在紙上——別去把它找出來。'
+    }
+  },
+  {
+    level: 3,
+    name: 'Paulina A. Valenzuela Lagos',
+    origin: { en:'NAS v.2 · formal / publication rendering', es:'NAS v.2 · versión formal / de publicación', zh:'NAS v.2・正式/出版版本' },
+    q: { en:'Which NAS notation matches this exact string?', es:'¿Qué notación NAS corresponde exactamente a esta cadena?', zh:'哪一個 NAS 標記與這串文字完全對應?' },
+    options: [
+      { en:'(N.n.S.S)', es:'(N.n.S.S)', zh:'(N.n.S.S)' },
+      { en:'(N.(n.)S.s)', es:'(N.(n.)S.s)', zh:'(N.(n.)S.s)' },
+      { en:'(N.n.S.(s.))', es:'(N.n.S.(s.))', zh:'(N.n.S.(s.))' }
+    ],
+    answer: 0,
+    why: {
+      en:'Every unit written in the text must appear <b>unparenthesized</b>: Paulina (preferred, <code>N</code>), Andrea written as the initial “A.” (<code>n</code> — abbreviation doesn’t change the state), Valenzuela (<code>S</code>), Lagos (<code>S</code>). The other two notations each claim something is missing that is plainly on the page — <b>(N.(n.)S.s)</b> says Andrea isn’t written, <b>(N.n.S.(s.))</b> says Lagos isn’t. Reading notation is a fact-check: it either matches the string, or it’s lying about someone’s name.',
+      es:'Toda unidad escrita en el texto debe aparecer <b>sin paréntesis</b>: Paulina (preferido, <code>N</code>), Andrea escrita como inicial «A.» (<code>n</code> — abreviar no cambia el estado), Valenzuela (<code>S</code>), Lagos (<code>S</code>). Las otras dos notaciones afirman que falta algo que está claramente en la página — <b>(N.(n.)S.s)</b> dice que Andrea no está escrita, <b>(N.n.S.(s.))</b> dice que Lagos no está. Leer la notación es verificar hechos: o coincide con la cadena, o miente sobre el nombre de alguien.',
+      zh:'凡是在文字中出現的單位,都必須<b>不加括號</b>:Paulina(偏好,<code>N</code>)、Andrea 以字首「A.」寫出(<code>n</code>——縮寫不改變狀態)、Valenzuela(<code>S</code>)、Lagos(<code>S</code>)。另外兩個標記都宣稱某個明明寫在頁面上的單位不存在——<b>(N.(n.)S.s)</b> 說 Andrea 沒寫,<b>(N.n.S.(s.))</b> 說 Lagos 沒寫。讀標記就像核對事實:它要嘛與文字相符,要嘛就是在對某人的名字說謊。'
+    }
+  },
+  {
+    level: 3,
+    name: 'Kim Minjun',
+    origin: { en:'The self-assignment principle', es:'El principio de autoasignación', zh:'自我標記原則' },
+    q: { en:'You’ve studied NAS and you’re sure you could write his notation for him. Should you?', es:'Ya estudiaste NAS y estás seguro de que podrías escribir su notación por él. ¿Deberías?', zh:'你已經研究過 NAS,確信自己能替他寫出標記。你該這麼做嗎?' },
+    options: [
+      { en:'Yes — if your analysis is correct, it’s helpful', es:'Sí — si tu análisis es correcto, es útil', zh:'可以——如果你的分析正確,那是幫忙' },
+      { en:'No — a notation only counts when the person publishes it themselves; otherwise you’re writing your assumptions into their identity', es:'No — una notación solo cuenta cuando la persona la publica ella misma; si no, estás escribiendo tus suposiciones dentro de su identidad', zh:'不行——只有本人公開發表的標記才算數;否則你是把你的假定寫進他的身分' },
+      { en:'Yes, but mark it as a guess', es:'Sí, pero márcala como suposición', zh:'可以,但要標註這是猜測' }
+    ],
+    answer: 1,
+    why: {
+      en:'This is NAS’s first guiding principle: <b>self-assigned, never inferred.</b> Only a notation the person published themselves — on their site, card, or signature — is authoritative. Even a correct guess is an intrusion, because the point was never to decode the name; it was to leave the decoding to its owner. “Being right by accident” is still someone else deciding how your name works. If you don’t know someone’s NAS, use their name as given, or ask.',
+      es:'Este es el primer principio rector de NAS: <b>autoasignado, nunca inferido</b>. Solo una notación que la persona publicó ella misma — en su sitio, tarjeta o firma — es autoritativa. Hasta una suposición correcta es una intromisión, porque el punto nunca fue decodificar el nombre; fue dejar la decodificación en manos de su dueño. «Tener razón por accidente» sigue siendo otro decidiendo cómo funciona tu nombre. Si no conoces el NAS de alguien, usa su nombre tal cual, o pregunta.',
+      zh:'這是 NAS 的第一條指導原則:<b>自我標記,絕不代推。</b>只有本人親自發表的標記——在自己的網站、名片或簽名上——才算數。即使猜對了也是一種冒犯,因為重點從來不是解讀名字,而是把解讀權留給名字的主人。「碰巧猜對」依然是別人在替你的名字做決定。不知道對方的 NAS,就用他寫出來的名字,或者問。'
+    }
+  },
+  {
+    level: 3,
+    name: '孔丘 · 字仲尼 (Kong Qiū · zi Zhòngní)',
+    origin: { en:'Classical Chinese · the 名/字 system', es:'Chino clásico · el sistema 名/字', zh:'古典中國・名/字系統' },
+    q: { en:'In classical China, who was entitled to use your 名 (birth name)?', es:'En la China clásica, ¿quién tenía derecho a usar tu 名 (nombre de nacimiento)?', zh:'在古典中國,誰有資格使用你的「名」(本名)?' },
+    options: [
+      { en:'Everyone who knew it — it was the public name', es:'Todos los que lo supieran — era el nombre público', zh:'所有知道的人——那是公開的名字' },
+      { en:'You, and those above you — parents, teachers, the ruler. Peers addressed you by your 字 out of respect; using the birth name uninvited was the imposition', es:'Tú, y quienes estaban por encima de ti — padres, maestros, el soberano. Tus pares te trataban por tu 字 por respeto; usar el nombre de nacimiento sin invitación era la imposición', zh:'你自己,以及地位在你之上的人——父母、師長、君主。平輩為表示敬意,以你的「字」相稱——未經邀請使用本名,才是冒犯' },
+      { en:'Only your parents', es:'Solo tus padres', zh:'只有父母' }
+    ],
+    answer: 1,
+    why: {
+      en:'The old system had respect built into its grammar: you referred to yourself by your 名, and so could your elders; <b>peers used your 字</b>. Confucius’s birth name 丘 (Qiū) was avoided for centuries out of reverence — the world knows him by an honorific, 孔子, filtered through Latin as “Confucius”: a fourth name, given by others. This is the deepest version of this game’s rule: <b>which name is polite is decided by whose name it is</b>. A thousand years before databases, using the wrong name — even a factually correct one — was understood as overstepping.',
+      es:'El sistema antiguo tenía el respeto integrado en su gramática: uno se refería a sí mismo por su 名, y también podían hacerlo sus mayores; <b>los pares usaban tu 字</b>. El nombre de nacimiento de Confucio, 丘 (Qiū), se evitó durante siglos por reverencia — el mundo lo conoce por un honorífico, 孔子, filtrado al latín como «Confucius»: un cuarto nombre, dado por otros. Es la versión más profunda de la regla de este juego: <b>qué nombre es cortés lo decide de quién es el nombre</b>. Mil años antes de las bases de datos, usar el nombre equivocado — aun siendo correcto — ya se entendía como un abuso.',
+      zh:'舊制度把敬意寫進了語法本身:你自稱用「名」,長輩也可以這樣叫你;<b>平輩則用你的「字」</b>。孔子的本名丘,後世因避諱而幾百年不敢直書——世人以尊稱「孔子」知他,再經拉丁文轉成 Confucius:那是第四個名字,由他人所贈。這是本遊戲規則最深的一層:<b>哪個名字才算禮貌,由名字的主人決定</b>。早在資料庫出現千年之前,用錯名字——即使事實上沒錯——就已被視為越界。'
+    }
+  },
+  {
+    level: 3,
+    name: 'King Charles Philip Arthur George',
+    origin: { en:'NAS v.2 · title in the address', es:'NAS v.2 · el título en el tratamiento', zh:'NAS v.2・稱謂中的頭銜' },
+    q: { en:'Illustrated in NAS as (T.N.n.n.n). What is the respectful address?', es:'Ilustrado en NAS como (T.N.n.n.n). ¿Cuál es el tratamiento correcto?', zh:'以 NAS 示意為 (T.N.n.n.n)。合宜的稱呼是什麼?' },
+    options: [
+      { en:'Mr. George — surnames are always the safe default', es:'Sr. George — los apellidos siempre son la opción segura', zh:'George 先生——姓氏永遠是最安全的選擇' },
+      { en:'King Charles — the title is part of his preferred address', es:'Rey Carlos — el título forma parte de su forma preferida de dirigirse a él', zh:'Charles 國王——頭銜是他偏好稱呼的一部分' },
+      { en:'Charles — drop the title, everyone prefers informality', es:'Charles — sin título, todo el mundo prefiere la informalidad', zh:'Charles——省掉頭銜,大家都喜歡輕鬆一點' }
+    ],
+    answer: 1,
+    why: {
+      en:'Here the title is capital <code>T</code>: <b>part of the preferred address</b> — “King Charles”. Contrast Dr. Eunjung Lee <b>(t.N.s)</b>, where the lowercase <code>t</code> means the title is written but “Eunjung” alone is enough. Same letter, opposite messages — the person decides which. And notice the failure mode of your “safe default”: George isn’t even a surname here, it’s one of four given names. Politeness by template isn’t politeness; it’s your system, wearing a smile.',
+      es:'Aquí el título va en mayúscula <code>T</code>: <b>forma parte del tratamiento preferido</b> — «King Charles». Compárese con Dr. Eunjung Lee <b>(t.N.s)</b>, donde la <code>t</code> minúscula significa que el título está escrito pero «Eunjung» basta. Misma letra, mensajes opuestos — y decide la persona. Y fíjate en el modo de fallo de tu «opción segura»: George ni siquiera es aquí un apellido, sino uno de los cuatro nombres. La cortesía por plantilla no es cortesía; es tu sistema con una sonrisa puesta.',
+      zh:'這裡的頭銜是大寫 <code>T</code>:<b>屬於偏好的稱呼</b>——「Charles 國王」。對照 Dr. Eunjung Lee 的 <b>(t.N.s)</b>:小寫 <code>t</code> 表示頭銜雖然寫出,但只稱「Eunjung」就夠了。同一個字母,相反的訊息——由本人決定。再注意你那個「安全選項」怎麼出錯的:George 在這裡根本不是姓氏,而是四個名字之一。用模板表達的禮貌不是禮貌;那是你的系統,只是戴上了笑容。'
+    }
+  },
+  {
+    level: 3,
+    name: 'Sukarno',
+    origin: { en:'Indonesian · the final trap', es:'Indonesio · la trampa final', zh:'印尼・最後的陷阱' },
+    q: { en:'One name, no surname, and he never published a notation. What does “acknowledging” him look like?', es:'Un nombre, sin apellido, y nunca publicó una notación. ¿Qué aspecto tiene «reconocerlo»?', zh:'一個名字、沒有姓氏,他也從未發表過標記。那麼「承認」他是什麼樣子?' },
+    options: [
+      { en:'Respect his name as given — call him Sukarno, leave the blanks blank, and don’t write a notation he never wrote', es:'Respetar su nombre tal cual — llamarlo Sukarno, dejar los campos vacíos vacíos, y no escribir una notación que él nunca escribió', zh:'照他寫的樣子尊重他的名字——稱他 Sukarno,讓空白就空白,也不替他寫一個他從沒寫過的標記' },
+      { en:'Write (N) for him in the record — it’s obviously correct', es:'Escribir (N) por él en el registro — es obviamente correcto', zh:'在紀錄裡替他寫上 (N)——這顯然是對的' },
+      { en:'Add a first name, so the record has two fields filled', es:'Añadirle un nombre de pila, para que el registro tenga dos campos llenos', zh:'替他加一個名字,好讓紀錄填滿兩格' }
+    ],
+    answer: 0,
+    why: {
+      en:'The final lesson has two halves. First: a mononym is complete — <b>(N)</b> — and “no surname” is a fact about his name, not a defect in it. Second, the subtler half: option B is <em>technically right</em> and still wrong, because NAS only counts when the owner publishes it. And option C is the whole game in one sentence — and it really happened: Western newspapers called him “Achmed Sukarno”, a first name invented for him because a one-part name looked unfinished to <b>their</b> system. Acknowledgment isn’t filling in the blanks. It’s leaving the blanks to the person they belong to.',
+      es:'La lección final tiene dos mitades. Primera: un monónimo está completo — <b>(N)</b> — y «sin apellido» es un dato sobre su nombre, no un defecto. Segunda, la más sutil: la opción B es <em>técnicamente correcta</em> y aun así está mal, porque NAS solo cuenta cuando lo publica su dueño. Y la opción C es todo el juego en una frase — y ocurrió de verdad: la prensa occidental lo llamó «Achmed Sukarno», un nombre de pila inventado porque un nombre de una sola parte parecía incompleto para <b>su</b> sistema. Reconocer no es rellenar los espacios en blanco. Es dejar los espacios en blanco a la persona a quien pertenecen.',
+      zh:'最後一課有兩半。前一半:單名是完整的——<b>(N)</b>——而「沒有姓氏」是關於他名字的事實,不是缺陷。後一半更微妙:選項 B <em>技術上正確</em>,卻仍然錯了,因為 NAS 只有在本人公開發表時才算數。而選項 C 是整個遊戲濃縮成的一句話——而且真的發生過:西方報紙稱他為「Achmed Sukarno」,這個名字是替他編出來的,只因為單名在<b>他們的</b>系統看來不完整。承認一個人,不是把空白填滿;而是把空白留給它所屬的人。'
+    }
+  }
   ];
 
   const GT = {
@@ -435,13 +690,16 @@
     next:    { en:'Next name →', es:'Siguiente nombre →', zh:'下一個名字 →' },
     results: { en:'See results →', es:'Ver resultados →', zh:'看結果 →' },
     again:   { en:'Play again', es:'Jugar de nuevo', zh:'再玩一次' },
-    high:    { en:'You already design better forms than most software does.', es:'Ya diseñas mejores formularios que la mayoría del software.', zh:'你設計表單的功力,已經勝過大多數軟體了。' },
+    begin:   { en:'Begin', es:'Empezar', zh:'開始' },
+    levelOf: { en:'Level %a', es:'Nivel %a', zh:'等級 %a' },
+    high:    { en:'You already design better forms than most software does — and you know whose terms the name is on.', es:'Ya diseñas mejores formularios que la mayoría del software — y sabes de quién son los términos del nombre.', zh:'你設計表單的功力,已經勝過大多數軟體——而且你知道名字的詮釋權在誰手上。' },
     mid:     { en:'Close — and every one of these breaks a real system somewhere today.', es:'Cerca — y cada uno de estos rompe algún sistema real hoy mismo.', zh:'很接近了——而這裡的每一種情況,今天都還在弄壞某個真實系統。' },
     low:     { en:'Which is exactly the point: none of this is obvious, and forms almost never ask.', es:'Y ese es justamente el punto: nada de esto es obvio, y los formularios casi nunca preguntan.', zh:'而這正是重點:這些都不是理所當然的,但表單幾乎從不詢問。' },
     copy:    { en:'Copy score text (for Instagram, Threads, etc.)', es:'Copiar el texto (para Instagram, Threads, etc.)', zh:'複製分數文字(可用於 Instagram、Threads 等)' },
     copied:  { en:'Copied — paste it wherever you like.', es:'Copiado — pégalo donde quieras.', zh:'已複製——貼到你想貼的地方。' },
     mastodonLabel: { en:'Your Mastodon instance (e.g. mastodon.social):', es:'Tu instancia de Mastodon (ej. mastodon.social):', zh:'你的 Mastodon 站台(例如 mastodon.social):' },
     mastodonBtn:   { en:'Share on Mastodon', es:'Compartir en Mastodon', zh:'分享到 Mastodon' },
+    levelShort: { en:'L%a', es:'N%a', zh:'等級%a' },
     shareText:{ en:'I scored %s/%b on the name game', es:'Obtuve %s/%b en el juego de nombres', zh:'我在名字小遊戲中得到了 %s/%b 分' }
   };
 
@@ -449,14 +707,21 @@
     count: document.getElementById('game-count'),
     tally: document.getElementById('game-tally'),
     play: document.getElementById('game-play'),
+    level: document.getElementById('game-level'),
     name: document.getElementById('game-name'),
     origin: document.getElementById('game-origin'),
     q: document.getElementById('game-q'),
     options: document.getElementById('game-options'),
     why: document.getElementById('game-why'),
     actions: document.getElementById('game-actions'),
+    interstitial: document.getElementById('game-interstitial'),
+    lvNum: document.getElementById('lv-num'),
+    lvTitle: document.getElementById('lv-title'),
+    lvDesc: document.getElementById('lv-desc'),
+    lvBegin: document.getElementById('lv-begin'),
     end: document.getElementById('game-end'),
     score: document.getElementById('game-score'),
+    levels: document.getElementById('game-levels'),
     verdict: document.getElementById('game-verdict'),
     again: document.getElementById('game-again'),
     bsky: document.getElementById('game-bsky'),
@@ -470,18 +735,28 @@
     mastodonBtn: document.getElementById('game-mastodon-btn')
   };
 
-  let gIdx = 0, gScore = 0, gPicked = null;
+  let gIdx = 0, gScore = 0, gPicked = null, gLevelShown = 0, gInInterstitial = false, gOrder = null;
+  let gLevelScore = {1:0, 2:0, 3:0};
+  const gLevelTotal = NAME_ROUNDS.reduce((a, r) => { a[r.level] = (a[r.level] || 0) + 1; return a; }, {});
+  function shuffled(n){
+    const a = [...Array(n).keys()];
+    for (let i = n - 1; i > 0; i--){ const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; }
+    return a;
+  }
 
   function renderRound(){
     const total = NAME_ROUNDS.length;
 
     if (gIdx >= total){
       gEls.play.style.display = 'none';
+      gEls.interstitial.classList.remove('show');
       gEls.end.style.display = '';
       gEls.count.textContent = '';
       gEls.tally.textContent = '';
       gEls.score.textContent = gScore + ' / ' + total;
-      gEls.verdict.textContent = gScore === total ? gt(GT.high) : (gScore >= total - 2 ? gt(GT.mid) : gt(GT.low));
+      gEls.levels.textContent = [1, 2, 3].map(l => gt(GT.levelShort).replace('%a', l) + ' ' + gLevelScore[l] + '/' + gLevelTotal[l]).join('  ·  ');
+      const l3perfect = gLevelScore[3] === gLevelTotal[3];
+      gEls.verdict.textContent = (l3perfect && gScore >= total - 2) ? gt(GT.high) : (gScore >= total - 5 ? gt(GT.mid) : gt(GT.low));
       gEls.again.textContent = gt(GT.again);
 
       gEls.copy.textContent = gt(GT.copy);
@@ -508,18 +783,43 @@
       return;
     }
 
+    const r = NAME_ROUNDS[gIdx];
+
+    /* level interstitial: shown once per level */
+    if (r.level !== gLevelShown || gInInterstitial){
+      gLevelShown = r.level;
+      gInInterstitial = true;
+      const L = LEVELS[r.level];
+      gEls.play.style.display = 'none';
+      gEls.end.style.display = 'none';
+      gEls.interstitial.classList.add('show');
+      gEls.lvNum.textContent = gt(GT.levelOf).replace('%a', r.level);
+      gEls.lvTitle.textContent = gt(L.title);
+      gEls.lvDesc.textContent = gt(L.desc);
+      gEls.lvBegin.textContent = gt(GT.begin);
+      gEls.lvBegin.onclick = () => {
+        gInInterstitial = false;
+        gEls.interstitial.classList.remove('show');
+        renderRound();
+      };
+      return;
+    }
+
+    gEls.interstitial.classList.remove('show');
     gEls.play.style.display = '';
     gEls.end.style.display = 'none';
 
-    const r = NAME_ROUNDS[gIdx];
     gEls.count.textContent = gt(GT.count).replace('%a', gIdx + 1).replace('%b', total);
     gEls.tally.textContent = gt(GT.tally).replace('%s', gScore);
+    gEls.level.textContent = gt(LEVELS[r.level].title);
     gEls.name.textContent = r.name;
     gEls.origin.textContent = gt(r.origin);
     gEls.q.textContent = gt(r.q);
 
     gEls.options.innerHTML = '';
-    r.options.forEach((opt, i) => {
+    if (!gOrder || gOrder.length !== r.options.length) gOrder = shuffled(r.options.length);
+    gOrder.forEach((i) => {
+      const opt = r.options[i];
       const b = document.createElement('button');
       b.type = 'button';
       b.className = 'opt';
@@ -543,7 +843,7 @@
       nxt.type = 'button';
       nxt.className = 'btn primary';
       nxt.textContent = (gIdx === total - 1) ? gt(GT.results) : gt(GT.next);
-      nxt.addEventListener('click', () => { gIdx++; gPicked = null; renderRound(); });
+      nxt.addEventListener('click', () => { gIdx++; gPicked = null; gOrder = null; renderRound(); });
       gEls.actions.appendChild(nxt);
     } else {
       gEls.why.classList.remove('show');
@@ -554,12 +854,12 @@
   function pick(i){
     if (gPicked !== null) return;
     gPicked = i;
-    if (i === NAME_ROUNDS[gIdx].answer) gScore++;
+    if (i === NAME_ROUNDS[gIdx].answer){ gScore++; gLevelScore[NAME_ROUNDS[gIdx].level]++; }
     renderRound();
   }
 
   gEls.again.addEventListener('click', () => {
-    gIdx = 0; gScore = 0; gPicked = null; renderRound();
+    gIdx = 0; gScore = 0; gPicked = null; gLevelShown = 0; gInInterstitial = false; gOrder = null; gLevelScore = {1:0, 2:0, 3:0}; renderRound();
   });
 
   applyLang(savedLang);
