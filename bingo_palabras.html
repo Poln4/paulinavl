@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bingo en español — generador de cartones y cantador</title>
+<style>
+  :root{
+    --bg:#fdfaf3; --ink:#1f2233; --muted:#6b6f80; --line:#e3ddce;
+    --red:#d94b3d; --orange:#e88a2e; --blue:#2f6fb3; --green:#2e8b6a;
+    --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    -webkit-text-size-adjust:100%}
+  header{padding:18px 16px 10px;max-width:1000px;margin:0 auto}
+  h1{margin:0 0 4px;font-size:1.35rem;letter-spacing:-.01em}
+  h1 span{color:var(--red)}
+  .sub{color:var(--muted);font-size:.9rem;margin:0}
+  nav{max-width:1000px;margin:14px auto 0;padding:0 16px;display:flex;gap:8px}
+  nav button{flex:1;padding:11px 10px;border-radius:12px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink);font-size:.95rem;font-weight:600;cursor:pointer}
+  nav button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  main{max-width:1000px;margin:0 auto;padding:16px;padding-bottom:60px}
+  section[hidden]{display:none}
+  .panel{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+  label{display:block;font-weight:600;font-size:.85rem;margin-bottom:6px}
+  textarea{width:100%;min-height:130px;resize:vertical;padding:12px;border-radius:12px;
+    border:1.5px solid var(--line);font:inherit;font-size:.95rem;line-height:1.5;background:#fffefb}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:12px}
+  .row > div{flex:1 1 130px}
+  select,input[type=number]{width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--line);
+    font:inherit;background:#fffefb}
+  .btn{padding:11px 16px;border-radius:999px;border:none;background:var(--red);color:#fff;
+    font-size:.95rem;font-weight:700;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn:active{transform:translateY(1px)}
+  .hint{font-size:.8rem;color:var(--muted);margin:8px 0 0}
+  .presets{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+  .chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:7px 12px;
+    font-size:.82rem;cursor:pointer;color:var(--ink)}
+  .chip:hover{border-color:var(--ink)}
+  /* cartones */
+  #cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:10px;break-inside:avoid}
+  .card h3{margin:0 0 8px;font-size:.8rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .grid{display:grid;gap:4px}
+  .cell{display:flex;align-items:center;justify-content:center;text-align:center;
+    border:1.5px solid var(--line);border-radius:8px;padding:6px;font-weight:600;
+    line-height:1.15;overflow-wrap:anywhere;aspect-ratio:1/1;font-size:clamp(.6rem,2.4vw,.95rem)}
+  .cell.free{background:#fff3d6;border-color:#e8c877;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em}
+  /* cantador */
+  #caller{text-align:center;padding:24px 16px}
+  #bigWord{font-size:clamp(2rem,11vw,4.2rem);font-weight:800;line-height:1.05;margin:10px 0 6px;
+    overflow-wrap:anywhere;letter-spacing:-.02em}
+  #counter{color:var(--muted);font-size:.9rem}
+  .callbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+  .callbtns .btn{min-width:120px;padding:15px 22px;font-size:1rem}
+  #history{display:flex;flex-wrap:wrap;gap:6px;margin-top:20px;justify-content:center}
+  .called{font-size:.78rem;padding:5px 10px;border-radius:999px;background:#eef3ec;
+    border:1px solid #cfe0cd;color:#2b4a36}
+  .called:first-child{background:#e6f4ec;border-color:var(--green);font-weight:700}
+  .done{color:var(--green);font-weight:700}
+  @media print{
+    nav,header .sub,#panelCartones,.callbtns,.hint{display:none!important}
+    body{background:#fff}
+    #cards{grid-template-columns:repeat(2,1fr);gap:10px}
+    .card{page-break-inside:avoid}
+    .cell{font-size:11pt}
+    header{padding:0 0 6px}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Bingo <span>en español</span></h1>
+  <p class="sub">Genera cartones, imprime o proyecta, y canta las palabras. Funciona sin internet.</p>
+</header>
+
+<nav role="tablist">
+  <button id="tabCards" role="tab" aria-selected="true">1 · Cartones</button>
+  <button id="tabCall" role="tab" aria-selected="false">2 · Cantar</button>
+</nav>
+
+<main>
+  <section id="panelCartones">
+    <div class="panel">
+      <label for="words">Palabras o frases (una por línea)</label>
+      <textarea id="words" spellcheck="false"></textarea>
+      <div class="presets">
+        <button class="chip" data-preset="animales">Animales</button>
+        <button class="chip" data-preset="comida">Comida</button>
+        <button class="chip" data-preset="clase">Clase</button>
+        <button class="chip" data-preset="verbos">Verbos</button>
+        <button class="chip" data-preset="numeros">Números 1–30</button>
+        <button class="chip" data-preset="casa">La casa</button>
+      </div>
+      <div class="row">
+        <div>
+          <label for="size">Cuadrícula</label>
+          <select id="size">
+            <option value="3">3 × 3 (9 casillas)</option>
+            <option value="4">4 × 4 (16 casillas)</option>
+            <option value="5" selected>5 × 5 (25 casillas)</option>
+          </select>
+        </div>
+        <div>
+          <label for="count">Número de cartones</label>
+          <input id="count" type="number" min="1" max="40" value="6">
+        </div>
+        <div>
+          <label for="free">Centro libre</label>
+          <select id="free"><option value="yes" selected>Sí (ESPACIO LIBRE)</option><option value="no">No</option></select>
+        </div>
+        <div style="flex:0 0 auto">
+          <button class="btn" id="mk">Generar cartones</button>
+        </div>
+      </div>
+      <p class="hint" id="status"></p>
+      <div class="row">
+        <div style="flex:0 0 auto"><button class="btn ghost" id="print">Imprimir / PDF</button></div>
+        <div style="flex:0 0 auto"><button class="btn ghost" id="tocall">Ir a cantar ▸</button></div>
+      </div>
+    </div>
+    <div id="cards"></div>
+  </section>
+
+  <section id="panelCantar" hidden>
+    <div class="panel" id="caller">
+      <div id="counter">Listo para empezar</div>
+      <div id="bigWord">—</div>
+      <div class="callbtns">
+        <button class="btn" id="next">Siguiente ▸</button>
+        <button class="btn ghost" id="back">◂ Anterior</button>
+        <button class="btn ghost" id="reset">Reiniciar</button>
+      </div>
+      <div class="callbtns">
+        <button class="btn ghost" id="voice">🔊 Voz: apagada</button>
+      </div>
+      <div id="history"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const PRESETS = {
+  animales:"perro\ngato\ncaballo\npájaro\npez\nratón\nvaca\ncerdo\nconejo\ntortuga\nleón\ntigre\nmono\nserpiente\nrana\nabeja\nmariposa\nballena\noso\nzorro\ngallina\nelefante\npato\nburro\noveja",
+  comida:"pan\narroz\npollo\nmanzana\nplátano\nqueso\nleche\nhuevo\nsopa\nensalada\npescado\njugo\ncafé\nagua\ntorta\nhelado\nfrijoles\npasta\nnaranja\nazúcar\nsal\nmantequilla\nchocolate\ntomate",
+  clase:"lápiz\ncuaderno\nlibro\nsilla\nmesa\nmochila\npizarra\nprofesor\ntijeras\npapel\nborrador\nregla\nventana\npuerta\nreloj\ncomputadora\nmapa\ngoma\ncarpeta\ncompañero",
+  verbos:"comer\nbeber\ncorrer\nhablar\nleer\nescribir\ndormir\ncaminar\njugar\ncocinar\nbailar\ncantar\nestudiar\ntrabajar\nabrir\ncerrar\npensar\nquerer\nvivir\naprender\ncomprar\nviajar\nnadar\nreír",
+  casa:"cama\nsilla\nmesa\npuerta\nventana\ncocina\nbaño\nsofá\nlámpara\nespejo\nalmohada\ncobija\nplato\ntaza\ncuchara\ntenedor\nnevera\nducha\njardín\ntecho\npiso\npared\nllave\nreloj",
+  numeros:Array.from({length:30},(_,i)=>String(i+1)).join("\n")
+};
+
+const $ = id => document.getElementById(id);
+const wordsEl = $("words");
+
+/* ---------- persistencia ---------- */
+const save = () => {
+  try{ localStorage.setItem("bingo.es", JSON.stringify({
+    words: wordsEl.value, size: $("size").value, count: $("count").value, free: $("free").value
+  })); }catch(e){}
+};
+const load = () => {
+  try{
+    const s = JSON.parse(localStorage.getItem("bingo.es")||"null");
+    if(s){ wordsEl.value = s.words||""; if(s.size)$("size").value=s.size;
+      if(s.count)$("count").value=s.count; if(s.free)$("free").value=s.free; return true; }
+  }catch(e){}
+  return false;
+};
+if(!load()) wordsEl.value = PRESETS.animales;
+
+document.querySelectorAll(".chip").forEach(b=>b.onclick=()=>{
+  wordsEl.value = PRESETS[b.dataset.preset]; save(); build();
+});
+
+function getWords(){
+  const seen = new Set();
+  return wordsEl.value.split(/\r?\n/)
+    .map(w=>w.trim()).filter(Boolean)
+    .filter(w=>{ const k=w.toLowerCase(); if(seen.has(k))return false; seen.add(k); return true; });
+}
+const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+/* ---------- cartones ---------- */
+function build(){
+  const words = getWords();
+  const n = +$("size").value;
+  const need = n*n;
+  const useFree = $("free").value==="yes" && n%2===1;
+  const count = Math.max(1, Math.min(40, +$("count").value||1));
+  const status = $("status");
+
+  if(words.length < need - (useFree?1:0)){
+    status.innerHTML = `⚠️ Necesitas al menos <b>${need-(useFree?1:0)}</b> palabras para una cuadrícula ${n}×${n}. Tienes ${words.length}.`;
+    $("cards").innerHTML = ""; save(); return;
+  }
+  status.innerHTML = `${count} cartón(es) con ${need} casillas · ${words.length} palabras en el bombo.`;
+
+  const made = new Set(), html = [];
+  const mid = Math.floor(need/2);
+  let guard = 0;
+  for(let c=0;c<count;c++){
+    let pick;
+    do{ pick = shuffle([...words]).slice(0,need); }while(made.has(pick.join("|")) && ++guard<500);
+    made.add(pick.join("|"));
+    const cells = pick.map((w,i)=> (useFree && i===mid)
+      ? `<div class="cell free">Libre</div>`
+      : `<div class="cell">${esc(w)}</div>`).join("");
+    html.push(`<div class="card"><h3>Cartón ${c+1}</h3>
+      <div class="grid" style="grid-template-columns:repeat(${n},1fr)">${cells}</div></div>`);
+  }
+  $("cards").innerHTML = html.join("");
+  save();
+  deckWords = words;
+}
+const esc = s => s.replace(/[&<>"]/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ---------- cantador ---------- */
+let deckWords = [], order = [], idx = -1, said = [];
+function resetDeck(){
+  deckWords = getWords();
+  order = shuffle([...deckWords]);
+  idx = -1; said = [];
+  render();
+}
+function render(){
+  const w = idx>=0 ? order[idx] : null;
+  $("bigWord").textContent = w || "—";
+  $("counter").innerHTML = idx<0 ? `Listo · ${order.length} palabras en el bombo`
+    : (idx+1===order.length ? `<span class="done">¡Última palabra! ${order.length}/${order.length}</span>`
+                            : `Palabra ${idx+1} de ${order.length}`);
+  $("history").innerHTML = order.slice(0,idx+1).reverse()
+    .map(p=>`<span class="called">${esc(p)}</span>`).join("");
+  if(w) speak(w);
+}
+let voiceOn = true;
+function speak(t){
+  if(!voiceOn || !window.speechSynthesis) return;
+  try{
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = "es-ES"; u.rate = .9;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+$("next").onclick = ()=>{ if(!order.length) resetDeck(); if(idx<order.length-1){idx++;render();} };
+$("back").onclick = ()=>{ if(idx>0){idx--;render();} };
+$("reset").onclick = ()=>{ resetDeck(); };
+$("voice").onclick = e=>{ voiceOn=!voiceOn; e.target.textContent = voiceOn?"🔊 Voz: encendida":"🔇 Voz: apagada"; };
+
+/* ---------- navegación ---------- */
+function tab(which){
+  const cards = which==="cards";
+  $("tabCards").setAttribute("aria-selected", cards);
+  $("tabCall").setAttribute("aria-selected", !cards);
+  $("panelCartones").hidden = !cards;
+  $("panelCantar").hidden = cards;
+  if(!cards && !order.length) resetDeck();
+  window.scrollTo({top:0});
+}
+$("tabCards").onclick=()=>tab("cards");
+$("tabCall").onclick=()=>tab("call");
+$("tocall").onclick=()=>tab("call");
+$("mk").onclick=build;
+$("print").onclick=()=>window.print();
+["size","count","free"].forEach(id=>$(id).addEventListener("change",()=>{build();order=[];}));
+wordsEl.addEventListener("input",save);
+
+build();
+</script>
+</body>
+</html>
