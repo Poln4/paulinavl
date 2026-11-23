@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bingo de números 1–99</title>
+<style>
+  :root{
+    --bg:#fdfaf3; --ink:#1f2233; --muted:#6b6f80; --line:#e3ddce;
+    --red:#d94b3d; --green:#2e8b6a; --card:#fff;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-text-size-adjust:100%}
+  header{padding:18px 16px 10px;max-width:1040px;margin:0 auto}
+  h1{margin:0 0 4px;font-size:1.35rem;letter-spacing:-.01em}
+  h1 span{color:var(--red)}
+  .sub{color:var(--muted);font-size:.9rem;margin:0}
+  nav{max-width:1040px;margin:14px auto 0;padding:0 16px;display:flex;gap:8px}
+  nav button{flex:1;padding:11px 10px;border-radius:12px;border:1.5px solid var(--line);
+    background:#fff;color:var(--ink);font-size:.95rem;font-weight:600;cursor:pointer}
+  nav button[aria-selected="true"]{background:var(--ink);color:#fff;border-color:var(--ink)}
+  main{max-width:1040px;margin:0 auto;padding:16px;padding-bottom:60px}
+  section[hidden]{display:none}
+  .panel{background:#fff;border:1.5px solid var(--line);border-radius:16px;padding:16px;margin-bottom:16px}
+  label{display:block;font-weight:600;font-size:.85rem;margin-bottom:6px}
+  .row{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-top:12px}
+  .row > div{flex:1 1 140px}
+  select,input[type=number]{width:100%;padding:10px;border-radius:10px;border:1.5px solid var(--line);
+    font:inherit;background:#fffefb}
+  .btn{padding:11px 16px;border-radius:999px;border:none;background:var(--red);color:#fff;
+    font-size:.95rem;font-weight:700;cursor:pointer}
+  .btn.ghost{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn:active{transform:translateY(1px)}
+  .hint{font-size:.8rem;color:var(--muted);margin:8px 0 0}
+  /* cartones */
+  #cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+  .card{background:var(--card);border:2px solid var(--ink);border-radius:14px;padding:10px 12px 14px;break-inside:avoid}
+  .card .top{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 8px}
+  .card h3{margin:0;font-size:.85rem;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+  .card .brand{font-size:.85rem;font-weight:800;letter-spacing:.12em;color:var(--red)}
+  .lines{display:grid;gap:7px}
+  .line{display:grid;gap:6px}
+  .num{display:flex;align-items:center;justify-content:center;border:1.6px solid var(--line);
+    border-radius:9px;font-weight:700;font-variant-numeric:tabular-nums;
+    aspect-ratio:1.45/1;font-size:clamp(1rem,4vw,1.4rem);background:#fffefb}
+  .num.blank{border:none;background:transparent}
+  .key{font-size:.72rem;color:var(--muted);margin-top:9px;text-align:center;letter-spacing:.03em}
+  /* cantador */
+  #caller{text-align:center;padding:22px 16px 26px}
+  #bigNum{font-size:clamp(4rem,26vw,9rem);font-weight:800;line-height:1;margin:6px 0 4px;
+    font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+  #spoken{font-size:1rem;color:var(--muted);min-height:1.4em;text-transform:lowercase}
+  #counter{color:var(--muted);font-size:.9rem;margin-top:6px}
+  .callbtns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .callbtns .btn{min-width:118px;padding:15px 22px;font-size:1rem}
+  #board{display:grid;grid-template-columns:repeat(10,1fr);gap:4px;margin-top:24px}
+  #board div{aspect-ratio:1/1;display:flex;align-items:center;justify-content:center;
+    font-size:clamp(.55rem,1.9vw,.95rem);border-radius:6px;border:1px solid var(--line);
+    color:#9a9cae;background:#fff;font-variant-numeric:tabular-nums}
+  #board div.on{background:#e8f5ec;border-color:var(--green);color:#1e5c40;font-weight:800}
+  #board div.last{background:var(--green);border-color:var(--green);color:#fff;font-weight:800}
+  .done{color:var(--green);font-weight:700}
+  @media print{
+    nav,header .sub,#controls,.callbtns,.hint{display:none!important}
+    body{background:#fff}
+    main{max-width:none;padding:0}
+    #cards{grid-template-columns:repeat(2,1fr);gap:10px}
+    .card{border-width:1.5px}
+    .num{font-size:15pt}
+    header{padding:0 0 8px}
+  }
+  @page{margin:12mm}
+</style>
+</head>
+<body>
+<header>
+  <h1>Bingo <span>de números</span></h1>
+  <p class="sub">Cartones de tres líneas horizontales · números del 1 al 99 · cantador con voz.</p>
+</header>
+
+<nav>
+  <button id="tabCards" aria-selected="true">1 · Cartones</button>
+  <button id="tabCall" aria-selected="false">2 · Cantar</button>
+</nav>
+
+<main>
+  <section id="panelCards">
+    <div class="panel" id="controls">
+      <div class="row" style="margin-top:0">
+        <div>
+          <label for="max">Números del bombo</label>
+          <select id="max">
+            <option value="99" selected>1 – 99</option>
+            <option value="90">1 – 90</option>
+            <option value="75">1 – 75</option>
+            <option value="50">1 – 50</option>
+          </select>
+        </div>
+        <div>
+          <label for="layout">Formato del cartón</label>
+          <select id="layout">
+            <option value="3x5" selected>3 líneas × 5 números (15)</option>
+            <option value="3x9">3 líneas × 9 casillas con huecos (estilo 90)</option>
+          </select>
+        </div>
+        <div>
+          <label for="count">Número de cartones</label>
+          <input id="count" type="number" min="1" max="40" value="8">
+        </div>
+        <div style="flex:0 0 auto">
+          <button class="btn" id="mk">Generar cartones</button>
+        </div>
+      </div>
+      <div class="row">
+        <div style="flex:0 0 auto"><button class="btn ghost" id="print">Imprimir / PDF</button></div>
+        <div style="flex:0 0 auto"><button class="btn ghost" id="tocall">Ir a cantar ▸</button></div>
+      </div>
+      <p class="hint" id="status"></p>
+    </div>
+    <div id="cards"></div>
+  </section>
+
+  <section id="panelCall" hidden>
+    <div class="panel" id="caller">
+      <div id="counter">Listo para empezar</div>
+      <div id="bigNum">—</div>
+      <div id="spoken"></div>
+      <div class="callbtns">
+        <button class="btn" id="next">Siguiente ▸</button>
+        <button class="btn ghost" id="prev">◂ Anterior</button>
+        <button class="btn ghost" id="reset">Reiniciar</button>
+      </div>
+      <div class="callbtns">
+        <button class="btn ghost" id="voice">🔊 Voz: encendida</button>
+      </div>
+      <div id="board"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const rnd = n => Math.floor(Math.random()*n);
+const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=rnd(i+1);[a[i],a[j]]=[a[j],a[i]];} return a; };
+const save = () => { try{ localStorage.setItem("bingo.numeros", JSON.stringify({
+  max:$("max").value, layout:$("layout").value, count:$("count").value })); }catch(e){} };
+try{ const s=JSON.parse(localStorage.getItem("bingo.numeros")||"null");
+  if(s){ if(s.max)$("max").value=s.max; if(s.layout)$("layout").value=s.layout; if(s.count)$("count").value=s.count; } }catch(e){}
+
+/* ---------- generación de cartones ---------- */
+// 3 líneas x 5 números: 15 números distintos, ordenados, cortados en tres líneas.
+function card3x5(max){
+  const nums = shuffle([...Array(max)].map((_,i)=>i+1)).slice(0,15).sort((a,b)=>a-b);
+  const lines = [nums.slice(0,5), nums.slice(5,10), nums.slice(10,15)];
+  return {lines, cols:5};
+}
+
+// 3 líneas x 9 casillas estilo 90: 15 números, 5 por línea, columnas por decena.
+function card3x9(max){
+  // rangos de columna adaptados al máximo (1-99 => 9,10,10,10,10,10,10,10,10)
+  const ranges = [], step = Math.ceil(max/9);
+  for(let c=0;c<9;c++){
+    const lo = c*step+1, hi = Math.min(max, (c+1)*step);
+    if(lo<=hi) ranges.push([lo,hi]);
+  }
+  const cols = ranges.length;
+  // cuántos números por columna: 15 repartidos, mínimo 1 y máximo 2
+  let counts = Array(cols).fill(1);
+  let left = 15 - cols;
+  const order = shuffle([...Array(cols).keys()]);
+  for(let i=0; left>0; i=(i+1)%cols){ if(counts[order[i]]<2){ counts[order[i]]++; left--; } }
+  // colocar en filas: cada fila con 5, sin dos en la misma celda
+  for(let attempt=0; attempt<400; attempt++){
+    const rows = Array.from({length:3},()=>Array(cols).fill(null));
+    const rowTotals = [0,0,0];
+    let ok = true;
+    for(let c=0;c<cols;c++){
+      const need = counts[c];
+      const rowsPool = shuffle([0,1,2]).slice(0,need);
+      if(rowsPool.some(r=>rowTotals[r]>=5)){ ok=false; break; }
+      rowsPool.forEach(r=>{ rows[r][c] = true; rowTotals[r]++; });
+    }
+    if(!ok || rowTotals.some(t=>t!==5)) continue;
+    // llenar números por columna, en orden ascendente
+    const grid = rows.map(row => row.map(()=>null));
+    for(let c=0;c<cols;c++){
+      const [lo,hi] = ranges[c];
+      const pool = shuffle([...Array(hi-lo+1)].map((_,i)=>lo+i)).sort((a,b)=>a-b).slice(0,counts[c]);
+      let k=0;
+      for(let r=0;r<3;r++) if(rows[r][c]) grid[r][c] = pool[k++];
+    }
+    return {lines:grid, cols};
+  }
+  return card3x5(max); // respaldo improbable
+}
+
+function build(){
+  const max = +$("max").value;
+  const layout = $("layout").value;
+  const count = Math.max(1, Math.min(40, +$("count").value||1));
+  const made = new Set(), html = [];
+  for(let c=0;c<count;c++){
+    let card, guard=0;
+    do{ card = layout==="3x9" ? card3x9(max) : card3x5(max); guard++; }
+    while(made.has(JSON.stringify(card.lines)) && guard<300);
+    made.add(JSON.stringify(card.lines));
+    const rowsHtml = card.lines.map(line=>
+      `<div class="line" style="grid-template-columns:repeat(${card.cols},1fr)">` +
+      line.map(n=>`<div class="num${n===null?" blank":""}">${n===null?"":n}</div>`).join("") +
+      `</div>`).join("");
+    html.push(`<div class="card">
+      <div class="top"><h3>Cartón ${c+1}</h3><div class="brand">BINGO</div></div>
+      <div class="lines">${rowsHtml}</div>
+      <div class="key">Completa una línea horizontal para ganar</div>
+    </div>`);
+  }
+  $("cards").innerHTML = html.join("");
+  $("status").textContent = `${count} cartones · números del 1 al ${max} · ${layout==="3x9"?"3 líneas × 9 casillas (15 números)":"3 líneas × 5 números"}`;
+  save(); deck = []; drawBoard(); render();
+}
+
+/* ---------- cantador ---------- */
+let pool = [], deck = [], idx = -1, maxNum = 99;
+function newDeck(){
+  maxNum = +$("max").value;
+  deck = shuffle([...Array(maxNum)].map((_,i)=>i+1));
+  idx = -1; render();
+}
+function drawBoard(){
+  maxNum = +$("max").value;
+  $("board").innerHTML = Array.from({length:maxNum},(_,i)=>`<div data-n="${i+1}">${i+1}</div>`).join("");
+}
+const NAMES = (()=>{ // nombres en letras para mostrar bajo el número
+  const u=["cero","uno","dos","tres","cuatro","cinco","seis","siete","ocho","nueve",
+    "diez","once","doce","trece","catorce","quince","dieciséis","diecisiete","dieciocho","diecinueve",
+    "veinte","veintiuno","veintidós","veintitrés","veinticuatro","veinticinco","veintiséis","veintisiete","veintiocho","veintinueve"];
+  const d=["","","","treinta","cuarenta","cincuenta","sesenta","setenta","ochenta","noventa"];
+  return n=>{
+    if(n<30) return u[n];
+    const t=Math.floor(n/10), r=n%10;
+    return r? `${d[t]} y ${u[r]}` : d[t];
+  };
+})();
+
+let voiceOn = true;
+function speak(t){
+  if(!voiceOn || !window.speechSynthesis) return;
+  try{
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang="es-ES"; u.rate=.85;
+    const v = speechSynthesis.getVoices().find(v=>/es/i.test(v.lang));
+    if(v) u.voice=v;
+    speechSynthesis.cancel(); speechSynthesis.speak(u);
+  }catch(e){}
+}
+function render(){
+  const n = idx>=0 ? deck[idx] : null;
+  $("bigNum").textContent = n===null ? "—" : n;
+  $("spoken").textContent = n===null ? "" : NAMES(n);
+  $("counter").innerHTML = idx<0
+    ? `Listo · ${maxNum} números en el bombo`
+    : (idx+1===deck.length ? `<span class="done">¡Último número! ${maxNum}/${maxNum}</span>`
+                           : `Número ${idx+1} de ${maxNum}`);
+  document.querySelectorAll("#board div").forEach(el=>{
+    const v = +el.dataset.n;
+    el.classList.toggle("on", deck.indexOf(v)<=idx && idx>=0);
+    el.classList.toggle("last", v===n);
+  });
+  if(n!==null) speak(String(n));
+}
+$("next").onclick = ()=>{ if(!deck.length) newDeck(); if(idx<deck.length-1){ idx++; render(); } };
+$("prev").onclick = ()=>{ if(idx>0){ idx--; render(); } };
+$("reset").onclick = ()=>{ newDeck(); };
+$("voice").onclick = e=>{ voiceOn=!voiceOn; e.target.textContent = voiceOn?"🔊 Voz: encendida":"🔇 Voz: apagada"; };
+
+/* ---------- navegación ---------- */
+function tab(which){
+  const cards = which==="cards";
+  $("tabCards").setAttribute("aria-selected", cards);
+  $("tabCall").setAttribute("aria-selected", !cards);
+  $("panelCards").hidden = !cards;
+  $("panelCall").hidden = cards;
+  if(!cards){ drawBoard(); if(!deck.length) newDeck(); else render(); }
+  window.scrollTo({top:0});
+}
+$("tabCards").onclick=()=>tab("cards");
+$("tabCall").onclick=()=>tab("call");
+$("tocall").onclick=()=>tab("call");
+$("mk").onclick=build;
+$("print").onclick=()=>window.print();
+["max","layout","count"].forEach(id=>$(id).addEventListener("change",()=>{ build(); deck=[]; }));
+
+build();
+drawBoard();
+</script>
+</body>
+</html>
